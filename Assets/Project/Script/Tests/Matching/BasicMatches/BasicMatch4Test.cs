@@ -2,7 +2,7 @@ using Gazeus.DesafioMatch3.Core;
 using NUnit.Framework;
 using Project.Script.Tests.Matching.Interfaces;
 
-namespace Project.Script.Tests.Matching
+namespace Project.Script.Tests.Matching.BasicMatches
 {
     public class BasicMatch4Test : MatchTests, IBasicMatchTests
     {

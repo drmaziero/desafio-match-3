@@ -8,19 +8,22 @@ namespace Gazeus.DesafioMatch3.Core
 {
     public class MatchingService
     {
-        private static List<BasicMatch> _horizontalMatches;
-        private static List<BasicMatch> _verticalMatches;
+        private List<BasicMatch> _horizontalMatches;
+        private List<BasicMatch> _verticalMatches;
+        private List<ComposedMatch> _composedMatches;
 
         public void Init()
         {
             _horizontalMatches = new List<BasicMatch>();
             _verticalMatches = new List<BasicMatch>();
+            _composedMatches = new List<ComposedMatch>();
         }
 
         private void Reset()
         {
             _horizontalMatches.Clear();
             _verticalMatches.Clear();
+            _composedMatches.Clear();
         }
         
         public void FindMatches(List<List<Tile>> newBoard)
@@ -35,17 +38,50 @@ namespace Gazeus.DesafioMatch3.Core
                         newBoard[y][x].Type == newBoard[y][x - 1].Type &&
                         newBoard[y][x - 1].Type == newBoard[y][x - 2].Type)
                     {
-                        _horizontalMatches.Add(new HorizontalMatch(y,3,x-2));
+                        AddOrIncreaseHorizontalMatch(y, x);
                     }
 
                     if (y > 1 &&
                         newBoard[y][x].Type == newBoard[y - 1][x].Type &&
                         newBoard[y - 1][x].Type == newBoard[y - 2][x].Type)
                     {
-                        _verticalMatches.Add(new VerticalMatch(x,3,y-2));
+                        AddOrIncreaseVerticalMatch(y, x);
                     }
                 }
             }
+
+            if (HasBasicMatch())
+                DetectComposeMatch();
+        }
+
+        private void AddOrIncreaseHorizontalMatch(int row, int column)
+        {
+            var lastMatch = _horizontalMatches.LastOrDefault();
+            
+            if (lastMatch != null && 
+                lastMatch.MainIndex == row && 
+                lastMatch.StartIndex + lastMatch.Count == column)
+            { 
+                lastMatch.Increase();
+                return;
+            }
+            
+            _horizontalMatches.Add(new HorizontalMatch(row,3,column-2));
+        }
+        
+        private void AddOrIncreaseVerticalMatch(int row, int column)
+        {
+            var lastMatch = _verticalMatches.LastOrDefault();
+            
+            if (lastMatch != null && 
+                lastMatch.MainIndex == column && 
+                lastMatch.StartIndex + lastMatch.Count == row)
+            { 
+                lastMatch.Increase();
+                return;
+            }
+            
+            _verticalMatches.Add(new VerticalMatch(column,3,row-2));
         }
 
         public bool HasHorizontalMatch()
@@ -63,6 +99,27 @@ namespace Gazeus.DesafioMatch3.Core
             return HasHorizontalMatch() || HasVerticalMatch();
         }
 
+        public bool HasComposeMatch()
+        {
+            return _composedMatches.Count > 0;
+        }
+
+        public bool HasComposeMatchL()
+        {
+            if (!HasComposeMatch())
+                return false;
+
+            return _composedMatches.Any(x => x.IsMatchL());
+        }
+        
+        public bool HasComposeMatchT()
+        {
+            if (!HasComposeMatch())
+                return false;
+
+            return _composedMatches.Any(x => x.IsMatchT());
+        }
+
         public List<Vector2Int> GetMatchedPositions()
         {
             var allMatchedPositions = new HashSet<Vector2Int>();
@@ -74,6 +131,33 @@ namespace Gazeus.DesafioMatch3.Core
                 allMatchedPositions.Add(position);
 
             return new List<Vector2Int>(allMatchedPositions);
+        }
+
+        private void DetectComposeMatch()
+        {
+            foreach (var horizontalMatch in _horizontalMatches)
+            {
+                foreach (var verticalMatch in _verticalMatches)
+                {
+                    var notIntersection = new Vector2Int(-1, -1);
+                    var intersectionPoint = horizontalMatch.HasIntersection(verticalMatch);
+                    if (!intersectionPoint.Equals(notIntersection))
+                    {
+                        _composedMatches.Add(new ComposedMatch(intersectionPoint,
+                            new List<BasicMatch>() { horizontalMatch, verticalMatch }));
+                    }
+                }
+            }
+        }
+        
+        public int HorizontalMatchesCounter()
+        {
+            return _horizontalMatches.Count;
+        }
+        
+        public int VerticalMatchesCounter()
+        {
+            return _verticalMatches.Count;
         }
     }
 }
