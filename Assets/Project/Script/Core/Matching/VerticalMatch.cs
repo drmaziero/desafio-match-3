@@ -7,22 +7,17 @@ namespace Gazeus.DesafioMatch3.Core.Matching
     {
         public VerticalMatch(int mainIndex, int count, int startIndex)
         {
-            _mainIndex = mainIndex;
-            _count = count;
-            _startIndex = startIndex;
-        }
-        
-        public override bool HasNewElementOnMatch(Vector2Int point)
-        {
-            throw new System.NotImplementedException();
+            MainIndex = mainIndex;
+            Count = count;
+            StartIndex = startIndex;
         }
 
         public override Vector2Int GetCentralPoint()
         {
             if (HasCentralPoint())
             {
-                int centerOffset = _count / 2;
-                return new Vector2Int(_mainIndex, _startIndex + centerOffset);
+                int centerOffset = Count / 2;
+                return new Vector2Int(MainIndex, StartIndex + centerOffset);
             }
             
             return new Vector2Int(-1, -1);
@@ -32,8 +27,8 @@ namespace Gazeus.DesafioMatch3.Core.Matching
         {
             var allPoints = new List<Vector2Int>();
 
-            for (int i = 0; i < _count; i++)
-                allPoints.Add(new Vector2Int(_mainIndex, _startIndex + i));
+            for (int i = 0; i < Count; i++)
+                allPoints.Add(new Vector2Int(MainIndex, StartIndex + i));
 
             return allPoints;
         }

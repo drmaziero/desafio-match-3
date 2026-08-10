@@ -5,20 +5,37 @@ namespace Gazeus.DesafioMatch3.Core.Matching
 {
     public abstract class BasicMatch
     {
-        protected int _mainIndex;
-        protected int _count;
-        protected int _startIndex;
-        
-        public abstract bool HasNewElementOnMatch(Vector2Int point);
+        public int MainIndex { get; protected set; }
+        public int StartIndex { get; protected set; }
+        public int Count { get; protected set; }
 
         public bool HasCentralPoint()
         {
-            return _count % 2 == 1;
+            return Count % 2 == 1;
         }
 
         public abstract Vector2Int GetCentralPoint();
 
         public abstract List<Vector2Int> GetSequencePosition();
+
+        public void Increase()
+        {
+            Count++;
+        }
+
+        public Vector2Int HasIntersection(BasicMatch otherMatch)
+        {
+            foreach (var position in GetSequencePosition())
+            {
+                foreach (var otherPosition in otherMatch.GetSequencePosition())
+                {
+                    if (position.Equals(otherPosition))
+                        return position;
+                }
+            }
+
+            return new Vector2Int(-1, -1);
+        }
 
     }
 }
