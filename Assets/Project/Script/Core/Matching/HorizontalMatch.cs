@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gazeus.DesafioMatch3.Core.Matching
@@ -11,28 +12,30 @@ namespace Gazeus.DesafioMatch3.Core.Matching
             _startIndex = startIndex;
         }
         
-        public override bool HasNewElementOnMatch(Vector2 point)
+        public override bool HasNewElementOnMatch(Vector2Int point)
         {
             throw new System.NotImplementedException();
         }
 
-        public override Vector2 GetCentralPoint()
+        public override Vector2Int GetCentralPoint()
         {
             if (HasCentralPoint())
             {
                 int centerOffset = _count / 2;
-                return new Vector2(_mainIndex, _startIndex + centerOffset);
+                return new Vector2Int(_startIndex + centerOffset, _mainIndex);
             }
           
-            return new Vector2(-1, -1);
+            return new Vector2Int(-1, -1);
         }
 
-        public override string ToDebugString()
+        public override List<Vector2Int> GetSequencePosition()
         {
-            string log = "";
-            log += $"Horizontal, start in [{_mainIndex}][{_startIndex}]";
-            
-            return log;
+            var allPoints = new List<Vector2Int>();
+
+            for (int i = 0; i < _count; i++)
+                allPoints.Add(new Vector2Int(_startIndex + i, _mainIndex));
+
+            return allPoints;
         }
     }
 }

@@ -9,7 +9,19 @@ namespace Gazeus.DesafioMatch3.Core
         private List<List<Tile>> _boardTiles;
         private List<int> _tilesTypes;
         private int _tileCount;
+        private MatchingService _matchingService;
 
+        public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
+        {
+            _tilesTypes = new List<int> { 0, 1, 2, 3 };
+            _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
+            
+            _matchingService = new MatchingService();
+            _matchingService.Init();
+            
+            return _boardTiles;
+        }
+        
         public bool IsValidMovement(int fromX, int fromY, int toX, int toY)
         {
             List<List<Tile>> newBoard = CopyBoard(_boardTiles);
@@ -39,13 +51,7 @@ namespace Gazeus.DesafioMatch3.Core
             return false;
         }
 
-        public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
-        {
-            _tilesTypes = new List<int> { 0, 1, 2, 3 };
-            _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
-
-            return _boardTiles;
-        }
+       
 
         public List<BoardSequence> SwapTile(int fromX, int fromY, int toX, int toY)
         {
@@ -54,23 +60,14 @@ namespace Gazeus.DesafioMatch3.Core
             (newBoard[toY][toX], newBoard[fromY][fromX]) = (newBoard[fromY][fromX], newBoard[toY][toX]);
 
             List<BoardSequence> boardSequences = new();
-            List<List<bool>> matchedTiles = FindMatches(newBoard);
+            _matchingService.FindMatches(newBoard);
 
-            while (HasMatch(matchedTiles))
+            while (_matchingService.HasBasicMatch())
             {
-                //Cleaning the matched tiles
-                List<Vector2Int> matchedPosition = new();
-                for (int y = 0; y < newBoard.Count; y++)
-                {
-                    for (int x = 0; x < newBoard[y].Count; x++)
-                    {
-                        if (matchedTiles[y][x])
-                        {
-                            matchedPosition.Add(new Vector2Int(x, y));
-                            newBoard[y][x] = new Tile { Id = -1, Type = -1 };
-                        }
-                    }
-                }
+                List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
+                
+                foreach (var matchedPos in matchedPosition)
+                    newBoard[matchedPos.y][matchedPos.x] = new Tile { Id = -1, Type = -1 };
 
                 // Dropping the tiles
                 Dictionary<int, MovedTileInfo> movedTiles = new();
@@ -140,7 +137,7 @@ namespace Gazeus.DesafioMatch3.Core
                     AddedTiles = addedTiles
                 };
                 boardSequences.Add(sequence);
-                matchedTiles = FindMatches(newBoard);
+                _matchingService.FindMatches(newBoard);
             }
 
             _boardTiles = newBoard;
@@ -205,61 +202,6 @@ namespace Gazeus.DesafioMatch3.Core
             }
 
             return board;
-        }
-
-        private static List<List<bool>> FindMatches(List<List<Tile>> newBoard)
-        {
-            List<List<bool>> matchedTiles = new();
-            for (int y = 0; y < newBoard.Count; y++)
-            {
-                matchedTiles.Add(new List<bool>(newBoard[y].Count));
-                for (int x = 0; x < newBoard.Count; x++)
-                {
-                    matchedTiles[y].Add(false);
-                }
-            }
-
-            for (int y = 0; y < newBoard.Count; y++)
-            {
-                for (int x = 0; x < newBoard[y].Count; x++)
-                {
-                    if (x > 1 &&
-                        newBoard[y][x].Type == newBoard[y][x - 1].Type &&
-                        newBoard[y][x - 1].Type == newBoard[y][x - 2].Type)
-                    {
-                        matchedTiles[y][x] = true;
-                        matchedTiles[y][x - 1] = true;
-                        matchedTiles[y][x - 2] = true;
-                    }
-
-                    if (y > 1 &&
-                        newBoard[y][x].Type == newBoard[y - 1][x].Type &&
-                        newBoard[y - 1][x].Type == newBoard[y - 2][x].Type)
-                    {
-                        matchedTiles[y][x] = true;
-                        matchedTiles[y - 1][x] = true;
-                        matchedTiles[y - 2][x] = true;
-                    }
-                }
-            }
-
-            return matchedTiles;
-        }
-
-        private static bool HasMatch(List<List<bool>> list)
-        {
-            for (int y = 0; y < list.Count; y++)
-            {
-                for (int x = 0; x < list[y].Count; x++)
-                {
-                    if (list[y][x])
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
         }
     }
 }
