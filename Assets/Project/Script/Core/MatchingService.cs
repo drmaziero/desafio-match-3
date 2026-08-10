@@ -11,12 +11,14 @@ namespace Gazeus.DesafioMatch3.Core
         private List<BasicMatch> _horizontalMatches;
         private List<BasicMatch> _verticalMatches;
         private List<ComposedMatch> _composedMatches;
+        private List<ComplexMatch> _complexMatches;
 
         public void Init()
         {
             _horizontalMatches = new List<BasicMatch>();
             _verticalMatches = new List<BasicMatch>();
             _composedMatches = new List<ComposedMatch>();
+            _complexMatches = new List<ComplexMatch>();
         }
 
         private void Reset()
@@ -24,6 +26,7 @@ namespace Gazeus.DesafioMatch3.Core
             _horizontalMatches.Clear();
             _verticalMatches.Clear();
             _composedMatches.Clear();
+            _complexMatches.Clear();
         }
         
         public void FindMatches(List<List<Tile>> newBoard)
@@ -49,9 +52,11 @@ namespace Gazeus.DesafioMatch3.Core
                     }
                 }
             }
+            
+            DetectComposeMatch();
+            DetectedComplexMatch();
 
-            if (HasBasicMatch())
-                DetectComposeMatch();
+            ShowMatchLogs();
         }
 
         private void AddOrIncreaseHorizontalMatch(int row, int column)
@@ -120,6 +125,11 @@ namespace Gazeus.DesafioMatch3.Core
             return _composedMatches.Any(x => x.IsMatchT());
         }
 
+        public bool HasComplexMatch()
+        {
+            return _complexMatches.Count > 0;
+        }
+
         public List<Vector2Int> GetMatchedPositions()
         {
             var allMatchedPositions = new HashSet<Vector2Int>();
@@ -135,6 +145,9 @@ namespace Gazeus.DesafioMatch3.Core
 
         private void DetectComposeMatch()
         {
+            if (!HasBasicMatch())
+                return;
+            
             foreach (var horizontalMatch in _horizontalMatches)
             {
                 foreach (var verticalMatch in _verticalMatches)
@@ -149,6 +162,22 @@ namespace Gazeus.DesafioMatch3.Core
                 }
             }
         }
+
+        private void DetectedComplexMatch()
+        {
+            if (!HasComposeMatch())
+                return;
+
+            for (var i = 0; i < _composedMatches.Count - 1; i++)
+            {
+                for (var j = i + 1; j < _composedMatches.Count; j++)
+                {
+                    if (_composedMatches[i].HasIntersection(_composedMatches[j]))
+                        _complexMatches.Add(new ComplexMatch(new List<ComposedMatch>()
+                            { _composedMatches[i], _composedMatches[j] }));
+                }
+            }
+        }
         
         public int HorizontalMatchesCounter()
         {
@@ -158,6 +187,23 @@ namespace Gazeus.DesafioMatch3.Core
         public int VerticalMatchesCounter()
         {
             return _verticalMatches.Count;
+        }
+        
+        
+        //------- Debug
+        private void ShowMatchLogs()
+        {
+            foreach (var horizontalMatch in _horizontalMatches)
+                Debug.LogWarning("Horizontal Match!");
+
+            foreach (var verticalMatch in _verticalMatches)
+                Debug.LogWarning("Vertical Match!");
+            
+            foreach (var composedMatch in _composedMatches)
+                Debug.LogWarning("Compose Match!");
+            
+            foreach (var complexMatch in _complexMatches)
+                Debug.LogWarning("Complex Match!");
         }
     }
 }

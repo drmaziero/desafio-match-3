@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,5 +38,19 @@ namespace Gazeus.DesafioMatch3.Core.Matching
             return new Vector2Int(-1, -1);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is not BasicMatch other)
+                return false;
+
+            return MainIndex == other.MainIndex &&
+                   StartIndex == other.StartIndex &&
+                   Count == other.Count;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(MainIndex, StartIndex, Count);
+        }
     }
 }
