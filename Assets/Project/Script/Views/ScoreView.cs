@@ -9,7 +9,6 @@ namespace Views
 
         public void UpdateScore(int score)
         {
-            Debug.LogWarning("Here 2");
             scoreLabel.SetText($"{score}");
         }
         

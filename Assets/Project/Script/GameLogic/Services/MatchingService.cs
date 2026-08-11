@@ -8,25 +8,30 @@ namespace GameLogic.Services
 {
     public class MatchingService
     {
-        public List<BasicMatch> HorizontalMatches { get; private set; }
-        public List<BasicMatch> VerticalMatches { get; private set; }
-        public List<ComposedMatch> ComposedMatches { get; private set; }
-        public List<ComplexMatch> ComplexMatches { get; private set; }
+        private List<BasicMatch> _horizontalMatches;
+        private List<BasicMatch> _verticalMatches;
+        private List<ComposedMatch> _composedMatches;
+        private List<ComplexMatch> _complexMatches;
+        
+        public IReadOnlyList<BasicMatch> HorizontalMatches => _horizontalMatches;
+        public IReadOnlyList<BasicMatch> VerticalMatches => _verticalMatches;
+        public IReadOnlyList<ComposedMatch> ComposedMatches => _composedMatches;
+        public IReadOnlyList<ComplexMatch> ComplexMatches => _complexMatches;
 
         public void Init()
         {
-            HorizontalMatches = new List<BasicMatch>();
-            VerticalMatches = new List<BasicMatch>();
-            ComposedMatches = new List<ComposedMatch>();
-            ComplexMatches = new List<ComplexMatch>();
+            _horizontalMatches = new List<BasicMatch>();
+            _verticalMatches = new List<BasicMatch>();
+            _composedMatches = new List<ComposedMatch>();
+            _complexMatches = new List<ComplexMatch>();
         }
 
         private void Reset()
         {
-            HorizontalMatches.Clear();
-            VerticalMatches.Clear();
-            ComposedMatches.Clear();
-            ComplexMatches.Clear();
+            _horizontalMatches.Clear();
+            _verticalMatches.Clear();
+            _composedMatches.Clear();
+            _complexMatches.Clear();
         }
         
         public void FindMatches(List<List<Tile>> newBoard)
@@ -61,7 +66,7 @@ namespace GameLogic.Services
 
         private void AddOrIncreaseHorizontalMatch(int row, int column)
         {
-            var lastMatch = HorizontalMatches.LastOrDefault();
+            var lastMatch = _horizontalMatches.LastOrDefault();
             
             if (lastMatch != null && 
                 lastMatch.MainIndex == row && 
@@ -71,12 +76,12 @@ namespace GameLogic.Services
                 return;
             }
             
-            HorizontalMatches.Add(new HorizontalMatch(row,3,column-2));
+            _horizontalMatches.Add(new HorizontalMatch(row,3,column-2));
         }
         
         private void AddOrIncreaseVerticalMatch(int row, int column)
         {
-            var lastMatch = VerticalMatches.LastOrDefault();
+            var lastMatch = _verticalMatches.LastOrDefault();
             
             if (lastMatch != null && 
                 lastMatch.MainIndex == column && 
@@ -86,17 +91,17 @@ namespace GameLogic.Services
                 return;
             }
             
-            VerticalMatches.Add(new VerticalMatch(column,3,row-2));
+            _verticalMatches.Add(new VerticalMatch(column,3,row-2));
         }
 
         public bool HasHorizontalMatch()
         {
-            return HorizontalMatches.Count > 0;
+            return _horizontalMatches.Count > 0;
         }
 
         public bool HasVerticalMatch()
         {
-            return VerticalMatches.Count > 0;
+            return _verticalMatches.Count > 0;
         }
 
         public bool HasBasicMatch()
@@ -106,7 +111,7 @@ namespace GameLogic.Services
 
         public bool HasComposeMatch()
         {
-            return ComposedMatches.Count > 0;
+            return _composedMatches.Count > 0;
         }
 
         public bool HasComposeMatchL()
@@ -114,7 +119,7 @@ namespace GameLogic.Services
             if (!HasComposeMatch())
                 return false;
 
-            return ComposedMatches.Any(x => x.IsMatchL());
+            return _composedMatches.Any(x => x.IsMatchL());
         }
         
         public bool HasComposeMatchT()
@@ -122,22 +127,22 @@ namespace GameLogic.Services
             if (!HasComposeMatch())
                 return false;
 
-            return ComposedMatches.Any(x => x.IsMatchT());
+            return _composedMatches.Any(x => x.IsMatchT());
         }
 
         public bool HasComplexMatch()
         {
-            return ComplexMatches.Count > 0;
+            return _complexMatches.Count > 0;
         }
 
         public List<Vector2Int> GetMatchedPositions()
         {
             var allMatchedPositions = new HashSet<Vector2Int>();
 
-            foreach (var position in HorizontalMatches.SelectMany(horizontalMatch => horizontalMatch.GetSequencePosition()))
+            foreach (var position in _horizontalMatches.SelectMany(horizontalMatch => horizontalMatch.GetSequencePosition()))
                 allMatchedPositions.Add(position);
             
-            foreach (var position in VerticalMatches.SelectMany(verticalMatch => verticalMatch.GetSequencePosition()))
+            foreach (var position in _verticalMatches.SelectMany(verticalMatch => verticalMatch.GetSequencePosition()))
                 allMatchedPositions.Add(position);
 
             return new List<Vector2Int>(allMatchedPositions);
@@ -148,15 +153,15 @@ namespace GameLogic.Services
             if (!HasBasicMatch())
                 return;
             
-            foreach (var horizontalMatch in HorizontalMatches)
+            foreach (var horizontalMatch in _horizontalMatches)
             {
-                foreach (var verticalMatch in VerticalMatches)
+                foreach (var verticalMatch in _verticalMatches)
                 {
                     var notIntersection = new Vector2Int(-1, -1);
                     var intersectionPoint = horizontalMatch.HasIntersection(verticalMatch);
                     if (!intersectionPoint.Equals(notIntersection))
                     {
-                        ComposedMatches.Add(new ComposedMatch(intersectionPoint,
+                        _composedMatches.Add(new ComposedMatch(intersectionPoint,
                             new List<BasicMatch>() { horizontalMatch, verticalMatch }));
                     }
                 }
@@ -170,7 +175,7 @@ namespace GameLogic.Services
 
             var visited = new HashSet<ComposedMatch>();
             
-            foreach (var composedMatch in ComposedMatches)
+            foreach (var composedMatch in _composedMatches)
             {
                 if (visited.Contains(composedMatch))
                     continue;
@@ -178,7 +183,7 @@ namespace GameLogic.Services
                 var connectedMatches = GetConnectedMatches(composedMatch, visited);
                 
                 if (connectedMatches.Count > 1)
-                    ComplexMatches.Add(new ComplexMatch(connectedMatches));
+                    _complexMatches.Add(new ComplexMatch(connectedMatches));
             }
         }
 
@@ -195,7 +200,7 @@ namespace GameLogic.Services
                 var currentMatch = pending.Dequeue();
                 result.Add(currentMatch);
                 
-                foreach (var candidateMatch in ComposedMatches)
+                foreach (var candidateMatch in _composedMatches)
                 {
                     if (visitedMatches.Contains(candidateMatch))
                         continue;
@@ -213,28 +218,28 @@ namespace GameLogic.Services
         
         public int HorizontalMatchesCounter()
         {
-            return HorizontalMatches.Count;
+            return _horizontalMatches.Count;
         }
         
         public int VerticalMatchesCounter()
         {
-            return VerticalMatches.Count;
+            return _verticalMatches.Count;
         }
         
         
         //------- Debug
         private void ShowMatchLogs()
         {
-            foreach (var horizontalMatch in HorizontalMatches)
+            foreach (var horizontalMatch in _horizontalMatches)
                 Debug.LogWarning("Horizontal Match!");
 
-            foreach (var verticalMatch in VerticalMatches)
+            foreach (var verticalMatch in _verticalMatches)
                 Debug.LogWarning("Vertical Match!");
             
-            foreach (var composedMatch in ComposedMatches)
+            foreach (var composedMatch in _composedMatches)
                 Debug.LogWarning("Compose Match!");
             
-            foreach (var complexMatch in ComplexMatches)
+            foreach (var complexMatch in _complexMatches)
                 Debug.LogWarning("Complex Match!");
         }
     }

@@ -17,7 +17,6 @@ namespace Controllers
 
         public void UpdateScore()
         {
-            Debug.LogWarning("Here");
             _scoreView.UpdateScore(_scoreService.Score);
         }
 

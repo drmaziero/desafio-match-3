@@ -29,68 +29,63 @@ namespace GameLogic.Services
             _consumedMatches = new HashSet<BasicMatch>();
         }
 
-        public void ComputeScore(List<ComplexMatch> complexMatches, List<ComposedMatch> composedMatches,
-            List<BasicMatch> horizontalMatches, List<BasicMatch> verticalMatches)
+        public void ComputeScore(
+            IEnumerable<ComplexMatch> complexMatches, 
+            IEnumerable<ComposedMatch> composedMatches,
+            IEnumerable<BasicMatch> horizontalMatches, 
+            IEnumerable<BasicMatch> verticalMatches)
         {
             _consumedMatches.Clear();
             CalcComplexMatchScore(complexMatches);
             CalcComposeMatchScore(composedMatches);
-
-            List<BasicMatch> basicMatches = new List<BasicMatch>();
-            basicMatches.AddRange(horizontalMatches);
-            basicMatches.AddRange(verticalMatches);
-            
-            CalcBasicMatchScore(basicMatches);
+            CalcBasicMatchScore(horizontalMatches.Concat(verticalMatches));
         }
 
-        private void CalcComplexMatchScore(List<ComplexMatch> complexMatches)
+        private void CalcComplexMatchScore(IEnumerable<ComplexMatch> complexMatches)
         {
             foreach (var complexMatch in complexMatches)
             {
-                if (HasConsumedMatches(complexMatch.GetBasicMatches()))
+                if (HasConsumedMatches(complexMatch.BasicMatches))
                     continue;
                 
-                Score += _complexMatchScore + complexMatch.GetSequencePosition().Count * _complexSequenceBonus;
-                Consume(complexMatch.GetBasicMatches());
+                Score += _complexMatchScore + complexMatch.SequenceCount() * _complexSequenceBonus;
+                Consume(complexMatch.BasicMatches);
             }
         }
 
-        private void CalcComposeMatchScore(List<ComposedMatch> composedMatches)
+        private void CalcComposeMatchScore(IEnumerable<ComposedMatch> composedMatches)
         {
             foreach (var composedMatch in composedMatches)
             {
-                if (HasConsumedMatches(composedMatch.GetBasicMatches()))
+                if (HasConsumedMatches(composedMatch.BasicMatches))
                     continue;
 
                 if (composedMatch.IsMatchL())
-                    Score += _matchLScore + composedMatch.GetSequencePosition().Count * _matchLSequenceBonus;
+                    Score += _matchLScore + composedMatch.SequenceCount() * _matchLSequenceBonus;
                 else
-                    Score += _matchTScore + composedMatch.GetSequencePosition().Count * _matchTSequenceBonus;
+                    Score += _matchTScore + composedMatch.SequenceCount() * _matchTSequenceBonus;
                 
-                Consume(composedMatch.GetBasicMatches());
+                Consume(composedMatch.BasicMatches);
             }
         }
 
-        private void CalcBasicMatchScore(List<BasicMatch> basicMatches)
+        private void CalcBasicMatchScore(IEnumerable<BasicMatch> basicMatches)
         {
             foreach (var match in basicMatches)
             {
-                string log = $"Score: {Score} ";
                 if (IsConsumed(match)) 
                     continue;
                 
                 if (match.IsHorizontal())
-                    Score += _horizontalMatchScore + match.GetSequencePosition().Count * _horizontalSequenceBonus;
+                    Score += _horizontalMatchScore + match.Count * _horizontalSequenceBonus;
                 else
-                    Score += _verticalMatchScore + match.GetSequencePosition().Count * _verticalSequenceBonus;
+                    Score += _verticalMatchScore + match.Count * _verticalSequenceBonus;
                 
                 _consumedMatches.Add(match);
-                log += $" ->  {Score}";
-                Debug.LogWarning(log);
             }
         }
 
-        private void Consume(List<BasicMatch> matches)
+        private void Consume(IEnumerable<BasicMatch> matches)
         {
             foreach (var match in matches)
                 _consumedMatches.Add(match);
@@ -101,7 +96,7 @@ namespace GameLogic.Services
             return _consumedMatches.Contains(match);
         }
 
-        private bool HasConsumedMatches(List<BasicMatch> matches)
+        private bool HasConsumedMatches(IEnumerable<BasicMatch> matches)
         {
             return matches.Any(IsConsumed);
         }

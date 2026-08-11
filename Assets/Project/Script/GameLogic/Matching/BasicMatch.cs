@@ -17,7 +17,7 @@ namespace GameLogic.Matching
 
         public abstract Vector2Int GetCentralPoint();
 
-        public abstract List<Vector2Int> GetSequencePosition();
+        public abstract IEnumerable<Vector2Int> GetSequencePosition();
 
         public void Increase()
         {

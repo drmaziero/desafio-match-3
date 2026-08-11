@@ -1,35 +1,30 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameLogic.Matching
 {
     public class ComplexMatch
     {
+        public BasicMatch[] BasicMatches { get; private set; }
         private ComposedMatch[] _composedMatches;
+        private HashSet<Vector2Int> _sequencePositions;
 
         public ComplexMatch(List<ComposedMatch> composedMatches)
         {
             _composedMatches = composedMatches.ToArray();
+            BasicMatches = _composedMatches.SelectMany(composedMatch => composedMatch.BasicMatches).Distinct().ToArray();
+            _sequencePositions = BasicMatches.SelectMany(match => match.GetSequencePosition()).ToHashSet();
         }
         
-        public List<Vector2Int> GetSequencePosition()
+        public IEnumerable<Vector2Int> GetSequencePosition()
         {
-            var sequence = new List<Vector2Int>();
-
-            foreach (var composedMatch in _composedMatches)
-                sequence.AddRange(composedMatch.GetSequencePosition());
-
-            return sequence;
+            return _sequencePositions;
         }
-
-        public List<BasicMatch> GetBasicMatches()
+        
+        public int SequenceCount()
         {
-            var basicMatches = new List<BasicMatch>();
-
-            foreach (var composedMatch in _composedMatches)
-                basicMatches.AddRange(composedMatch.BasicMatches);
-
-            return basicMatches;
+            return _sequencePositions.Count;
         }
     }
 }

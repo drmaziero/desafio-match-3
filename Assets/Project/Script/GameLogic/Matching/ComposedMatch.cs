@@ -1,17 +1,20 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameLogic.Matching
 {
     public class ComposedMatch
     {
-        private Vector2Int _intersectionPoint;
         public BasicMatch[] BasicMatches { get; private set; }
+        private Vector2Int _intersectionPoint;
+        private HashSet<Vector2Int> _sequencePositions;
 
         public ComposedMatch(Vector2Int intersectionPoint, List<BasicMatch> basicMatches)
         {
             _intersectionPoint = intersectionPoint;
             BasicMatches = basicMatches.ToArray();
+            _sequencePositions = BasicMatches.SelectMany(match => match.GetSequencePosition()).ToHashSet();
         }
 
         public bool IsMatchT()
@@ -45,19 +48,14 @@ namespace GameLogic.Matching
             return false;
         }
 
-        public List<Vector2Int> GetSequencePosition()
+        public IEnumerable<Vector2Int> GetSequencePosition()
         {
-            var sequence = new List<Vector2Int>();
-
-            foreach (var basicMatch in BasicMatches)
-                sequence.AddRange(basicMatch.GetSequencePosition());
-
-            return sequence;
+            return _sequencePositions;
         }
 
-        public List<BasicMatch> GetBasicMatches()
+        public int SequenceCount()
         {
-            return new List<BasicMatch>(BasicMatches);
+            return _sequencePositions.Count;
         }
     }
 }

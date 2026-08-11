@@ -23,14 +23,10 @@ namespace GameLogic.Matching
             return new Vector2Int(-1, -1);
         }
 
-        public override List<Vector2Int> GetSequencePosition()
+        public override IEnumerable<Vector2Int> GetSequencePosition()
         {
-            var allPoints = new List<Vector2Int>();
-
             for (int i = 0; i < Count; i++)
-                allPoints.Add(new Vector2Int(MainIndex, StartIndex + i));
-
-            return allPoints;
+                yield return new Vector2Int(MainIndex, StartIndex + i);
         }
 
         public override bool IsHorizontal()
