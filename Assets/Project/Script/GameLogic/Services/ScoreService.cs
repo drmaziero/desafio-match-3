@@ -1,32 +1,30 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.Matching;
-using UnityEngine;
+using Models;
 
 namespace GameLogic.Services
 {
     public class ScoreService
     {
-        public int Score { get; private set; } = 0;
-
-        private readonly int _horizontalMatchScore = 0;
-        private readonly int _verticalMatchScore = 0;
-        private readonly int _matchLScore = 5;
-        private readonly int _matchTScore = 10;
-        private readonly int _complexMatchScore = 15;
-
-        private readonly int _horizontalSequenceBonus = 1;
-        private readonly int _verticalSequenceBonus = 1;
-        private readonly int _matchLSequenceBonus = 1;
-        private readonly int _matchTSequenceBonus = 1;
-        private readonly int _complexSequenceBonus = 1;
+        public event Action<int> ScoreChanged;
+        private int _score;
+        private ScoreConfig _config;
 
         private HashSet<BasicMatch> _consumedMatches;
 
+        public ScoreService(ScoreConfig config)
+        {
+            _score = 0;
+            _config = config;
+            _consumedMatches = new HashSet<BasicMatch>();
+        }
+
         public void Init()
         {
-            Score = 0;
-            _consumedMatches = new HashSet<BasicMatch>();
+            _score = 0;
+            _consumedMatches.Clear();
         }
 
         public void ComputeScore(
@@ -41,6 +39,12 @@ namespace GameLogic.Services
             CalcBasicMatchScore(horizontalMatches.Concat(verticalMatches));
         }
 
+        private void AddScore(int newScore)
+        {
+            _score += newScore;
+            ScoreChanged?.Invoke(_score);
+        }
+        
         private void CalcComplexMatchScore(IEnumerable<ComplexMatch> complexMatches)
         {
             foreach (var complexMatch in complexMatches)
@@ -48,7 +52,7 @@ namespace GameLogic.Services
                 if (HasConsumedMatches(complexMatch.BasicMatches))
                     continue;
                 
-                Score += _complexMatchScore + complexMatch.SequenceCount() * _complexSequenceBonus;
+                AddScore(_config.ComplexMatchScore + complexMatch.SequenceCount() * _config.ComplexElementScore);
                 Consume(complexMatch.BasicMatches);
             }
         }
@@ -61,9 +65,9 @@ namespace GameLogic.Services
                     continue;
 
                 if (composedMatch.IsMatchL())
-                    Score += _matchLScore + composedMatch.SequenceCount() * _matchLSequenceBonus;
+                   AddScore(_config.MatchLScore + composedMatch.SequenceCount() * _config.MatchLElementScore);
                 else
-                    Score += _matchTScore + composedMatch.SequenceCount() * _matchTSequenceBonus;
+                    AddScore(_config.MatchTScore + composedMatch.SequenceCount() * _config.MatchTElementScore);
                 
                 Consume(composedMatch.BasicMatches);
             }
@@ -77,9 +81,9 @@ namespace GameLogic.Services
                     continue;
                 
                 if (match.IsHorizontal())
-                    Score += _horizontalMatchScore + match.Count * _horizontalSequenceBonus;
+                    AddScore(_config.HorizontalMatchScore + match.Count * _config.HorizontalElementScore);
                 else
-                    Score += _verticalMatchScore + match.Count * _verticalSequenceBonus;
+                    AddScore(_config.VerticalMatchScore + match.Count * _config.VerticalElementScore);
                 
                 _consumedMatches.Add(match);
             }

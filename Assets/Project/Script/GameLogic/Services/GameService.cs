@@ -13,15 +13,18 @@ namespace GameLogic.Services
         
         public ScoreService ScoreService { get; private set; }
 
+        public GameService(ScoreConfig scoreConfig)
+        {
+            _matchingService = new MatchingService();
+            ScoreService = new ScoreService(scoreConfig);
+            
+        }
         public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
         {
             _tilesTypes = new List<int> { 0, 1, 2, 3 };
             _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
             
-            _matchingService = new MatchingService();
             _matchingService.Init();
-
-            ScoreService = new ScoreService();
             ScoreService.Init();
             
             return _boardTiles;

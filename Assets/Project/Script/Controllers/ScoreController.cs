@@ -1,10 +1,10 @@
+using System;
 using GameLogic.Services;
-using UnityEngine;
 using Views;
 
 namespace Controllers
 {
-    public class ScoreController
+    public class ScoreController : IDisposable
     {
         private ScoreView _scoreView;
         private ScoreService _scoreService;
@@ -13,12 +13,20 @@ namespace Controllers
         {
             _scoreView = scoreView;
             _scoreService = scoreService;
-        }
 
-        public void UpdateScore()
+            _scoreService.ScoreChanged += OnScoreChanged;
+            OnScoreChanged(0);
+        }
+        
+
+        private void OnScoreChanged(int score)
         {
-            _scoreView.UpdateScore(_scoreService.Score);
+            _scoreView.UpdateScore(score);
         }
 
+        public void Dispose()
+        {
+            _scoreService.ScoreChanged -= OnScoreChanged;
+        }
     }
 }

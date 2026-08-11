@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using GameLogic.Services;
 using Models;
+using ScriptableObjects;
 using UnityEngine;
 using Views;
 
@@ -18,6 +19,9 @@ namespace Controllers
         [SerializeField] private int _boardHeight = 10;
         [SerializeField] private int _boardWidth = 10;
 
+        [Header("Score Settings")] 
+        [SerializeField] private ScoreSettings _scoreSettings;
+
         private GameService _gameService;
 
         private ScoreController _scoreController;
@@ -29,13 +33,14 @@ namespace Controllers
         #region Unity
         private void Awake()
         {
-            _gameService = new GameService();
+            _gameService = new GameService(_scoreSettings.CreateConfig());
             _boardView.TileClicked += OnTileClick;
         }
 
         private void OnDestroy()
         {
             _boardView.TileClicked -= OnTileClick;
+            _scoreController?.Dispose();
         }
 
         private void Start()
@@ -102,8 +107,6 @@ namespace Controllers
                 _selectedX = x;
                 _selectedY = y;
             }
-            
-            _scoreController.UpdateScore();
         }
     }
 }

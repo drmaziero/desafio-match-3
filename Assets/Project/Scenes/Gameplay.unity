@@ -769,6 +769,7 @@ MonoBehaviour:
   _boardView: {fileID: 429446043}
   _boardHeight: 10
   _boardWidth: 10
+  _scoreSettings: {fileID: 11400000, guid: 41aead3d0779e4988a85377c42a26b9d, type: 2}
 --- !u!4 &1361904665
 Transform:
   m_ObjectHideFlags: 0

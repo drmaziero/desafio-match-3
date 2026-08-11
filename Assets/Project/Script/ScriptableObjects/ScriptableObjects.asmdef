@@ -1,7 +1,9 @@
 {
     "name": "ScriptableObjects",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:f0401c378870a40b6b2a9f639617bdd4"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
