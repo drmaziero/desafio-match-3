@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gazeus.DesafioMatch3.Core.Matching
+namespace GameLogic.Matching
 {
     public abstract class BasicMatch
     {
@@ -17,7 +17,7 @@ namespace Gazeus.DesafioMatch3.Core.Matching
 
         public abstract Vector2Int GetCentralPoint();
 
-        public abstract List<Vector2Int> GetSequencePosition();
+        public abstract IEnumerable<Vector2Int> GetSequencePosition();
 
         public void Increase()
         {
@@ -52,5 +52,8 @@ namespace Gazeus.DesafioMatch3.Core.Matching
         {
             return HashCode.Combine(MainIndex, StartIndex, Count);
         }
+
+        public abstract bool IsHorizontal();
+        public abstract bool IsVertical();
     }
 }

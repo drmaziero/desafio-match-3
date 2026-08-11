@@ -1,17 +1,20 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace Gazeus.DesafioMatch3.Core.Matching
+namespace GameLogic.Matching
 {
     public class ComposedMatch
     {
-        private Vector2Int _intersectionPoint;
         public BasicMatch[] BasicMatches { get; private set; }
+        private Vector2Int _intersectionPoint;
+        private HashSet<Vector2Int> _sequencePositions;
 
         public ComposedMatch(Vector2Int intersectionPoint, List<BasicMatch> basicMatches)
         {
             _intersectionPoint = intersectionPoint;
             BasicMatches = basicMatches.ToArray();
+            _sequencePositions = BasicMatches.SelectMany(match => match.GetSequencePosition()).ToHashSet();
         }
 
         public bool IsMatchT()
@@ -43,6 +46,16 @@ namespace Gazeus.DesafioMatch3.Core.Matching
             }
 
             return false;
+        }
+
+        public IEnumerable<Vector2Int> GetSequencePosition()
+        {
+            return _sequencePositions;
+        }
+
+        public int SequenceCount()
+        {
+            return _sequencePositions.Count;
         }
     }
 }

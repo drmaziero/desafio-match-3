@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Gazeus.DesafioMatch3.Models;
+using Models;
 using UnityEngine;
 
-namespace Gazeus.DesafioMatch3.Core
+namespace GameLogic.Services
 {
     public class GameService
     {
@@ -10,14 +10,22 @@ namespace Gazeus.DesafioMatch3.Core
         private List<int> _tilesTypes;
         private int _tileCount;
         private MatchingService _matchingService;
+        
+        public ScoreService ScoreService { get; private set; }
 
+        public GameService(ScoreConfig scoreConfig)
+        {
+            _matchingService = new MatchingService();
+            ScoreService = new ScoreService(scoreConfig);
+            
+        }
         public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
         {
             _tilesTypes = new List<int> { 0, 1, 2, 3 };
             _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
             
-            _matchingService = new MatchingService();
             _matchingService.Init();
+            ScoreService.Init();
             
             return _boardTiles;
         }
@@ -60,10 +68,16 @@ namespace Gazeus.DesafioMatch3.Core
             (newBoard[toY][toX], newBoard[fromY][fromX]) = (newBoard[fromY][fromX], newBoard[toY][toX]);
 
             List<BoardSequence> boardSequences = new();
+
             _matchingService.FindMatches(newBoard);
 
+            int cascadeCounter = 1;
+            
             while (_matchingService.HasBasicMatch())
             {
+                ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
+                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches, cascadeCounter);
+                
                 List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
                 
                 foreach (var matchedPos in matchedPosition)
@@ -138,6 +152,8 @@ namespace Gazeus.DesafioMatch3.Core
                 };
                 boardSequences.Add(sequence);
                 _matchingService.FindMatches(newBoard);
+
+                cascadeCounter++;
             }
 
             _boardTiles = newBoard;

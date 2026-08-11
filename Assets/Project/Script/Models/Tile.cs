@@ -1,4 +1,4 @@
-﻿namespace Gazeus.DesafioMatch3.Models
+﻿namespace Models
 {
     public class Tile
     {

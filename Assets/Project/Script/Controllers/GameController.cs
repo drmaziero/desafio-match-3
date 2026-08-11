@@ -1,20 +1,32 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Gazeus.DesafioMatch3.Core;
-using Gazeus.DesafioMatch3.Models;
-using Gazeus.DesafioMatch3.Views;
+using GameLogic.Services;
+using Models;
+using ScriptableObjects;
+using ScriptableObjects.Score;
 using UnityEngine;
+using Views;
 
-namespace Gazeus.DesafioMatch3.Controllers
+namespace Controllers
 {
     public class GameController : MonoBehaviour
     {
+        [Header("Views")]
+        [SerializeField] private ScoreView _scoreView; 
         [SerializeField] private BoardView _boardView;
+        
+        [Header("Board Config")]
         [SerializeField] private int _boardHeight = 10;
         [SerializeField] private int _boardWidth = 10;
 
+        [Header("Score Settings")] 
+        [SerializeField] private ScoreSettings _scoreSettings;
+
         private GameService _gameService;
+
+        private ScoreController _scoreController;
+        
         private bool _isAnimating;
         private int _selectedX = -1;
         private int _selectedY = -1;
@@ -22,18 +34,20 @@ namespace Gazeus.DesafioMatch3.Controllers
         #region Unity
         private void Awake()
         {
-            _gameService = new GameService();
+            _gameService = new GameService(_scoreSettings.CreateConfig());
             _boardView.TileClicked += OnTileClick;
         }
 
         private void OnDestroy()
         {
             _boardView.TileClicked -= OnTileClick;
+            _scoreController?.Dispose();
         }
 
         private void Start()
         {
             List<List<Tile>> board = _gameService.StartGame(_boardWidth, _boardHeight);
+            _scoreController = new ScoreController(_scoreView, _gameService.ScoreService);
             _boardView.CreateBoard(board);
         }
         #endregion

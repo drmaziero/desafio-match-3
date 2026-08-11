@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Gazeus.DesafioMatch3.Models;
-using Gazeus.DesafioMatch3.ScriptableObjects;
+using Models;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Gazeus.DesafioMatch3.Views
+namespace Views
 {
     public class BoardView : MonoBehaviour
     {

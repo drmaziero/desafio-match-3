@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Gazeus.DesafioMatch3.Core.Matching;
-using Gazeus.DesafioMatch3.Models;
+using GameLogic.Matching;
+using Models;
 using UnityEngine;
 
-namespace Gazeus.DesafioMatch3.Core
+namespace GameLogic.Services
 {
     public class MatchingService
     {
@@ -12,6 +12,11 @@ namespace Gazeus.DesafioMatch3.Core
         private List<BasicMatch> _verticalMatches;
         private List<ComposedMatch> _composedMatches;
         private List<ComplexMatch> _complexMatches;
+        
+        public IReadOnlyList<BasicMatch> HorizontalMatches => _horizontalMatches;
+        public IReadOnlyList<BasicMatch> VerticalMatches => _verticalMatches;
+        public IReadOnlyList<ComposedMatch> ComposedMatches => _composedMatches;
+        public IReadOnlyList<ComplexMatch> ComplexMatches => _complexMatches;
 
         public void Init()
         {
@@ -168,15 +173,47 @@ namespace Gazeus.DesafioMatch3.Core
             if (!HasComposeMatch())
                 return;
 
-            for (var i = 0; i < _composedMatches.Count - 1; i++)
+            var visited = new HashSet<ComposedMatch>();
+            
+            foreach (var composedMatch in _composedMatches)
             {
-                for (var j = i + 1; j < _composedMatches.Count; j++)
+                if (visited.Contains(composedMatch))
+                    continue;
+
+                var connectedMatches = GetConnectedMatches(composedMatch, visited);
+                
+                if (connectedMatches.Count > 1)
+                    _complexMatches.Add(new ComplexMatch(connectedMatches));
+            }
+        }
+
+        private List<ComposedMatch> GetConnectedMatches(ComposedMatch initMatch, HashSet<ComposedMatch> visitedMatches)
+        {
+            var result = new List<ComposedMatch>();
+            var pending = new Queue<ComposedMatch>();
+            
+            pending.Enqueue(initMatch);
+            visitedMatches.Add(initMatch);
+
+            while (pending.Count > 0)
+            {
+                var currentMatch = pending.Dequeue();
+                result.Add(currentMatch);
+                
+                foreach (var candidateMatch in _composedMatches)
                 {
-                    if (_composedMatches[i].HasIntersection(_composedMatches[j]))
-                        _complexMatches.Add(new ComplexMatch(new List<ComposedMatch>()
-                            { _composedMatches[i], _composedMatches[j] }));
+                    if (visitedMatches.Contains(candidateMatch))
+                        continue;
+                    
+                    if (!currentMatch.HasIntersection(candidateMatch))
+                        continue;
+
+                    visitedMatches.Add(candidateMatch);
+                    pending.Enqueue(candidateMatch);
                 }
             }
+
+            return result;
         }
         
         public int HorizontalMatchesCounter()
