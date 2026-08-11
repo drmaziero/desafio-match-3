@@ -54,5 +54,10 @@ namespace GameLogic.Matching
 
             return sequence;
         }
+
+        public List<BasicMatch> GetBasicMatches()
+        {
+            return new List<BasicMatch>(BasicMatches);
+        }
     }
 }

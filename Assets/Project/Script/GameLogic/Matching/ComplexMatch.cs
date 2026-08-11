@@ -5,21 +5,31 @@ namespace GameLogic.Matching
 {
     public class ComplexMatch
     {
-        public ComposedMatch[] ComposedMatches { get; private set; }
+        private ComposedMatch[] _composedMatches;
 
         public ComplexMatch(List<ComposedMatch> composedMatches)
         {
-            ComposedMatches = composedMatches.ToArray();
+            _composedMatches = composedMatches.ToArray();
         }
         
         public List<Vector2Int> GetSequencePosition()
         {
             var sequence = new List<Vector2Int>();
 
-            foreach (var composedMatch in ComposedMatches)
+            foreach (var composedMatch in _composedMatches)
                 sequence.AddRange(composedMatch.GetSequencePosition());
 
             return sequence;
+        }
+
+        public List<BasicMatch> GetBasicMatches()
+        {
+            var basicMatches = new List<BasicMatch>();
+
+            foreach (var composedMatch in _composedMatches)
+                basicMatches.AddRange(composedMatch.BasicMatches);
+
+            return basicMatches;
         }
     }
 }

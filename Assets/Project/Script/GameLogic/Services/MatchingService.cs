@@ -168,15 +168,47 @@ namespace GameLogic.Services
             if (!HasComposeMatch())
                 return;
 
-            for (var i = 0; i < ComposedMatches.Count - 1; i++)
+            var visited = new HashSet<ComposedMatch>();
+            
+            foreach (var composedMatch in ComposedMatches)
             {
-                for (var j = i + 1; j < ComposedMatches.Count; j++)
+                if (visited.Contains(composedMatch))
+                    continue;
+
+                var connectedMatches = GetConnectedMatches(composedMatch, visited);
+                
+                if (connectedMatches.Count > 1)
+                    ComplexMatches.Add(new ComplexMatch(connectedMatches));
+            }
+        }
+
+        private List<ComposedMatch> GetConnectedMatches(ComposedMatch initMatch, HashSet<ComposedMatch> visitedMatches)
+        {
+            var result = new List<ComposedMatch>();
+            var pending = new Queue<ComposedMatch>();
+            
+            pending.Enqueue(initMatch);
+            visitedMatches.Add(initMatch);
+
+            while (pending.Count > 0)
+            {
+                var currentMatch = pending.Dequeue();
+                result.Add(currentMatch);
+                
+                foreach (var candidateMatch in ComposedMatches)
                 {
-                    if (ComposedMatches[i].HasIntersection(ComposedMatches[j]))
-                        ComplexMatches.Add(new ComplexMatch(new List<ComposedMatch>()
-                            { ComposedMatches[i], ComposedMatches[j] }));
+                    if (visitedMatches.Contains(candidateMatch))
+                        continue;
+                    
+                    if (!currentMatch.HasIntersection(candidateMatch))
+                        continue;
+
+                    visitedMatches.Add(candidateMatch);
+                    pending.Enqueue(candidateMatch);
                 }
             }
+
+            return result;
         }
         
         public int HorizontalMatchesCounter()
