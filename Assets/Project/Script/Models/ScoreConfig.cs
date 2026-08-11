@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Models
 {
     public class ScoreConfig
@@ -14,9 +17,11 @@ namespace Models
         public int MatchTElementScore { get; private set; }
         public int ComplexElementScore { get; private set; }
 
+        public Dictionary<int, int> _cascadeMultiplier;
+
         public ScoreConfig(int horizontalMatchScore, int verticalMatchScore, int matchLScore, int matchTScore,
             int complexMatchScore, int horizontalElementScore, int verticalElementScore, int matchLElementScore,
-            int matchTElementScore, int complexElementScore)
+            int matchTElementScore, int complexElementScore, Dictionary<int, int> cascadeMultiplier)
         {
             HorizontalMatchScore = horizontalMatchScore;
             VerticalMatchScore = verticalMatchScore;
@@ -28,6 +33,12 @@ namespace Models
             MatchLElementScore = matchLElementScore;
             MatchTElementScore = matchTElementScore;
             ComplexElementScore = complexElementScore;
+            _cascadeMultiplier = cascadeMultiplier;
+        }
+
+        public int GetCascadeMultiplier(int cascadeIndex)
+        {
+            return cascadeIndex >= _cascadeMultiplier.Count ? _cascadeMultiplier.Last().Value : _cascadeMultiplier[cascadeIndex];
         }
     }
 }

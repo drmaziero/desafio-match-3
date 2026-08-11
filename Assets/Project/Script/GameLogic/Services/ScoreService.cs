@@ -31,12 +31,18 @@ namespace GameLogic.Services
             IEnumerable<ComplexMatch> complexMatches, 
             IEnumerable<ComposedMatch> composedMatches,
             IEnumerable<BasicMatch> horizontalMatches, 
-            IEnumerable<BasicMatch> verticalMatches)
+            IEnumerable<BasicMatch> verticalMatches,
+            int cascadeCounter)
         {
             _consumedMatches.Clear();
-            CalcComplexMatchScore(complexMatches);
-            CalcComposeMatchScore(composedMatches);
-            CalcBasicMatchScore(horizontalMatches.Concat(verticalMatches));
+
+            int newScore = 0;
+            newScore += CalcComplexMatchScore(complexMatches);
+            newScore += CalcComposeMatchScore(composedMatches);
+            newScore += CalcBasicMatchScore(horizontalMatches.Concat(verticalMatches));
+
+            int multiplier = _config.GetCascadeMultiplier(cascadeCounter);
+            AddScore(newScore * multiplier);
         }
 
         private void AddScore(int newScore)
@@ -45,48 +51,58 @@ namespace GameLogic.Services
             ScoreChanged?.Invoke(_score);
         }
         
-        private void CalcComplexMatchScore(IEnumerable<ComplexMatch> complexMatches)
+        private int CalcComplexMatchScore(IEnumerable<ComplexMatch> complexMatches)
         {
+            int score = 0;
             foreach (var complexMatch in complexMatches)
             {
                 if (HasConsumedMatches(complexMatch.BasicMatches))
                     continue;
                 
-                AddScore(_config.ComplexMatchScore + complexMatch.SequenceCount() * _config.ComplexElementScore);
+                score += _config.ComplexMatchScore + complexMatch.SequenceCount() * _config.ComplexElementScore;
                 Consume(complexMatch.BasicMatches);
             }
+
+            return score;
         }
 
-        private void CalcComposeMatchScore(IEnumerable<ComposedMatch> composedMatches)
+        private int CalcComposeMatchScore(IEnumerable<ComposedMatch> composedMatches)
         {
+            int score = 0;
+            
             foreach (var composedMatch in composedMatches)
             {
                 if (HasConsumedMatches(composedMatch.BasicMatches))
                     continue;
 
                 if (composedMatch.IsMatchL())
-                   AddScore(_config.MatchLScore + composedMatch.SequenceCount() * _config.MatchLElementScore);
+                    score += _config.MatchLScore + composedMatch.SequenceCount() * _config.MatchLElementScore;
                 else
-                    AddScore(_config.MatchTScore + composedMatch.SequenceCount() * _config.MatchTElementScore);
+                    score += _config.MatchTScore + composedMatch.SequenceCount() * _config.MatchTElementScore;
                 
                 Consume(composedMatch.BasicMatches);
             }
+
+            return score;
         }
 
-        private void CalcBasicMatchScore(IEnumerable<BasicMatch> basicMatches)
+        private int CalcBasicMatchScore(IEnumerable<BasicMatch> basicMatches)
         {
+            int score = 0;
             foreach (var match in basicMatches)
             {
                 if (IsConsumed(match)) 
                     continue;
                 
                 if (match.IsHorizontal())
-                    AddScore(_config.HorizontalMatchScore + match.Count * _config.HorizontalElementScore);
+                    score += _config.HorizontalMatchScore + match.Count * _config.HorizontalElementScore;
                 else
-                    AddScore(_config.VerticalMatchScore + match.Count * _config.VerticalElementScore);
+                    score += _config.VerticalMatchScore + match.Count * _config.VerticalElementScore;
                 
                 _consumedMatches.Add(match);
             }
+
+            return score;
         }
 
         private void Consume(IEnumerable<BasicMatch> matches)

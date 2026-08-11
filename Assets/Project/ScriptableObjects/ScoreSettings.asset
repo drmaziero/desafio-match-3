@@ -22,3 +22,16 @@ MonoBehaviour:
   _matchLElementScore: 1
   _matchTElementScore: 1
   _complexElementScore: 1
+  _cascadeMultiplierEntries:
+  - cascadeCount: 1
+    multiplier: 1
+  - cascadeCount: 2
+    multiplier: 2
+  - cascadeCount: 3
+    multiplier: 3
+  - cascadeCount: 4
+    multiplier: 5
+  - cascadeCount: 5
+    multiplier: 8
+  - cascadeCount: 6
+    multiplier: 10

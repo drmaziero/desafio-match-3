@@ -1,11 +1,14 @@
+using System.Collections.Generic;
+using System.Linq;
 using Models;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.Score
 {
     [CreateAssetMenu(fileName = "ScoreSettings", menuName = "Gameplay/Score Settings")]
     public class ScoreSettings : ScriptableObject
     {
+        [Header("Match")]
         [field: SerializeField]
         private int _horizontalMatchScore = 0;
         [field: SerializeField]
@@ -17,6 +20,7 @@ namespace ScriptableObjects
         [field: SerializeField]
         private int _complexMatchScore = 15;
 
+        [Header("Elements on Match")]
         [field: SerializeField]
         private int _horizontalElementScore = 1;
         [field: SerializeField]
@@ -28,11 +32,16 @@ namespace ScriptableObjects
         [field: SerializeField]
         private int _complexElementScore = 1;
 
+        [Header("Cascate")] 
+        [SerializeField] 
+        private List<CascadeMultiplierEntry> _cascadeMultiplierEntries;
+
         public ScoreConfig CreateConfig()
         {
             return new ScoreConfig(_horizontalMatchScore, _verticalMatchScore, _matchLScore, _matchTScore,
                 _complexMatchScore, _horizontalElementScore, _verticalElementScore, _matchLElementScore,
-                _matchTElementScore, _complexElementScore);
+                _matchTElementScore, _complexElementScore,
+                _cascadeMultiplierEntries.ToDictionary(x => x.cascadeCount, x => x.multiplier));
         }
     }
 }

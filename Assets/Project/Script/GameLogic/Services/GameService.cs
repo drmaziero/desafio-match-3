@@ -70,12 +70,14 @@ namespace GameLogic.Services
             List<BoardSequence> boardSequences = new();
 
             _matchingService.FindMatches(newBoard);
-            
-            ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
-                _matchingService.HorizontalMatches, _matchingService.VerticalMatches);
+
+            int cascadeCounter = 1;
             
             while (_matchingService.HasBasicMatch())
             {
+                ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
+                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches, cascadeCounter);
+                
                 List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
                 
                 foreach (var matchedPos in matchedPosition)
@@ -150,9 +152,8 @@ namespace GameLogic.Services
                 };
                 boardSequences.Add(sequence);
                 _matchingService.FindMatches(newBoard);
-                
-                ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
-                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches);
+
+                cascadeCounter++;
             }
 
             _boardTiles = newBoard;

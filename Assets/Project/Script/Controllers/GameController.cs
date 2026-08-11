@@ -4,6 +4,7 @@ using DG.Tweening;
 using GameLogic.Services;
 using Models;
 using ScriptableObjects;
+using ScriptableObjects.Score;
 using UnityEngine;
 using Views;
 
