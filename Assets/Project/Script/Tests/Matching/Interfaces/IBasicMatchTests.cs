@@ -1,4 +1,4 @@
-namespace Project.Script.Tests.Matching.Interfaces
+namespace Tests.Matching.Interfaces
 {
     public interface IBasicMatchTests
     {

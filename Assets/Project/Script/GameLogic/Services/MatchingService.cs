@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Gazeus.DesafioMatch3.Core.Matching;
-using Gazeus.DesafioMatch3.Models;
+using GameLogic.Matching;
+using Models;
 using UnityEngine;
 
-namespace Gazeus.DesafioMatch3.Core
+namespace GameLogic.Services
 {
     public class MatchingService
     {

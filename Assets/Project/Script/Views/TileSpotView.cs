@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Gazeus.DesafioMatch3.Views
+namespace Views
 {
     public class TileSpotView : MonoBehaviour
     {

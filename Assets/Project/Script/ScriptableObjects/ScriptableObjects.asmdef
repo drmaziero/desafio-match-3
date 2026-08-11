@@ -1,6 +1,6 @@
 {
-    "name": "DesafioMatch3",
-    "rootNamespace": "Gazeus.DesafioMatch3",
+    "name": "ScriptableObjects",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

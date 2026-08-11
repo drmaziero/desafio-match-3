@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Gazeus.DesafioMatch3.Models;
+using Models;
 
-namespace Project.Script.Tests.Matching
+namespace Tests.Matching
 {
     public abstract class MatchTests
     {

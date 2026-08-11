@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Gazeus.DesafioMatch3.Core.Matching;
+using GameLogic.Matching;
 
-namespace Gazeus.DesafioMatch3.Core
+namespace GameLogic.Services
 {
     public class ScoreService
     {

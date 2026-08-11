@@ -1,7 +1,7 @@
-using Gazeus.DesafioMatch3.Core;
+using GameLogic.Services;
 using NUnit.Framework;
 
-namespace Project.Script.Tests.Matching
+namespace Tests.Matching
 {
     public class ComplexMatchTest : MatchTests
     {

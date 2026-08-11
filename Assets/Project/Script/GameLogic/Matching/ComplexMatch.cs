@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gazeus.DesafioMatch3.Core.Matching
+namespace GameLogic.Matching
 {
     public class ComplexMatch
     {

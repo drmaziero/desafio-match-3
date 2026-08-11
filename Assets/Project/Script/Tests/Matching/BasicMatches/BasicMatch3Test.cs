@@ -1,8 +1,8 @@
-using Gazeus.DesafioMatch3.Core;
+using GameLogic.Services;
 using NUnit.Framework;
-using Project.Script.Tests.Matching.Interfaces;
+using Tests.Matching.Interfaces;
 
-namespace Project.Script.Tests.Matching.BasicMatches
+namespace Tests.Matching.BasicMatches
 {
     public class BasicMatch3Test : MatchTests, IBasicMatchTests
     {
