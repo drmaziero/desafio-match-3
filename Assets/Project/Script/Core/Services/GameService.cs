@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Gazeus.DesafioMatch3.Core.Matching;
 using Gazeus.DesafioMatch3.Models;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Gazeus.DesafioMatch3.Core
         private List<int> _tilesTypes;
         private int _tileCount;
         private MatchingService _matchingService;
+        private ScoreService _scoreService;
 
         public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
         {
@@ -18,6 +20,9 @@ namespace Gazeus.DesafioMatch3.Core
             
             _matchingService = new MatchingService();
             _matchingService.Init();
+
+            _scoreService = new ScoreService();
+            _scoreService.Init();
             
             return _boardTiles;
         }
@@ -60,8 +65,12 @@ namespace Gazeus.DesafioMatch3.Core
             (newBoard[toY][toX], newBoard[fromY][fromX]) = (newBoard[fromY][fromX], newBoard[toY][toX]);
 
             List<BoardSequence> boardSequences = new();
-            _matchingService.FindMatches(newBoard);
 
+            _matchingService.FindMatches(newBoard);
+            
+            _scoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
+                _matchingService.HorizontalMatches, _matchingService.VerticalMatches);
+            
             while (_matchingService.HasBasicMatch())
             {
                 List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
@@ -138,6 +147,9 @@ namespace Gazeus.DesafioMatch3.Core
                 };
                 boardSequences.Add(sequence);
                 _matchingService.FindMatches(newBoard);
+                
+                _scoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
+                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches);
             }
 
             _boardTiles = newBoard;

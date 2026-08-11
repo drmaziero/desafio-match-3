@@ -32,6 +32,15 @@ namespace Gazeus.DesafioMatch3.Core.Matching
 
             return allPoints;
         }
-        
+
+        public override bool IsHorizontal()
+        {
+            return false;
+        }
+
+        public override bool IsVertical()
+        {
+            return true;
+        }
     }
 }

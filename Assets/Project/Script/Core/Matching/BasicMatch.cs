@@ -52,5 +52,8 @@ namespace Gazeus.DesafioMatch3.Core.Matching
         {
             return HashCode.Combine(MainIndex, StartIndex, Count);
         }
+
+        public abstract bool IsHorizontal();
+        public abstract bool IsVertical();
     }
 }

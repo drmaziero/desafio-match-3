@@ -44,5 +44,15 @@ namespace Gazeus.DesafioMatch3.Core.Matching
 
             return false;
         }
+
+        public List<Vector2Int> GetSequencePosition()
+        {
+            var sequence = new List<Vector2Int>();
+
+            foreach (var basicMatch in BasicMatches)
+                sequence.AddRange(basicMatch.GetSequencePosition());
+
+            return sequence;
+        }
     }
 }

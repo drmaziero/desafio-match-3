@@ -8,25 +8,25 @@ namespace Gazeus.DesafioMatch3.Core
 {
     public class MatchingService
     {
-        private List<BasicMatch> _horizontalMatches;
-        private List<BasicMatch> _verticalMatches;
-        private List<ComposedMatch> _composedMatches;
-        private List<ComplexMatch> _complexMatches;
+        public List<BasicMatch> HorizontalMatches { get; private set; }
+        public List<BasicMatch> VerticalMatches { get; private set; }
+        public List<ComposedMatch> ComposedMatches { get; private set; }
+        public List<ComplexMatch> ComplexMatches { get; private set; }
 
         public void Init()
         {
-            _horizontalMatches = new List<BasicMatch>();
-            _verticalMatches = new List<BasicMatch>();
-            _composedMatches = new List<ComposedMatch>();
-            _complexMatches = new List<ComplexMatch>();
+            HorizontalMatches = new List<BasicMatch>();
+            VerticalMatches = new List<BasicMatch>();
+            ComposedMatches = new List<ComposedMatch>();
+            ComplexMatches = new List<ComplexMatch>();
         }
 
         private void Reset()
         {
-            _horizontalMatches.Clear();
-            _verticalMatches.Clear();
-            _composedMatches.Clear();
-            _complexMatches.Clear();
+            HorizontalMatches.Clear();
+            VerticalMatches.Clear();
+            ComposedMatches.Clear();
+            ComplexMatches.Clear();
         }
         
         public void FindMatches(List<List<Tile>> newBoard)
@@ -61,7 +61,7 @@ namespace Gazeus.DesafioMatch3.Core
 
         private void AddOrIncreaseHorizontalMatch(int row, int column)
         {
-            var lastMatch = _horizontalMatches.LastOrDefault();
+            var lastMatch = HorizontalMatches.LastOrDefault();
             
             if (lastMatch != null && 
                 lastMatch.MainIndex == row && 
@@ -71,12 +71,12 @@ namespace Gazeus.DesafioMatch3.Core
                 return;
             }
             
-            _horizontalMatches.Add(new HorizontalMatch(row,3,column-2));
+            HorizontalMatches.Add(new HorizontalMatch(row,3,column-2));
         }
         
         private void AddOrIncreaseVerticalMatch(int row, int column)
         {
-            var lastMatch = _verticalMatches.LastOrDefault();
+            var lastMatch = VerticalMatches.LastOrDefault();
             
             if (lastMatch != null && 
                 lastMatch.MainIndex == column && 
@@ -86,17 +86,17 @@ namespace Gazeus.DesafioMatch3.Core
                 return;
             }
             
-            _verticalMatches.Add(new VerticalMatch(column,3,row-2));
+            VerticalMatches.Add(new VerticalMatch(column,3,row-2));
         }
 
         public bool HasHorizontalMatch()
         {
-            return _horizontalMatches.Count > 0;
+            return HorizontalMatches.Count > 0;
         }
 
         public bool HasVerticalMatch()
         {
-            return _verticalMatches.Count > 0;
+            return VerticalMatches.Count > 0;
         }
 
         public bool HasBasicMatch()
@@ -106,7 +106,7 @@ namespace Gazeus.DesafioMatch3.Core
 
         public bool HasComposeMatch()
         {
-            return _composedMatches.Count > 0;
+            return ComposedMatches.Count > 0;
         }
 
         public bool HasComposeMatchL()
@@ -114,7 +114,7 @@ namespace Gazeus.DesafioMatch3.Core
             if (!HasComposeMatch())
                 return false;
 
-            return _composedMatches.Any(x => x.IsMatchL());
+            return ComposedMatches.Any(x => x.IsMatchL());
         }
         
         public bool HasComposeMatchT()
@@ -122,22 +122,22 @@ namespace Gazeus.DesafioMatch3.Core
             if (!HasComposeMatch())
                 return false;
 
-            return _composedMatches.Any(x => x.IsMatchT());
+            return ComposedMatches.Any(x => x.IsMatchT());
         }
 
         public bool HasComplexMatch()
         {
-            return _complexMatches.Count > 0;
+            return ComplexMatches.Count > 0;
         }
 
         public List<Vector2Int> GetMatchedPositions()
         {
             var allMatchedPositions = new HashSet<Vector2Int>();
 
-            foreach (var position in _horizontalMatches.SelectMany(horizontalMatch => horizontalMatch.GetSequencePosition()))
+            foreach (var position in HorizontalMatches.SelectMany(horizontalMatch => horizontalMatch.GetSequencePosition()))
                 allMatchedPositions.Add(position);
             
-            foreach (var position in _verticalMatches.SelectMany(verticalMatch => verticalMatch.GetSequencePosition()))
+            foreach (var position in VerticalMatches.SelectMany(verticalMatch => verticalMatch.GetSequencePosition()))
                 allMatchedPositions.Add(position);
 
             return new List<Vector2Int>(allMatchedPositions);
@@ -148,15 +148,15 @@ namespace Gazeus.DesafioMatch3.Core
             if (!HasBasicMatch())
                 return;
             
-            foreach (var horizontalMatch in _horizontalMatches)
+            foreach (var horizontalMatch in HorizontalMatches)
             {
-                foreach (var verticalMatch in _verticalMatches)
+                foreach (var verticalMatch in VerticalMatches)
                 {
                     var notIntersection = new Vector2Int(-1, -1);
                     var intersectionPoint = horizontalMatch.HasIntersection(verticalMatch);
                     if (!intersectionPoint.Equals(notIntersection))
                     {
-                        _composedMatches.Add(new ComposedMatch(intersectionPoint,
+                        ComposedMatches.Add(new ComposedMatch(intersectionPoint,
                             new List<BasicMatch>() { horizontalMatch, verticalMatch }));
                     }
                 }
@@ -168,41 +168,41 @@ namespace Gazeus.DesafioMatch3.Core
             if (!HasComposeMatch())
                 return;
 
-            for (var i = 0; i < _composedMatches.Count - 1; i++)
+            for (var i = 0; i < ComposedMatches.Count - 1; i++)
             {
-                for (var j = i + 1; j < _composedMatches.Count; j++)
+                for (var j = i + 1; j < ComposedMatches.Count; j++)
                 {
-                    if (_composedMatches[i].HasIntersection(_composedMatches[j]))
-                        _complexMatches.Add(new ComplexMatch(new List<ComposedMatch>()
-                            { _composedMatches[i], _composedMatches[j] }));
+                    if (ComposedMatches[i].HasIntersection(ComposedMatches[j]))
+                        ComplexMatches.Add(new ComplexMatch(new List<ComposedMatch>()
+                            { ComposedMatches[i], ComposedMatches[j] }));
                 }
             }
         }
         
         public int HorizontalMatchesCounter()
         {
-            return _horizontalMatches.Count;
+            return HorizontalMatches.Count;
         }
         
         public int VerticalMatchesCounter()
         {
-            return _verticalMatches.Count;
+            return VerticalMatches.Count;
         }
         
         
         //------- Debug
         private void ShowMatchLogs()
         {
-            foreach (var horizontalMatch in _horizontalMatches)
+            foreach (var horizontalMatch in HorizontalMatches)
                 Debug.LogWarning("Horizontal Match!");
 
-            foreach (var verticalMatch in _verticalMatches)
+            foreach (var verticalMatch in VerticalMatches)
                 Debug.LogWarning("Vertical Match!");
             
-            foreach (var composedMatch in _composedMatches)
+            foreach (var composedMatch in ComposedMatches)
                 Debug.LogWarning("Compose Match!");
             
-            foreach (var complexMatch in _complexMatches)
+            foreach (var complexMatch in ComplexMatches)
                 Debug.LogWarning("Complex Match!");
         }
     }
