@@ -10,11 +10,18 @@ namespace Controllers
 {
     public class GameController : MonoBehaviour
     {
+        [Header("Views")]
+        [SerializeField] private ScoreView _scoreView; 
         [SerializeField] private BoardView _boardView;
+        
+        [Header("Board Config")]
         [SerializeField] private int _boardHeight = 10;
         [SerializeField] private int _boardWidth = 10;
 
         private GameService _gameService;
+
+        private ScoreController _scoreController;
+        
         private bool _isAnimating;
         private int _selectedX = -1;
         private int _selectedY = -1;
@@ -34,6 +41,7 @@ namespace Controllers
         private void Start()
         {
             List<List<Tile>> board = _gameService.StartGame(_boardWidth, _boardHeight);
+            _scoreController = new ScoreController(_scoreView, _gameService.ScoreService);
             _boardView.CreateBoard(board);
         }
         #endregion
@@ -94,6 +102,8 @@ namespace Controllers
                 _selectedX = x;
                 _selectedY = y;
             }
+            
+            _scoreController.UpdateScore();
         }
     }
 }

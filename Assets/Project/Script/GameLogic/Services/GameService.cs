@@ -10,7 +10,8 @@ namespace GameLogic.Services
         private List<int> _tilesTypes;
         private int _tileCount;
         private MatchingService _matchingService;
-        private ScoreService _scoreService;
+        
+        public ScoreService ScoreService { get; private set; }
 
         public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
         {
@@ -20,8 +21,8 @@ namespace GameLogic.Services
             _matchingService = new MatchingService();
             _matchingService.Init();
 
-            _scoreService = new ScoreService();
-            _scoreService.Init();
+            ScoreService = new ScoreService();
+            ScoreService.Init();
             
             return _boardTiles;
         }
@@ -67,7 +68,7 @@ namespace GameLogic.Services
 
             _matchingService.FindMatches(newBoard);
             
-            _scoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
+            ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
                 _matchingService.HorizontalMatches, _matchingService.VerticalMatches);
             
             while (_matchingService.HasBasicMatch())
@@ -147,7 +148,7 @@ namespace GameLogic.Services
                 boardSequences.Add(sequence);
                 _matchingService.FindMatches(newBoard);
                 
-                _scoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
+                ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
                     _matchingService.HorizontalMatches, _matchingService.VerticalMatches);
             }
 

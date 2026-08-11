@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.Matching;
+using UnityEngine;
 
 namespace GameLogic.Services
 {
@@ -20,12 +21,12 @@ namespace GameLogic.Services
         private readonly int _matchTSequenceBonus = 1;
         private readonly int _complexSequenceBonus = 1;
 
-        private List<BasicMatch> _consumedMatches;
+        private HashSet<BasicMatch> _consumedMatches;
 
         public void Init()
         {
             Score = 0;
-            _consumedMatches = new List<BasicMatch>();
+            _consumedMatches = new HashSet<BasicMatch>();
         }
 
         public void ComputeScore(List<ComplexMatch> complexMatches, List<ComposedMatch> composedMatches,
@@ -46,12 +47,11 @@ namespace GameLogic.Services
         {
             foreach (var complexMatch in complexMatches)
             {
+                if (HasConsumedMatches(complexMatch.GetBasicMatches()))
+                    continue;
+                
                 Score += _complexMatchScore + complexMatch.GetSequencePosition().Count * _complexSequenceBonus;
-                foreach (var composeMatch in complexMatch.ComposedMatches)
-                {
-                    foreach (var match in composeMatch.BasicMatches)
-                        _consumedMatches.Add(match);
-                }
+                Consume(complexMatch.GetBasicMatches());
             }
         }
 
@@ -59,7 +59,7 @@ namespace GameLogic.Services
         {
             foreach (var composedMatch in composedMatches)
             {
-                if (OnConsumedMatches(new List<BasicMatch>(composedMatch.BasicMatches)))
+                if (HasConsumedMatches(composedMatch.GetBasicMatches()))
                     continue;
 
                 if (composedMatch.IsMatchL())
@@ -67,8 +67,7 @@ namespace GameLogic.Services
                 else
                     Score += _matchTScore + composedMatch.GetSequencePosition().Count * _matchTSequenceBonus;
                 
-                foreach (var match in composedMatch.BasicMatches)
-                    _consumedMatches.Add(match);
+                Consume(composedMatch.GetBasicMatches());
             }
         }
 
@@ -76,19 +75,35 @@ namespace GameLogic.Services
         {
             foreach (var match in basicMatches)
             {
-                if (!OnConsumedMatches(new List<BasicMatch>() { match })) 
+                string log = $"Score: {Score} ";
+                if (IsConsumed(match)) 
                     continue;
                 
                 if (match.IsHorizontal())
                     Score += _horizontalMatchScore + match.GetSequencePosition().Count * _horizontalSequenceBonus;
                 else
                     Score += _verticalMatchScore + match.GetSequencePosition().Count * _verticalSequenceBonus;
+                
+                _consumedMatches.Add(match);
+                log += $" ->  {Score}";
+                Debug.LogWarning(log);
             }
         }
 
-        private bool OnConsumedMatches(List<BasicMatch> matches)
+        private void Consume(List<BasicMatch> matches)
         {
-            return matches.Any(match => _consumedMatches.Contains(match));
+            foreach (var match in matches)
+                _consumedMatches.Add(match);
+        }
+
+        private bool IsConsumed(BasicMatch match)
+        {
+            return _consumedMatches.Contains(match);
+        }
+
+        private bool HasConsumedMatches(List<BasicMatch> matches)
+        {
+            return matches.Any(IsConsumed);
         }
     }
 }
