@@ -8,6 +8,7 @@ namespace ScriptableObjects
     public class TilePrefabRepository : ScriptableObject
     {
         [SerializeField] private GameObject[] _tileTypePrefabList;
+        [SerializeField] private GameObject[] _effectTypePrefabList;
 
         public GameObject GetTilePrefab(TileType type)
         {
@@ -15,6 +16,14 @@ namespace ScriptableObjects
                 throw new ArgumentOutOfRangeException($"Type {type} is not prefab valid");
                 
             return _tileTypePrefabList[(int)type];
+        }
+
+        public GameObject GetEffectTilePrefab(SpecialTileType type)
+        {
+            if (type == SpecialTileType.None)
+                throw new ArgumentOutOfRangeException($"Type {type} is not prefab valid");
+
+            return _effectTypePrefabList[(int)type];
         }
     }
 }
