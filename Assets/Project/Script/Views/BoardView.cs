@@ -39,10 +39,10 @@ namespace Views
 
                     _tileSpots[y][x] = tileSpot;
 
-                    int tileTypeIndex = board[y][x].Type;
-                    if (tileTypeIndex > -1)
+                    var tileTypeIndex = board[y][x].Type;
+                    if (tileTypeIndex != TileType.None)
                     {
-                        GameObject tilePrefab = _tilePrefabRepository.TileTypePrefabList[tileTypeIndex];
+                        GameObject tilePrefab = _tilePrefabRepository.GetTilePrefab(tileTypeIndex);
                         GameObject tile = Instantiate(tilePrefab);
                         tileSpot.SetTile(tile);
 
@@ -62,7 +62,7 @@ namespace Views
 
                 TileSpotView tileSpot = _tileSpots[position.y][position.x];
 
-                GameObject tilePrefab = _tilePrefabRepository.TileTypePrefabList[addedTileInfo.Type];
+                GameObject tilePrefab = _tilePrefabRepository.GetTilePrefab(addedTileInfo.Type);
                 GameObject tile = Instantiate(tilePrefab);
                 tileSpot.SetTile(tile);
 

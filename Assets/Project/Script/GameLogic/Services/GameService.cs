@@ -7,7 +7,7 @@ namespace GameLogic.Services
     public class GameService
     {
         private List<List<Tile>> _boardTiles;
-        private List<int> _tilesTypes;
+        private List<TileType> _tilesTypes;
         private int _tileCount;
         private MatchingService _matchingService;
         private MatchEffectService _effectService;
@@ -24,7 +24,7 @@ namespace GameLogic.Services
         }
         public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
         {
-            _tilesTypes = new List<int> { 0, 1, 2, 3 };
+            _tilesTypes = new List<TileType> { TileType.Blue, TileType.Green, TileType.Orange, TileType.Yellow };
             _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
             
             _matchingService.Init();
@@ -88,7 +88,7 @@ namespace GameLogic.Services
                 List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
                 
                 foreach (var matchedPos in matchedPosition)
-                    newBoard[matchedPos.y][matchedPos.x] = new Tile { Id = -1, Type = -1 };
+                    newBoard[matchedPos.y][matchedPos.x] = new Tile { Id = -1, Type = TileType.None };
 
                 // Dropping the tiles
                 Dictionary<int, MovedTileInfo> movedTiles = new();
@@ -103,7 +103,7 @@ namespace GameLogic.Services
                         {
                             Tile movedTile = newBoard[j - 1][x];
                             newBoard[j][x] = movedTile;
-                            if (movedTile.Type > -1)
+                            if (movedTile.Type != TileType.None)
                             {
                                 if (movedTiles.ContainsKey(movedTile.Id))
                                 {
@@ -125,7 +125,7 @@ namespace GameLogic.Services
                         newBoard[0][x] = new Tile
                         {
                             Id = -1,
-                            Type = -1
+                            Type = TileType.None
                         };
                     }
                 }
@@ -136,12 +136,12 @@ namespace GameLogic.Services
                 {
                     for (int x = newBoard[y].Count - 1; x > -1; x--)
                     {
-                        if (newBoard[y][x].Type == -1)
+                        if (newBoard[y][x].Type == TileType.None)
                         {
-                            int tileType = Random.Range(0, _tilesTypes.Count);
+                            int tileIndex = Random.Range(0, _tilesTypes.Count);
                             Tile tile = newBoard[y][x];
                             tile.Id = _tileCount++;
-                            tile.Type = _tilesTypes[tileType];
+                            tile.Type = _tilesTypes[tileIndex];
                             addedTiles.Add(new AddedTileInfo
                             {
                                 Position = new Vector2Int(x, y),
@@ -184,7 +184,7 @@ namespace GameLogic.Services
             return newBoard;
         }
 
-        private List<List<Tile>> CreateBoard(int width, int height, List<int> tileTypes)
+        private List<List<Tile>> CreateBoard(int width, int height, List<TileType> tileTypes)
         {
             List<List<Tile>> board = new(height);
             _tileCount = 0;
@@ -193,7 +193,7 @@ namespace GameLogic.Services
                 board.Add(new List<Tile>(width));
                 for (int x = 0; x < width; x++)
                 {
-                    board[y].Add(new Tile { Id = -1, Type = -1 });
+                    board[y].Add(new Tile { Id = -1, Type = TileType.None });
                 }
             }
 
@@ -201,7 +201,7 @@ namespace GameLogic.Services
             {
                 for (int x = 0; x < width; x++)
                 {
-                    List<int> noMatchTypes = new(tileTypes.Count);
+                    List<TileType> noMatchTypes = new(tileTypes.Count);
                     for (int i = 0; i < tileTypes.Count; i++)
                     {
                         noMatchTypes.Add(_tilesTypes[i]);

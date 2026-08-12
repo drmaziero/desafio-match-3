@@ -3,6 +3,6 @@
     public class Tile
     {
         public int Id { get; set; }
-        public int Type { get; set; }
+        public TileType Type { get; set; }
     }
 }

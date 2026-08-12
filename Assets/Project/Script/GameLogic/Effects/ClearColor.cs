@@ -17,7 +17,7 @@ namespace GameLogic.Effects
         {
             for (int y = 0; y < board.Count; y++)
             {
-                int targetType = board[Origin.y][Origin.x].Type;
+                var targetType = board[Origin.y][Origin.x].Type;
                 
                 for (int x = 0; x < board[y].Count; x++)
                 {

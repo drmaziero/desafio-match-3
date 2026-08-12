@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.Effects;
+using Models;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -105,14 +106,14 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            board[2][0].Type = 1;
-            board[4][1].Type = 1;
-            board[0][2].Type = 1;
-            board[2][2].Type = 1;
-            board[4][2].Type = 1;
-            board[1][3].Type = 1;
-            board[2][4].Type = 1;
-            board[4][4].Type = 1;
+            board[2][0].Type = TileType.Blue;
+            board[4][1].Type = TileType.Blue;
+            board[0][2].Type = TileType.Blue;
+            board[2][2].Type = TileType.Blue;
+            board[4][2].Type = TileType.Blue;
+            board[1][3].Type = TileType.Blue;
+            board[2][4].Type = TileType.Blue;
+            board[4][4].Type = TileType.Blue;
 
             var effect = new ClearColor(new Vector2Int(2, 2));
             var expectedPositions = new HashSet<Vector2Int>
