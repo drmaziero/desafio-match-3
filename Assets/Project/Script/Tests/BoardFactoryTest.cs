@@ -25,7 +25,7 @@ namespace Tests
                 for (int j = 0; j < columns; j++)
                 {
                     counter++;
-                    newboard[i].Add(new Tile{ Id = counter, Type = types[(i + j) % types.Length]});
+                    newboard[i].Add(new Tile(counter,types[(i + j) % types.Length],SpecialTileType.None));
                 }
             }
 

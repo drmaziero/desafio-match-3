@@ -106,14 +106,14 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            board[2][0].Type = TileType.Blue;
-            board[4][1].Type = TileType.Blue;
-            board[0][2].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
-            board[4][2].Type = TileType.Blue;
-            board[1][3].Type = TileType.Blue;
-            board[2][4].Type = TileType.Blue;
-            board[4][4].Type = TileType.Blue;
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[4][1].ChangeTileType(TileType.Blue);
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
+            board[4][2].ChangeTileType(TileType.Blue);
+            board[1][3].ChangeTileType(TileType.Blue);
+            board[2][4].ChangeTileType(TileType.Blue);
+            board[4][4].ChangeTileType(TileType.Blue);
 
             var effect = new ClearColor(new Vector2Int(2, 2));
             var expectedPositions = new HashSet<Vector2Int>

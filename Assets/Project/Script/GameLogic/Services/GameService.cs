@@ -88,7 +88,7 @@ namespace GameLogic.Services
                 List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
                 
                 foreach (var matchedPos in matchedPosition)
-                    newBoard[matchedPos.y][matchedPos.x] = new Tile { Id = -1, Type = TileType.None };
+                    newBoard[matchedPos.y][matchedPos.x] = new Tile(-1, TileType.None, SpecialTileType.None);
 
                 // Dropping the tiles
                 Dictionary<int, MovedTileInfo> movedTiles = new();
@@ -122,11 +122,7 @@ namespace GameLogic.Services
                             }
                         }
 
-                        newBoard[0][x] = new Tile
-                        {
-                            Id = -1,
-                            Type = TileType.None
-                        };
+                        newBoard[0][x] = new Tile(-1, TileType.None, SpecialTileType.None);
                     }
                 }
 
@@ -140,8 +136,8 @@ namespace GameLogic.Services
                         {
                             int tileIndex = Random.Range(0, _tilesTypes.Count);
                             Tile tile = newBoard[y][x];
-                            tile.Id = _tileCount++;
-                            tile.Type = _tilesTypes[tileIndex];
+                            tile.ChangeId(_tileCount++);
+                            tile.ChangeTileType(_tilesTypes[tileIndex]);
                             addedTiles.Add(new AddedTileInfo
                             {
                                 Position = new Vector2Int(x, y),
@@ -177,7 +173,7 @@ namespace GameLogic.Services
                 for (int x = 0; x < boardToCopy[y].Count; x++)
                 {
                     Tile tile = boardToCopy[y][x];
-                    newBoard[y].Add(new Tile { Id = tile.Id, Type = tile.Type });
+                    newBoard[y].Add(new Tile(tile.Id, tile.Type, tile.SpecialType));
                 }
             }
 
@@ -193,7 +189,7 @@ namespace GameLogic.Services
                 board.Add(new List<Tile>(width));
                 for (int x = 0; x < width; x++)
                 {
-                    board[y].Add(new Tile { Id = -1, Type = TileType.None });
+                    board[y].Add(new Tile(-1, TileType.None, SpecialTileType.None));
                 }
             }
 
@@ -219,8 +215,8 @@ namespace GameLogic.Services
                         noMatchTypes.Remove(board[y - 1][x].Type);
                     }
 
-                    board[y][x].Id = _tileCount++;
-                    board[y][x].Type = noMatchTypes[Random.Range(0, noMatchTypes.Count)];
+                    board[y][x].ChangeId(_tileCount++);
+                    board[y][x].ChangeTileType(noMatchTypes[Random.Range(0, noMatchTypes.Count)]);
                 }
             }
 

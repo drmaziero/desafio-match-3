@@ -16,11 +16,11 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 3);
-            board[0][0].Type = TileType.Blue;
-            board[1][0].Type = TileType.Blue;
-            board[2][0].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
+            board[0][0].ChangeTileType(TileType.Blue);
+            board[1][0].ChangeTileType(TileType.Blue);
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -40,11 +40,11 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 3);
-            board[0][0].Type = TileType.Blue;
-            board[0][1].Type = TileType.Blue;
-            board[0][2].Type = TileType.Blue;
-            board[1][0].Type = TileType.Blue;
-            board[2][0].Type = TileType.Blue;
+            board[0][0].ChangeTileType(TileType.Blue);
+            board[0][1].ChangeTileType(TileType.Blue);
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[1][0].ChangeTileType(TileType.Blue);
+            board[2][0].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -64,11 +64,11 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 3);
-            board[0][2].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][0].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -88,11 +88,11 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 3);
-            board[0][0].Type = TileType.Blue;
-            board[0][1].Type = TileType.Blue;
-            board[0][2].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
+            board[0][0].ChangeTileType(TileType.Blue);
+            board[0][1].ChangeTileType(TileType.Blue);
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -112,12 +112,12 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 4);
-            board[2][0].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
-            board[2][3].Type = TileType.Blue;
-            board[0][1].Type = TileType.Blue;
-            board[1][1].Type = TileType.Blue;
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
+            board[2][3].ChangeTileType(TileType.Blue);
+            board[0][1].ChangeTileType(TileType.Blue);
+            board[1][1].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -138,12 +138,12 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(4, 3);
-            board[0][0].Type = TileType.Blue;
-            board[1][0].Type = TileType.Blue;
-            board[1][1].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][0].Type = TileType.Blue;
-            board[3][0].Type = TileType.Blue;
+            board[0][0].ChangeTileType(TileType.Blue);
+            board[1][0].ChangeTileType(TileType.Blue);
+            board[1][1].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[3][0].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -164,12 +164,12 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(4, 3);
-            board[0][2].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][0].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
-            board[3][2].Type = TileType.Blue;
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
+            board[3][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -189,12 +189,12 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 4);
-            board[0][0].Type = TileType.Blue;
-            board[0][1].Type = TileType.Blue;
-            board[0][2].Type = TileType.Blue;
-            board[0][3].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
+            board[0][0].ChangeTileType(TileType.Blue);
+            board[0][1].ChangeTileType(TileType.Blue);
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[0][3].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -215,13 +215,13 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(4, 4);
-            board[2][0].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
-            board[2][3].Type = TileType.Blue;
-            board[0][1].Type = TileType.Blue;
-            board[1][1].Type = TileType.Blue;
-            board[3][1].Type = TileType.Blue;
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
+            board[2][3].ChangeTileType(TileType.Blue);
+            board[0][1].ChangeTileType(TileType.Blue);
+            board[1][1].ChangeTileType(TileType.Blue);
+            board[3][1].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -242,13 +242,13 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(4, 4);
-            board[0][1].Type = TileType.Blue;
-            board[1][0].Type = TileType.Blue;
-            board[1][1].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[1][3].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[3][1].Type = TileType.Blue;
+            board[0][1].ChangeTileType(TileType.Blue);
+            board[1][0].ChangeTileType(TileType.Blue);
+            board[1][1].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[1][3].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[3][1].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -269,13 +269,13 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(4, 4);
-            board[0][2].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][0].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
-            board[2][3].Type = TileType.Blue;
-            board[3][2].Type = TileType.Blue;
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
+            board[2][3].ChangeTileType(TileType.Blue);
+            board[3][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -296,13 +296,13 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(4, 4);
-            board[0][2].Type = TileType.Blue;
-            board[1][0].Type = TileType.Blue;
-            board[1][1].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[1][3].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
-            board[3][2].Type = TileType.Blue;
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[1][0].ChangeTileType(TileType.Blue);
+            board[1][1].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[1][3].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
+            board[3][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -322,13 +322,13 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 5);
-            board[0][0].Type = TileType.Blue;
-            board[0][1].Type = TileType.Blue;
-            board[0][2].Type = TileType.Blue;
-            board[0][3].Type = TileType.Blue;
-            board[0][4].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
+            board[0][0].ChangeTileType(TileType.Blue);
+            board[0][1].ChangeTileType(TileType.Blue);
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[0][3].ChangeTileType(TileType.Blue);
+            board[0][4].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
@@ -348,13 +348,13 @@ namespace Tests.Matching
              */
 
             var board = CreateGenericBoard(3, 5);
-            board[0][2].Type = TileType.Blue;
-            board[1][2].Type = TileType.Blue;
-            board[2][0].Type = TileType.Blue;
-            board[2][1].Type = TileType.Blue;
-            board[2][2].Type = TileType.Blue;
-            board[2][3].Type = TileType.Blue;
-            board[2][4].Type = TileType.Blue;
+            board[0][2].ChangeTileType(TileType.Blue);
+            board[1][2].ChangeTileType(TileType.Blue);
+            board[2][0].ChangeTileType(TileType.Blue);
+            board[2][1].ChangeTileType(TileType.Blue);
+            board[2][2].ChangeTileType(TileType.Blue);
+            board[2][3].ChangeTileType(TileType.Blue);
+            board[2][4].ChangeTileType(TileType.Blue);
 
             var matchingService = new MatchingService();
             matchingService.Init();
