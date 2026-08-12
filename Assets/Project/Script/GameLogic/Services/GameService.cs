@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using GameLogic.Effects;
 using Models;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameLogic.Services
 {
@@ -60,10 +62,12 @@ namespace GameLogic.Services
                 }
             }
 
+            if (newBoard[toY][toX].SpecialType != SpecialTileType.None ||
+                newBoard[fromY][fromX].SpecialType != SpecialTileType.None)
+                return true;
+
             return false;
         }
-
-       
 
         public List<BoardSequence> SwapTile(int fromX, int fromY, int toX, int toY)
         {
@@ -74,17 +78,22 @@ namespace GameLogic.Services
             List<BoardSequence> boardSequences = new();
 
             var detectedMatches = _matchingService.FindMatches(newBoard);
+            var effectActive = newBoard[fromY][fromX].SpecialType != SpecialTileType.None ||
+                               newBoard[toY][toX].SpecialType != SpecialTileType.None;
 
             int cascadeCounter = 1;
-            
-            while (detectedMatches.HasBasicMatches)
+
+            while (detectedMatches.HasBasicMatches || effectActive)
             {
                 ScoreService.ComputeScore(detectedMatches, cascadeCounter);
 
                 Vector2Int? movedPosition = cascadeCounter == 1 ? new Vector2Int(toX, toY) : null;
                 var effects = _effectService.CreateEffects(detectedMatches, newBoard, movedPosition);
-                
-                List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
+
+                var matchedPosition = effectActive
+                    ? GetEffectPositions(fromX, fromY, toX, toY, newBoard)
+                    : _matchingService.GetMatchedPositions();
+
                 var addedSpecialTileInfo = CreateEffectTiles(newBoard, effects, matchedPosition);
                 RemovedMatchedTiles(newBoard, matchedPosition);
 
@@ -95,7 +104,8 @@ namespace GameLogic.Services
                 {
                     MatchedPosition = matchedPosition,
                     MovedTiles = movedTilesList,
-                    AddedTiles = addedTiles
+                    AddedTiles = addedTiles,
+                    AddedSpecialTiles = addedSpecialTileInfo
                 };
                 boardSequences.Add(sequence);
                 detectedMatches = _matchingService.FindMatches(newBoard);
@@ -106,6 +116,52 @@ namespace GameLogic.Services
             _boardTiles = newBoard;
 
             return boardSequences;
+        }
+
+        private static List<Vector2Int> GetEffectPositions(int fromX, int fromY, int toX, int toY, List<List<Tile>> newBoard)
+        {
+            Vector2Int effectPosition;
+            Tile effectTile;
+            
+            if (newBoard[toY][toX].SpecialType != SpecialTileType.None)
+            {
+                effectTile = newBoard[toY][toX];
+                effectPosition = new Vector2Int(toX, toY);
+            }
+            else
+            {
+                effectTile = newBoard[fromY][fromX];
+                effectPosition = new Vector2Int(fromX, fromY);
+            }
+
+            IMatchEffect currentEffect;
+                    
+            switch (effectTile.SpecialType)
+            {
+                case SpecialTileType.ClearRow:
+                    currentEffect = new ClearLineEffect(effectPosition, effectTile.Type);
+                    break;
+                case SpecialTileType.ClearColumn:
+                    currentEffect = new ClearColumnEffect(effectPosition, effectTile.Type);
+                    break;
+                case SpecialTileType.ClearColor:
+                    currentEffect = new ClearColor(effectPosition, effectTile.Type);
+                    break;
+                case SpecialTileType.ExplosionRadius3:
+                    currentEffect = new ExplosionEffect(effectPosition, 3, effectTile.Type);
+                    break;
+                case SpecialTileType.ClearCross:
+                    currentEffect = new ClearCrossEffect(effectPosition, effectTile.Type);
+                    break;
+                case SpecialTileType.ExplosionRadius5AndCross:
+                    currentEffect = new ExplosionAndCleanCrossEffect(effectPosition, 5, effectTile.Type);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(
+                        $"{effectTile.SpecialType} not create an effect valid");
+            }
+            
+            return new List<Vector2Int>(currentEffect.GetAffectPositions(newBoard));
         }
 
         private List<AddedTileInfo> FillingTiles(List<List<Tile>> newBoard)

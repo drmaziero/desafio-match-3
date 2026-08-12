@@ -75,6 +75,28 @@ namespace Views
             return sequence;
         }
 
+        public Tween CreateSpecialTile(IEnumerable<AddedSpecialTileInfo> addedSpecialTiles)
+        {
+            Sequence sequence = DOTween.Sequence();
+            foreach (var addedSpecialTileInfo in addedSpecialTiles)
+            {
+                Vector2Int position = addedSpecialTileInfo.Position;
+                TileSpotView tileSpot = _tileSpots[position.y][position.x];
+                
+                GameObject specialTilePrefab =
+                    _tilePrefabRepository.GetEffectTilePrefab(addedSpecialTileInfo.SpecialTileType);
+                GameObject specialTile = Instantiate(specialTilePrefab);
+                tileSpot.ReplaceTile(specialTile);
+
+                _tiles[position.y][position.x] = specialTile;
+                
+                specialTile.transform.localScale = Vector2.zero;
+                sequence.Join(specialTile.transform.DOScale(1.0f, 0.2f));
+            }
+
+            return sequence;
+        }
+
         public Tween DestroyTiles(List<Vector2Int> matchedPosition)
         {
             for (int i = 0; i < matchedPosition.Count; i++)

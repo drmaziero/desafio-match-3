@@ -41,6 +41,14 @@ namespace Views
             tile.transform.position = transform.position;
         }
 
+        public void ReplaceTile(GameObject tile)
+        {
+            foreach (Transform child in transform)
+                Destroy(child.gameObject);
+            
+            SetTile(tile);
+        }
+
         private void OnTileClick()
         {
             Clicked?.Invoke(_x, _y);
