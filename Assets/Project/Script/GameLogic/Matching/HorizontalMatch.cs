@@ -38,5 +38,10 @@ namespace GameLogic.Matching
         {
             return false;
         }
+
+        public override Vector2Int GetDefaultOrigin()
+        {
+            return new Vector2Int(StartIndex + Count / 2, MainIndex);
+        }
     }
 }

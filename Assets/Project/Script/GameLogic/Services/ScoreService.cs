@@ -11,30 +11,29 @@ namespace GameLogic.Services
         public event Action<int> ScoreChanged;
         private int _score;
         private ScoreConfig _config;
-
-        private HashSet<BasicMatch> _consumedMatches;
+        private readonly MatchConsumptionTracker _consumptionTracker;
 
         public ScoreService(ScoreConfig config)
         {
             _score = 0;
             _config = config;
-            _consumedMatches = new HashSet<BasicMatch>();
+            _consumptionTracker = new MatchConsumptionTracker();
         }
 
         public void Init()
         {
             _score = 0;
-            _consumedMatches.Clear();
+            _consumptionTracker.Clear();
         }
 
         public void ComputeScore(
-            IEnumerable<ComplexBoardFactory> complexMatches, 
-            IEnumerable<ComposedBoardFactory> composedMatches,
+            IEnumerable<ComplexMatch> complexMatches, 
+            IEnumerable<ComposedMatch> composedMatches,
             IEnumerable<BasicMatch> horizontalMatches, 
             IEnumerable<BasicMatch> verticalMatches,
             int cascadeCounter)
         {
-            _consumedMatches.Clear();
+            _consumptionTracker.Clear();
 
             int newScore = 0;
             newScore += CalcComplexMatchScore(complexMatches);
@@ -51,28 +50,28 @@ namespace GameLogic.Services
             ScoreChanged?.Invoke(_score);
         }
         
-        private int CalcComplexMatchScore(IEnumerable<ComplexBoardFactory> complexMatches)
+        private int CalcComplexMatchScore(IEnumerable<ComplexMatch> complexMatches)
         {
             int score = 0;
             foreach (var complexMatch in complexMatches)
             {
-                if (HasConsumedMatches(complexMatch.BasicMatches))
+                if (_consumptionTracker.HasConsumedMatches(complexMatch.BasicMatches))
                     continue;
                 
                 score += _config.ComplexMatchScore + complexMatch.SequenceCount() * _config.ComplexElementScore;
-                Consume(complexMatch.BasicMatches);
+                _consumptionTracker.Consume(complexMatch.BasicMatches);
             }
 
             return score;
         }
 
-        private int CalcComposeMatchScore(IEnumerable<ComposedBoardFactory> composedMatches)
+        private int CalcComposeMatchScore(IEnumerable<ComposedMatch> composedMatches)
         {
             int score = 0;
             
             foreach (var composedMatch in composedMatches)
             {
-                if (HasConsumedMatches(composedMatch.BasicMatches))
+                if (_consumptionTracker.HasConsumedMatches(composedMatch.BasicMatches))
                     continue;
 
                 if (composedMatch.IsMatchL())
@@ -80,7 +79,7 @@ namespace GameLogic.Services
                 else
                     score += _config.MatchTScore + composedMatch.SequenceCount() * _config.MatchTElementScore;
                 
-                Consume(composedMatch.BasicMatches);
+                _consumptionTracker.Consume(composedMatch.BasicMatches);
             }
 
             return score;
@@ -91,7 +90,7 @@ namespace GameLogic.Services
             int score = 0;
             foreach (var match in basicMatches)
             {
-                if (IsConsumed(match)) 
+                if (_consumptionTracker.IsConsumed(match)) 
                     continue;
                 
                 if (match.IsHorizontal())
@@ -99,26 +98,10 @@ namespace GameLogic.Services
                 else
                     score += _config.VerticalMatchScore + match.Count * _config.VerticalElementScore;
                 
-                _consumedMatches.Add(match);
+                _consumptionTracker.Consume(match);
             }
 
             return score;
-        }
-
-        private void Consume(IEnumerable<BasicMatch> matches)
-        {
-            foreach (var match in matches)
-                _consumedMatches.Add(match);
-        }
-
-        private bool IsConsumed(BasicMatch match)
-        {
-            return _consumedMatches.Contains(match);
-        }
-
-        private bool HasConsumedMatches(IEnumerable<BasicMatch> matches)
-        {
-            return matches.Any(IsConsumed);
         }
     }
 }

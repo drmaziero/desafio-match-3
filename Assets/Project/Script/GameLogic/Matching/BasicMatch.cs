@@ -55,5 +55,7 @@ namespace GameLogic.Matching
 
         public abstract bool IsHorizontal();
         public abstract bool IsVertical();
+
+        public abstract Vector2Int GetDefaultOrigin();
     }
 }

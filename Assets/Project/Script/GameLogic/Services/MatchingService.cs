@@ -10,20 +10,20 @@ namespace GameLogic.Services
     {
         private List<BasicMatch> _horizontalMatches;
         private List<BasicMatch> _verticalMatches;
-        private List<ComposedBoardFactory> _composedMatches;
-        private List<ComplexBoardFactory> _complexMatches;
+        private List<ComposedMatch> _composedMatches;
+        private List<ComplexMatch> _complexMatches;
         
         public IReadOnlyList<BasicMatch> HorizontalMatches => _horizontalMatches;
         public IReadOnlyList<BasicMatch> VerticalMatches => _verticalMatches;
-        public IReadOnlyList<ComposedBoardFactory> ComposedMatches => _composedMatches;
-        public IReadOnlyList<ComplexBoardFactory> ComplexMatches => _complexMatches;
+        public IReadOnlyList<ComposedMatch> ComposedMatches => _composedMatches;
+        public IReadOnlyList<ComplexMatch> ComplexMatches => _complexMatches;
 
         public void Init()
         {
             _horizontalMatches = new List<BasicMatch>();
             _verticalMatches = new List<BasicMatch>();
-            _composedMatches = new List<ComposedBoardFactory>();
-            _complexMatches = new List<ComplexBoardFactory>();
+            _composedMatches = new List<ComposedMatch>();
+            _complexMatches = new List<ComplexMatch>();
         }
 
         private void Reset()
@@ -161,7 +161,7 @@ namespace GameLogic.Services
                     var intersectionPoint = horizontalMatch.HasIntersection(verticalMatch);
                     if (!intersectionPoint.Equals(notIntersection))
                     {
-                        _composedMatches.Add(new ComposedBoardFactory(intersectionPoint,
+                        _composedMatches.Add(new ComposedMatch(intersectionPoint,
                             new List<BasicMatch>() { horizontalMatch, verticalMatch }));
                     }
                 }
@@ -173,7 +173,7 @@ namespace GameLogic.Services
             if (!HasComposeMatch())
                 return;
 
-            var visited = new HashSet<ComposedBoardFactory>();
+            var visited = new HashSet<ComposedMatch>();
             
             foreach (var composedMatch in _composedMatches)
             {
@@ -183,17 +183,17 @@ namespace GameLogic.Services
                 var connectedMatches = GetConnectedMatches(composedMatch, visited);
                 
                 if (connectedMatches.Count > 1)
-                    _complexMatches.Add(new ComplexBoardFactory(connectedMatches));
+                    _complexMatches.Add(new ComplexMatch(connectedMatches));
             }
         }
 
-        private List<ComposedBoardFactory> GetConnectedMatches(ComposedBoardFactory initBoardFactory, HashSet<ComposedBoardFactory> visitedMatches)
+        private List<ComposedMatch> GetConnectedMatches(ComposedMatch initMatch, HashSet<ComposedMatch> visitedMatches)
         {
-            var result = new List<ComposedBoardFactory>();
-            var pending = new Queue<ComposedBoardFactory>();
+            var result = new List<ComposedMatch>();
+            var pending = new Queue<ComposedMatch>();
             
-            pending.Enqueue(initBoardFactory);
-            visitedMatches.Add(initBoardFactory);
+            pending.Enqueue(initMatch);
+            visitedMatches.Add(initMatch);
 
             while (pending.Count > 0)
             {

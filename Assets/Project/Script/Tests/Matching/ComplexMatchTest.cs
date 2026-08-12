@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Tests.Matching
 {
-    public class ComplexBoardFactoryTest : BoardFactoryTest
+    public class ComplexMatchTest : BoardFactoryTest
     {
         [Test]
         public void ShouldDetectMatchU()

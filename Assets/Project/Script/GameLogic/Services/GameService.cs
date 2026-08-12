@@ -10,12 +10,15 @@ namespace GameLogic.Services
         private List<int> _tilesTypes;
         private int _tileCount;
         private MatchingService _matchingService;
+        private MatchEffectService _effectService;
         
         public ScoreService ScoreService { get; private set; }
 
         public GameService(ScoreConfig scoreConfig)
         {
             _matchingService = new MatchingService();
+            _effectService = new MatchEffectService();
+            
             ScoreService = new ScoreService(scoreConfig);
             
         }
@@ -77,6 +80,10 @@ namespace GameLogic.Services
             {
                 ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
                     _matchingService.HorizontalMatches, _matchingService.VerticalMatches, cascadeCounter);
+
+                Vector2Int? movedPosition = cascadeCounter == 1 ? new Vector2Int(toX, toY) : null;
+                _effectService.CreateEffects(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
+                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches, movedPosition);
                 
                 List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
                 
