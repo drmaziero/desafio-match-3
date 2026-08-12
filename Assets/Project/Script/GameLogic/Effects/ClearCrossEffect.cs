@@ -4,19 +4,19 @@ using UnityEngine;
 
 namespace GameLogic.Effects
 {
-    public class CleanCrossEffect : IMatchEffect
+    public class ClearCrossEffect : IMatchEffect
     {
         public Vector2Int Origin { get; }
 
         private ClearLineEffect _clearLineEffect;
         private ClearColumnEffect _clearColumnEffect;
         
-        public CleanCrossEffect(Vector2Int origin)
+        public ClearCrossEffect(Vector2Int origin)
         {
             Origin = origin;
 
             _clearColumnEffect = new ClearColumnEffect(Origin);
-            _clearColumnEffect = new ClearColumnEffect(Origin);
+            _clearLineEffect = new ClearLineEffect(Origin);
         }
         
         public IEnumerable<Vector2Int> GetAffectPositions(IReadOnlyList<IReadOnlyList<Tile>> board)

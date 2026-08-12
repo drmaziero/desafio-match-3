@@ -28,8 +28,8 @@ namespace GameLogic.Services
         }
 
         public void ComputeScore(
-            IEnumerable<ComplexMatch> complexMatches, 
-            IEnumerable<ComposedMatch> composedMatches,
+            IEnumerable<ComplexBoardFactory> complexMatches, 
+            IEnumerable<ComposedBoardFactory> composedMatches,
             IEnumerable<BasicMatch> horizontalMatches, 
             IEnumerable<BasicMatch> verticalMatches,
             int cascadeCounter)
@@ -51,7 +51,7 @@ namespace GameLogic.Services
             ScoreChanged?.Invoke(_score);
         }
         
-        private int CalcComplexMatchScore(IEnumerable<ComplexMatch> complexMatches)
+        private int CalcComplexMatchScore(IEnumerable<ComplexBoardFactory> complexMatches)
         {
             int score = 0;
             foreach (var complexMatch in complexMatches)
@@ -66,7 +66,7 @@ namespace GameLogic.Services
             return score;
         }
 
-        private int CalcComposeMatchScore(IEnumerable<ComposedMatch> composedMatches)
+        private int CalcComposeMatchScore(IEnumerable<ComposedBoardFactory> composedMatches)
         {
             int score = 0;
             

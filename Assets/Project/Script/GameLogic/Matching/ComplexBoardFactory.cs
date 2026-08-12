@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace GameLogic.Matching
 {
-    public class ComplexMatch
+    public class ComplexBoardFactory
     {
         public BasicMatch[] BasicMatches { get; private set; }
-        private ComposedMatch[] _composedMatches;
+        private ComposedBoardFactory[] _composedMatches;
         private HashSet<Vector2Int> _sequencePositions;
 
-        public ComplexMatch(List<ComposedMatch> composedMatches)
+        public ComplexBoardFactory(List<ComposedBoardFactory> composedMatches)
         {
             _composedMatches = composedMatches.ToArray();
             BasicMatches = _composedMatches.SelectMany(composedMatch => composedMatch.BasicMatches).Distinct().ToArray();

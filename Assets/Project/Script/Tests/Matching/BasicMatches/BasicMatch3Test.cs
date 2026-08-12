@@ -4,7 +4,7 @@ using Tests.Matching.Interfaces;
 
 namespace Tests.Matching.BasicMatches
 {
-    public class BasicMatch3Test : MatchTests, IBasicMatchTests
+    public class BasicMatch3Test : BoardFactoryTest, IBasicMatchTests
     {
         [Test]
         public void ShouldDetectHorizontalMatch()

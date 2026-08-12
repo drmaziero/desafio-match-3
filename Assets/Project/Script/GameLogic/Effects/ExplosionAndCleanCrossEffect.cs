@@ -8,14 +8,14 @@ namespace GameLogic.Effects
     {
         public Vector2Int Origin { get; }
         private ExplosionEffect _explosionEffect;
-        private CleanCrossEffect _crossEffect;
+        private ClearCrossEffect _crossEffect;
 
         public ExplosionAndCleanCrossEffect(Vector2Int origin, int radius)
         {
             Origin = origin;
 
             _explosionEffect = new ExplosionEffect(Origin, radius);
-            _crossEffect = new CleanCrossEffect(Origin);
+            _crossEffect = new ClearCrossEffect(Origin);
         }
 
         public IEnumerable<Vector2Int> GetAffectPositions(IReadOnlyList<IReadOnlyList<Tile>> board)

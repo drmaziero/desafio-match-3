@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace GameLogic.Matching
 {
-    public class ComposedMatch
+    public class ComposedBoardFactory
     {
         public BasicMatch[] BasicMatches { get; private set; }
         private Vector2Int _intersectionPoint;
         private HashSet<Vector2Int> _sequencePositions;
 
-        public ComposedMatch(Vector2Int intersectionPoint, List<BasicMatch> basicMatches)
+        public ComposedBoardFactory(Vector2Int intersectionPoint, List<BasicMatch> basicMatches)
         {
             _intersectionPoint = intersectionPoint;
             BasicMatches = basicMatches.ToArray();
@@ -34,11 +34,11 @@ namespace GameLogic.Matching
             return !IsMatchT();
         }
 
-        public bool HasIntersection(ComposedMatch otherMatch)
+        public bool HasIntersection(ComposedBoardFactory otherBoardFactory)
         {
             foreach (var basicMatch in BasicMatches)
             {
-                foreach (var otherBasicMatch in otherMatch.BasicMatches)
+                foreach (var otherBasicMatch in otherBoardFactory.BasicMatches)
                 {
                     if (basicMatch.Equals(otherBasicMatch))
                         return true;

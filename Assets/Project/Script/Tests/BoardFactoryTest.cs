@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Models;
 
-namespace Tests.Matching
+namespace Tests
 {
-    public abstract class MatchTests
+    public abstract class BoardFactoryTest
     {
          protected List<List<Tile>> CreateGenericBoard(int lines, int columns)
         {
@@ -24,6 +24,5 @@ namespace Tests.Matching
 
             return newboard;
         }
-        
     }
 }
