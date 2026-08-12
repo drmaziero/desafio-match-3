@@ -61,11 +61,19 @@ namespace GameLogic.Services
             {
                 if (_consumptionTracker.IsConsumed(match)) 
                     continue;
-                
-                if (match.IsHorizontal())
-                    effects.Add(new ClearLineEffect(GetEffectOrigin(match, movedPosition)));
-                else
-                    effects.Add(new ClearColumnEffect(GetEffectOrigin(match, movedPosition)));
+
+                switch (match.Count)
+                {
+                    case > 4:
+                        effects.Add(new ClearColor(GetEffectOrigin(match, movedPosition)));
+                        break;
+                    case > 3 when match.IsHorizontal():
+                        effects.Add(new ClearLineEffect(GetEffectOrigin(match, movedPosition)));
+                        break;
+                    case > 3:
+                        effects.Add(new ClearColumnEffect(GetEffectOrigin(match, movedPosition)));
+                        break;
+                }
                 
                 _consumptionTracker.Consume(match);
             }
