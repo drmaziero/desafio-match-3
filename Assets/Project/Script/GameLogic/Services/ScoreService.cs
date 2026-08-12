@@ -26,19 +26,20 @@ namespace GameLogic.Services
             _consumptionTracker.Clear();
         }
 
-        public void ComputeScore(
-            IEnumerable<ComplexMatch> complexMatches, 
-            IEnumerable<ComposedMatch> composedMatches,
-            IEnumerable<BasicMatch> horizontalMatches, 
-            IEnumerable<BasicMatch> verticalMatches,
-            int cascadeCounter)
+        public void ComputeScore(DetectedMatches detectedMatches ,int cascadeCounter)
         {
             _consumptionTracker.Clear();
 
             int newScore = 0;
-            newScore += CalcComplexMatchScore(complexMatches);
-            newScore += CalcComposeMatchScore(composedMatches);
-            newScore += CalcBasicMatchScore(horizontalMatches.Concat(verticalMatches));
+            
+            if (detectedMatches.HasComplexMatches)
+                newScore += CalcComplexMatchScore(detectedMatches.ComplexMatches);
+            
+            if (detectedMatches.HasComposedMatches)
+                newScore += CalcComposeMatchScore(detectedMatches.ComposedMatches);
+            
+            if (detectedMatches.HasBasicMatches)
+                newScore += CalcBasicMatchScore(detectedMatches.BasicMatches);
 
             int multiplier = _config.GetCascadeMultiplier(cascadeCounter);
             AddScore(newScore * multiplier);

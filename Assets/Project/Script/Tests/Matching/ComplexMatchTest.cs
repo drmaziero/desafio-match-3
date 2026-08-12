@@ -25,8 +25,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -49,8 +49,8 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -73,8 +73,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -97,8 +97,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -127,8 +127,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,11);
         }
         
@@ -157,8 +157,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,11);
         }
         
@@ -187,8 +187,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,11);
         }
         
@@ -215,8 +215,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,11);
         }
         
@@ -243,8 +243,8 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,11);
         }
         
@@ -270,8 +270,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,8);
         }
         
@@ -300,8 +300,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,10);
         }
         
@@ -335,8 +335,8 @@ namespace Tests.Matching
             
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComplexMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComplexMatches);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,16);
         }
         

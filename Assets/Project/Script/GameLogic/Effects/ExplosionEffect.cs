@@ -7,12 +7,15 @@ namespace GameLogic.Effects
     public class ExplosionEffect : IMatchEffect
     {
         public Vector2Int Origin { get; }
+        public TileType TileType { get; }
+        public SpecialTileType SpecialTileType => SpecialTileType.ExplosionRadius3;
         private int _radius;
 
-        public ExplosionEffect(Vector2Int origin, int radius)
+        public ExplosionEffect(Vector2Int origin, int radius, TileType tileType)
         {
             Origin = origin;
             _radius = radius;
+            TileType = tileType;
         }
         
         public IEnumerable<Vector2Int> GetAffectPositions(IReadOnlyList<IReadOnlyList<Tile>> board)

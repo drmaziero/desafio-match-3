@@ -72,18 +72,16 @@ namespace GameLogic.Services
 
             List<BoardSequence> boardSequences = new();
 
-            _matchingService.FindMatches(newBoard);
+            var detectedMatches = _matchingService.FindMatches(newBoard);
 
             int cascadeCounter = 1;
             
-            while (_matchingService.HasBasicMatch())
+            while (detectedMatches.HasBasicMatches)
             {
-                ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
-                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches, cascadeCounter);
+                ScoreService.ComputeScore(detectedMatches, cascadeCounter);
 
                 Vector2Int? movedPosition = cascadeCounter == 1 ? new Vector2Int(toX, toY) : null;
-                _effectService.CreateEffects(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
-                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches, movedPosition);
+                _effectService.CreateEffects(detectedMatches, newBoard, movedPosition);
                 
                 List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
                 
@@ -154,7 +152,7 @@ namespace GameLogic.Services
                     AddedTiles = addedTiles
                 };
                 boardSequences.Add(sequence);
-                _matchingService.FindMatches(newBoard);
+                detectedMatches = _matchingService.FindMatches(newBoard);
 
                 cascadeCounter++;
             }

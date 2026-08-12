@@ -7,16 +7,19 @@ namespace GameLogic.Effects
     public class ClearCrossEffect : IMatchEffect
     {
         public Vector2Int Origin { get; }
+        public TileType TileType { get; }
+        public SpecialTileType SpecialTileType => SpecialTileType.ClearCross;
 
         private ClearLineEffect _clearLineEffect;
         private ClearColumnEffect _clearColumnEffect;
         
-        public ClearCrossEffect(Vector2Int origin)
+        public ClearCrossEffect(Vector2Int origin, TileType tileType)
         {
             Origin = origin;
+            TileType = tileType;
 
-            _clearColumnEffect = new ClearColumnEffect(Origin);
-            _clearLineEffect = new ClearLineEffect(Origin);
+            _clearColumnEffect = new ClearColumnEffect(Origin, tileType);
+            _clearLineEffect = new ClearLineEffect(Origin, tileType);
         }
         
         public IEnumerable<Vector2Int> GetAffectPositions(IReadOnlyList<IReadOnlyList<Tile>> board)

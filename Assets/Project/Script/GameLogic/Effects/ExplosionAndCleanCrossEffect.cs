@@ -7,15 +7,19 @@ namespace GameLogic.Effects
     public class ExplosionAndCleanCrossEffect : IMatchEffect
     {
         public Vector2Int Origin { get; }
+        public TileType TileType { get; }
+        public SpecialTileType SpecialTileType => SpecialTileType.ExplosionRadius5AndCross;
+        
         private ExplosionEffect _explosionEffect;
         private ClearCrossEffect _crossEffect;
 
-        public ExplosionAndCleanCrossEffect(Vector2Int origin, int radius)
+        public ExplosionAndCleanCrossEffect(Vector2Int origin, int radius, TileType tileType)
         {
             Origin = origin;
+            TileType = tileType;
 
-            _explosionEffect = new ExplosionEffect(Origin, radius);
-            _crossEffect = new ClearCrossEffect(Origin);
+            _explosionEffect = new ExplosionEffect(Origin, radius, tileType);
+            _crossEffect = new ClearCrossEffect(Origin, tileType);
         }
 
         public IEnumerable<Vector2Int> GetAffectPositions(IReadOnlyList<IReadOnlyList<Tile>> board)

@@ -25,12 +25,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsTrue(matchingService.HasHorizontalMatch());
-            Assert.IsFalse(matchingService.HasVerticalMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsTrue(detectedMatches.HasHorizontalMatched);
+            Assert.IsFalse(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.HorizontalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.HorizontalMatchesCount,1);
         }
         
         [Test]
@@ -51,12 +52,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsTrue(matchingService.HasHorizontalMatch());
-            Assert.IsFalse(matchingService.HasVerticalMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsTrue(detectedMatches.HasHorizontalMatched);
+            Assert.IsFalse(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.HorizontalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.HorizontalMatchesCount,1);
         }
         
         [Test]
@@ -77,12 +79,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsTrue(matchingService.HasHorizontalMatch());
-            Assert.IsFalse(matchingService.HasVerticalMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsTrue(detectedMatches.HasHorizontalMatched);
+            Assert.IsFalse(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.HorizontalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.HorizontalMatchesCount,1);
         }
         
         [Test]
@@ -103,13 +106,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-       
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsTrue(matchingService.HasHorizontalMatch());
-            Assert.IsFalse(matchingService.HasVerticalMatch());
+            var detectedMatches = matchingService.FindMatches(board);
+            
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsTrue(detectedMatches.HasHorizontalMatched);
+            Assert.IsFalse(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.HorizontalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.HorizontalMatchesCount,1);
         }
         
         [Test]
@@ -132,13 +135,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
+            var detectedMatches = matchingService.FindMatches(board);
             
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsFalse(matchingService.HasHorizontalMatch());
-            Assert.IsTrue(matchingService.HasVerticalMatch());
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsFalse(detectedMatches.HasHorizontalMatched);
+            Assert.IsTrue(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.VerticalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.VerticalMatchesCount,1);
         }
         
         [Test]
@@ -163,13 +166,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
+            var detectedMatches = matchingService.FindMatches(board);
             
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsFalse(matchingService.HasHorizontalMatch());
-            Assert.IsTrue(matchingService.HasVerticalMatch());
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsFalse(detectedMatches.HasHorizontalMatched);
+            Assert.IsTrue(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.VerticalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.VerticalMatchesCount,1);
         }
         
         [Test]
@@ -194,13 +197,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
+            var detectedMatches = matchingService.FindMatches(board);
             
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsFalse(matchingService.HasHorizontalMatch());
-            Assert.IsTrue(matchingService.HasVerticalMatch());
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsFalse(detectedMatches.HasHorizontalMatched);
+            Assert.IsTrue(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.VerticalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.VerticalMatchesCount,1);
         }
         
         [Test]
@@ -225,13 +228,13 @@ namespace Tests.Matching.BasicMatches
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
+            var detectedMatches = matchingService.FindMatches(board);
             
-            Assert.IsTrue(matchingService.HasBasicMatch());
-            Assert.IsFalse(matchingService.HasHorizontalMatch());
-            Assert.IsTrue(matchingService.HasVerticalMatch());
+            Assert.IsTrue(detectedMatches.HasBasicMatches);
+            Assert.IsFalse(detectedMatches.HasHorizontalMatched);
+            Assert.IsTrue(detectedMatches.HasVerticalMatched);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
-            Assert.AreEqual(matchingService.VerticalMatchesCounter(),1);
+            Assert.AreEqual(detectedMatches.VerticalMatchesCount,1);
         }
     }
 }

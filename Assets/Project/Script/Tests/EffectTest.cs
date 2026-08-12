@@ -21,7 +21,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ClearLineEffect(new Vector2Int(2, 2));
+            var effect = new ClearLineEffect(new Vector2Int(2, 2),TileType.Blue);
 
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -48,7 +48,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ClearColumnEffect(new Vector2Int(2, 2));
+            var effect = new ClearColumnEffect(new Vector2Int(2, 2), TileType.Blue);
 
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -75,7 +75,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ClearCrossEffect(new Vector2Int(2, 2));
+            var effect = new ClearCrossEffect(new Vector2Int(2, 2), TileType.Blue);
 
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -115,7 +115,7 @@ namespace Tests
             board[2][4].ChangeTileType(TileType.Blue);
             board[4][4].ChangeTileType(TileType.Blue);
 
-            var effect = new ClearColor(new Vector2Int(2, 2));
+            var effect = new ClearColor(new Vector2Int(2, 2), TileType.Blue);
             var expectedPositions = new HashSet<Vector2Int>
             {
                 new(0, 2),
@@ -144,7 +144,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ExplosionEffect(new Vector2Int(2, 2), 1);
+            var effect = new ExplosionEffect(new Vector2Int(2, 2), 1, TileType.Blue);
             
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -175,7 +175,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ExplosionEffect(new Vector2Int(4, 0), 1);
+            var effect = new ExplosionEffect(new Vector2Int(4, 0), 1, TileType.Blue);
             
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -201,7 +201,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ExplosionEffect(new Vector2Int(4, 4), 1);
+            var effect = new ExplosionEffect(new Vector2Int(4, 4), 1, TileType.Blue);
             
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -227,7 +227,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ExplosionEffect(new Vector2Int(0, 0), 1);
+            var effect = new ExplosionEffect(new Vector2Int(0, 0), 1, TileType.Blue);
             
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -253,7 +253,7 @@ namespace Tests
              */
             
             var board = CreateGenericBoard(5, 5);
-            var effect = new ExplosionEffect(new Vector2Int(0, 4), 1);
+            var effect = new ExplosionEffect(new Vector2Int(0, 4), 1, TileType.Blue);
             
             var expectedPositions = new HashSet<Vector2Int>
             {
@@ -281,10 +281,10 @@ namespace Tests
             var board = CreateGenericBoard(5, 5);
             
             Vector2Int origin = new Vector2Int(2, 2);
-            var effect = new ExplosionAndCleanCrossEffect(origin, 1);
+            var effect = new ExplosionAndCleanCrossEffect(origin, 1, TileType.Blue);
 
-            var explosion = new ExplosionEffect(origin, 1).GetAffectPositions(board);
-            var cross = new ClearCrossEffect(origin).GetAffectPositions(board);
+            var explosion = new ExplosionEffect(origin, 1,TileType.Blue).GetAffectPositions(board);
+            var cross = new ClearCrossEffect(origin,TileType.Blue).GetAffectPositions(board);
 
             var expectedPositions = explosion.Concat(cross).ToHashSet();
             

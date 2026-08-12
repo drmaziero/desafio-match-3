@@ -24,9 +24,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
         }
         
@@ -48,9 +48,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
         }
         
@@ -72,9 +72,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
         }
         
@@ -96,9 +96,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,5);
         }
         
@@ -121,9 +121,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,6);
         }
         
@@ -147,9 +147,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,6);
         }
         
@@ -173,9 +173,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,6);
         }
         
@@ -198,9 +198,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,6);
         }
         
@@ -225,9 +225,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -252,9 +252,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -279,9 +279,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -306,9 +306,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchL());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchL);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -332,9 +332,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchT());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchT);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         
@@ -358,9 +358,9 @@ namespace Tests.Matching
 
             var matchingService = new MatchingService();
             matchingService.Init();
-            matchingService.FindMatches(board);
-            Assert.IsTrue(matchingService.HasComposeMatch());
-            Assert.IsTrue(matchingService.HasComposeMatchT());
+            var detectedMatches = matchingService.FindMatches(board);
+            Assert.IsTrue(detectedMatches.HasComposedMatches);
+            Assert.IsTrue(detectedMatches.HasComposedMatchT);
             Assert.AreEqual(matchingService.GetMatchedPositions().Count,7);
         }
         

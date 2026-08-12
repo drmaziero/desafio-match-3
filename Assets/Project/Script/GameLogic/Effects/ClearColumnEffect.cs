@@ -7,10 +7,13 @@ namespace GameLogic.Effects
     public class ClearColumnEffect : IMatchEffect
     {
         public Vector2Int Origin { get; }
+        public TileType TileType { get; }
+        public SpecialTileType SpecialTileType => SpecialTileType.ClearColumn;
 
-        public ClearColumnEffect(Vector2Int origin)
+        public ClearColumnEffect(Vector2Int origin, TileType tileType)
         {
             Origin = origin;
+            TileType = tileType;
         }
         
         public IEnumerable<Vector2Int> GetAffectPositions(IReadOnlyList<IReadOnlyList<Tile>> board)
