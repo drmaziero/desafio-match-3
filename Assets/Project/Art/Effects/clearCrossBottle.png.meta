@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 09333c02db9c54a82bd46b0ebc4d899a
+guid: f67dc16a69165458b965981cccfac10a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8122004790468845092
-    second: clearCross_0
+      213: 4489320626336575773
+    second: clearCrossBottle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,12 +48,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 32
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clearCross_0
+      name: clearCrossBottle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1254
-        height: 1254
+        x: 32
+        y: 26
+        width: 1200
+        height: 1235
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd16510eca7d84f80800000000000000
-      internalID: -8122004790468845092
+      spriteID: d1130aff2554d4e30800000000000000
+      internalID: 4489320626336575773
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      clearCross_0: -8122004790468845092
+      clearCrossBottle_0: 4489320626336575773
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

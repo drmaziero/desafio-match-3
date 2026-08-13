@@ -1,0 +1,1521 @@
+fileFormatVersion: 2
+guid: e7f119b57e31349c38a6e465459bb9ec
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5450417802303437212
+    second: ClearRowLiquid_0
+  - first:
+      213: -5080888048646525252
+    second: ClearRowLiquid_1
+  - first:
+      213: -4164750249515118996
+    second: ClearRowLiquid_2
+  - first:
+      213: -8545012225441060153
+    second: ClearRowLiquid_3
+  - first:
+      213: 7794352267529447170
+    second: ClearRowLiquid_4
+  - first:
+      213: 4711749514702374515
+    second: ClearRowLiquid_5
+  - first:
+      213: 6974640205219945659
+    second: ClearRowLiquid_6
+  - first:
+      213: 9191832916603635827
+    second: ClearRowLiquid_7
+  - first:
+      213: 7174609860169887523
+    second: ClearRowLiquid_8
+  - first:
+      213: 3187953471964657109
+    second: ClearRowLiquid_9
+  - first:
+      213: 3355117360610738609
+    second: ClearRowLiquid_10
+  - first:
+      213: 5568565465008025724
+    second: ClearRowLiquid_11
+  - first:
+      213: -9028310068767044403
+    second: ClearRowLiquid_12
+  - first:
+      213: -8327133172597050395
+    second: ClearRowLiquid_13
+  - first:
+      213: 8560641451911248540
+    second: ClearRowLiquid_14
+  - first:
+      213: 8874612533968680411
+    second: ClearRowLiquid_15
+  - first:
+      213: 8754584434269796846
+    second: ClearRowLiquid_16
+  - first:
+      213: -1601164989290206846
+    second: ClearRowLiquid_17
+  - first:
+      213: -1316668600646210676
+    second: ClearRowLiquid_18
+  - first:
+      213: -9157845564604113693
+    second: ClearRowLiquid_19
+  - first:
+      213: -9192476878298490077
+    second: ClearRowLiquid_20
+  - first:
+      213: 3361160940839898094
+    second: ClearRowLiquid_21
+  - first:
+      213: -5701492643036816075
+    second: ClearRowLiquid_22
+  - first:
+      213: -1711741228258745875
+    second: ClearRowLiquid_23
+  - first:
+      213: 2581272613347079431
+    second: ClearRowLiquid_24
+  - first:
+      213: 191898864328140735
+    second: ClearRowLiquid_25
+  - first:
+      213: -7475024057286273124
+    second: ClearRowLiquid_26
+  - first:
+      213: 2757502255902465424
+    second: ClearRowLiquid_27
+  - first:
+      213: -2432049781493073107
+    second: ClearRowLiquid_28
+  - first:
+      213: 3982917572526577418
+    second: ClearRowLiquid_29
+  - first:
+      213: 2358750584654906762
+    second: ClearRowLiquid_30
+  - first:
+      213: 5860722241835976318
+    second: ClearRowLiquid_31
+  - first:
+      213: -7877159647415726033
+    second: ClearRowLiquid_32
+  - first:
+      213: 7949882168801733572
+    second: ClearRowLiquid_33
+  - first:
+      213: 541357828623759954
+    second: ClearRowLiquid_34
+  - first:
+      213: 3525634987759619365
+    second: ClearRowLiquid_35
+  - first:
+      213: 7017014796435449240
+    second: ClearRowLiquid_36
+  - first:
+      213: 1645014109367270018
+    second: ClearRowLiquid_37
+  - first:
+      213: -848225711142197124
+    second: ClearRowLiquid_38
+  - first:
+      213: -8875812505328214332
+    second: ClearRowLiquid_39
+  - first:
+      213: -5418999943279395966
+    second: ClearRowLiquid_40
+  - first:
+      213: 5263727228659756997
+    second: ClearRowLiquid_41
+  - first:
+      213: 6897236289005286990
+    second: ClearRowLiquid_42
+  - first:
+      213: -4257703156774194817
+    second: ClearRowLiquid_43
+  - first:
+      213: 38502423083622268
+    second: ClearRowLiquid_44
+  - first:
+      213: 3596922522290248549
+    second: ClearRowLiquid_45
+  - first:
+      213: 3842472426333281715
+    second: ClearRowLiquid_46
+  - first:
+      213: -271753188641344372
+    second: ClearRowLiquid_47
+  - first:
+      213: -4632275066976042370
+    second: ClearRowLiquid_48
+  - first:
+      213: -2855798249236884053
+    second: ClearRowLiquid_49
+  - first:
+      213: 7293007018784359335
+    second: ClearRowLiquid_50
+  - first:
+      213: 3406122511633677491
+    second: ClearRowLiquid_51
+  - first:
+      213: 2610606247138226686
+    second: ClearRowLiquid_52
+  - first:
+      213: -5703519611138116904
+    second: ClearRowLiquid_53
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ClearRowLiquid_0
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 999
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4660d38e2e93c54b0800000000000000
+      internalID: -5450417802303437212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_1
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 1019
+        width: 9
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbe65ec4d3f0d79b0800000000000000
+      internalID: -5080888048646525252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_2
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 933
+        width: 41
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6e8e6fb6b5d336c0800000000000000
+      internalID: -4164750249515118996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_3
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 839
+        width: 91
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ca273587a40a6980800000000000000
+      internalID: -8545012225441060153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_4
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 994
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2076a50571a1b2c60800000000000000
+      internalID: 7794352267529447170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_5
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 973
+        width: 41
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 376447e383f736140800000000000000
+      internalID: 4711749514702374515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_6
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 837
+        width: 138
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbcda4c3056eac060800000000000000
+      internalID: 6974640205219945659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_7
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 983
+        width: 109
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37807e45653ff8f70800000000000000
+      internalID: 9191832916603635827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_8
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 909
+        width: 81
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32fe075b7a5519360800000000000000
+      internalID: 7174609860169887523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_9
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 973
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d53de0dac2ed3c20800000000000000
+      internalID: 3187953471964657109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_10
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 975
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b103fa9675cf8e20800000000000000
+      internalID: 3355117360610738609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_11
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 959
+        width: 61
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c70bf4279c4874d40800000000000000
+      internalID: 5568565465008025724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_12
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 959
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dccce0593dff4b280800000000000000
+      internalID: -9028310068767044403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_13
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 943
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e33bf1af74107c80800000000000000
+      internalID: -8327133172597050395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_14
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 833
+        width: 165
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9a77a65b028dc670800000000000000
+      internalID: 8560641451911248540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_15
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 834
+        width: 235
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd5be667415f82b70800000000000000
+      internalID: 8874612533968680411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_16
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 843
+        width: 59
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee9b0d0c8288e7970800000000000000
+      internalID: 8754584434269796846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 879
+        width: 59
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 289a092fce487c9e0800000000000000
+      internalID: -1601164989290206846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_18
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 913
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8b629b32e04abde0800000000000000
+      internalID: -1316668600646210676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_19
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 897
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ec92e5bafbc8e080800000000000000
+      internalID: -9157845564604113693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_20
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 911
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32bd607abf2cd6080800000000000000
+      internalID: -9192476878298490077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_21
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 911
+        width: 29
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeb0ea7411e35ae20800000000000000
+      internalID: 3361160940839898094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_22
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 917
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d994226aa30e0b0800000000000000
+      internalID: -5701492643036816075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_23
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 853
+        width: 37
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de12f3e0c6cae38e0800000000000000
+      internalID: -1711741228258745875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_24
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 871
+        width: 29
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7053ff204c582d320800000000000000
+      internalID: 2581272613347079431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_25
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 832
+        width: 37
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb764191003c9a200800000000000000
+      internalID: 191898864328140735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_26
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 879
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c97d3f96931634890800000000000000
+      internalID: -7475024057286273124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_27
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 855
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09d976e11bd944620800000000000000
+      internalID: 2757502255902465424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_28
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 869
+        width: 67
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2bf90afb9f9f3ed0800000000000000
+      internalID: -2432049781493073107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1536
+        height: 834
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a079b180e6a264730800000000000000
+      internalID: 3982917572526577418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_30
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 111
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a85c918d827fbb020800000000000000
+      internalID: 2358750584654906762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_31
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 79
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e764dd7d3d7755150800000000000000
+      internalID: 5860722241835976318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_32
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 63
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f209eb02905bea290800000000000000
+      internalID: -7877159647415726033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_33
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 79
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cba3a556b7a35e60800000000000000
+      internalID: 7949882168801733572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_34
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 78
+        width: 9
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25afe7fa31a438700800000000000000
+      internalID: 541357828623759954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_35
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 55
+        width: 45
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52dc91d77529de030800000000000000
+      internalID: 3525634987759619365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_36
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 26
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 895e13597c1716160800000000000000
+      internalID: 7017014796435449240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_37
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 63
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a7757ed9344d610800000000000000
+      internalID: 1645014109367270018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_38
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 62
+        width: 31
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c782406b53f7a34f0800000000000000
+      internalID: -848225711142197124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_39
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 87
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ce11fe6d87c2d480800000000000000
+      internalID: -8875812505328214332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_40
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 79
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28b38fe3348dbc4b0800000000000000
+      internalID: -5418999943279395966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_41
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 61
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cfe0daa6048c0940800000000000000
+      internalID: 5263727228659756997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_42
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 60
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e46f71a9cd7e7bf50800000000000000
+      internalID: 6897236289005286990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_43
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 65
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f713a65898999e4c0800000000000000
+      internalID: -4257703156774194817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_44
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 63
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7f14e2ffb9c88000800000000000000
+      internalID: 38502423083622268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_45
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 85
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56b56b90af5dae130800000000000000
+      internalID: 3596922522290248549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_46
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 85
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bd14de3054335530800000000000000
+      internalID: 3842472426333281715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_47
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 76
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c84f37c2ae98a3cf0800000000000000
+      internalID: -271753188641344372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_48
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 63
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e728ef29e5ad6bfb0800000000000000
+      internalID: -4632275066976042370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_49
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 85
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba59d0c7f9a2e58d0800000000000000
+      internalID: -2855798249236884053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_50
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 63
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a3821b5e37f53560800000000000000
+      internalID: 7293007018784359335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_51
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 85
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bcf26fb06af44f20800000000000000
+      internalID: 3406122511633677491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_52
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 60
+        width: 44
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef1f619dc8cba3420800000000000000
+      internalID: 2610606247138226686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ClearRowLiquid_53
+      rect:
+        serializedVersion: 2
+        x: 1398
+        y: 141
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d273a8d12709d0b0800000000000000
+      internalID: -5703519611138116904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ClearRowLiquid_0: -5450417802303437212
+      ClearRowLiquid_1: -5080888048646525252
+      ClearRowLiquid_10: 3355117360610738609
+      ClearRowLiquid_11: 5568565465008025724
+      ClearRowLiquid_12: -9028310068767044403
+      ClearRowLiquid_13: -8327133172597050395
+      ClearRowLiquid_14: 8560641451911248540
+      ClearRowLiquid_15: 8874612533968680411
+      ClearRowLiquid_16: 8754584434269796846
+      ClearRowLiquid_17: -1601164989290206846
+      ClearRowLiquid_18: -1316668600646210676
+      ClearRowLiquid_19: -9157845564604113693
+      ClearRowLiquid_2: -4164750249515118996
+      ClearRowLiquid_20: -9192476878298490077
+      ClearRowLiquid_21: 3361160940839898094
+      ClearRowLiquid_22: -5701492643036816075
+      ClearRowLiquid_23: -1711741228258745875
+      ClearRowLiquid_24: 2581272613347079431
+      ClearRowLiquid_25: 191898864328140735
+      ClearRowLiquid_26: -7475024057286273124
+      ClearRowLiquid_27: 2757502255902465424
+      ClearRowLiquid_28: -2432049781493073107
+      ClearRowLiquid_29: 3982917572526577418
+      ClearRowLiquid_3: -8545012225441060153
+      ClearRowLiquid_30: 2358750584654906762
+      ClearRowLiquid_31: 5860722241835976318
+      ClearRowLiquid_32: -7877159647415726033
+      ClearRowLiquid_33: 7949882168801733572
+      ClearRowLiquid_34: 541357828623759954
+      ClearRowLiquid_35: 3525634987759619365
+      ClearRowLiquid_36: 7017014796435449240
+      ClearRowLiquid_37: 1645014109367270018
+      ClearRowLiquid_38: -848225711142197124
+      ClearRowLiquid_39: -8875812505328214332
+      ClearRowLiquid_4: 7794352267529447170
+      ClearRowLiquid_40: -5418999943279395966
+      ClearRowLiquid_41: 5263727228659756997
+      ClearRowLiquid_42: 6897236289005286990
+      ClearRowLiquid_43: -4257703156774194817
+      ClearRowLiquid_44: 38502423083622268
+      ClearRowLiquid_45: 3596922522290248549
+      ClearRowLiquid_46: 3842472426333281715
+      ClearRowLiquid_47: -271753188641344372
+      ClearRowLiquid_48: -4632275066976042370
+      ClearRowLiquid_49: -2855798249236884053
+      ClearRowLiquid_5: 4711749514702374515
+      ClearRowLiquid_50: 7293007018784359335
+      ClearRowLiquid_51: 3406122511633677491
+      ClearRowLiquid_52: 2610606247138226686
+      ClearRowLiquid_53: -5703519611138116904
+      ClearRowLiquid_6: 6974640205219945659
+      ClearRowLiquid_7: 9191832916603635827
+      ClearRowLiquid_8: 7174609860169887523
+      ClearRowLiquid_9: 3187953471964657109
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1fdee99c0dc2349728a5284fd59aac85
+guid: e593a799e9bfd483e9d555767c623859
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 934246078413212989
-    second: clearColor_0
+      213: -2174827668884051896
+    second: bottle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 32
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clearColor_0
+      name: bottle_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 64
         y: 0
-        width: 1254
-        height: 1254
+        width: 1389
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d3d0f94cbdb17fc00800000000000000
-      internalID: 934246078413212989
+      spriteID: 848a97402c571d1e0800000000000000
+      internalID: -2174827668884051896
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      clearColor_0: 934246078413212989
+      bottle_0: -2174827668884051896
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

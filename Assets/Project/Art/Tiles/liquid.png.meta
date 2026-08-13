@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: c5c2960c4334f480b875dbcc1dd17962
+guid: fdafd58a7b32342a39dc5b3d29aee578
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8496805050435837569
-    second: clearRow_0
+      213: -8768611752123917987
+    second: liquid 1_0
+  - first:
+      213: 6957516219138142066
+    second: liquid 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,12 +51,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,10 +75,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 32
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clearRow_0
+      name: liquid 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1254
-        height: 1254
+        width: 1479
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f71e60b13d8451a80800000000000000
-      internalID: -8496805050435837569
+      spriteID: d59965dc112af4680800000000000000
+      internalID: -8768611752123917987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: liquid 1_1
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 1017
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27f6fb883201e8060800000000000000
+      internalID: 6957516219138142066
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      clearRow_0: -8496805050435837569
+      liquid 1_0: -8768611752123917987
+      liquid 1_1: 6957516219138142066
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
