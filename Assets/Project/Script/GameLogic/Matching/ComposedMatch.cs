@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Properties;
 using UnityEngine;
 
 namespace GameLogic.Matching
@@ -7,12 +8,13 @@ namespace GameLogic.Matching
     public class ComposedMatch
     {
         public BasicMatch[] BasicMatches { get; private set; }
-        private Vector2Int _intersectionPoint;
+        public Vector2Int IntersectionPoint { get; private set; }
+        
         private HashSet<Vector2Int> _sequencePositions;
 
         public ComposedMatch(Vector2Int intersectionPoint, List<BasicMatch> basicMatches)
         {
-            _intersectionPoint = intersectionPoint;
+            IntersectionPoint = intersectionPoint;
             BasicMatches = basicMatches.ToArray();
             _sequencePositions = BasicMatches.SelectMany(match => match.GetSequencePosition()).ToHashSet();
         }
@@ -22,7 +24,7 @@ namespace GameLogic.Matching
             foreach (var basicMatch in BasicMatches)
             {
                 if (!basicMatch.HasCentralPoint()) continue;
-                if (basicMatch.GetCentralPoint().Equals(_intersectionPoint))
+                if (basicMatch.GetCentralPoint().Equals(IntersectionPoint))
                     return true;
             }
 

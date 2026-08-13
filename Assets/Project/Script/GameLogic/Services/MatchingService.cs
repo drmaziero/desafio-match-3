@@ -12,11 +12,6 @@ namespace GameLogic.Services
         private List<BasicMatch> _verticalMatches;
         private List<ComposedMatch> _composedMatches;
         private List<ComplexMatch> _complexMatches;
-        
-        public IReadOnlyList<BasicMatch> HorizontalMatches => _horizontalMatches;
-        public IReadOnlyList<BasicMatch> VerticalMatches => _verticalMatches;
-        public IReadOnlyList<ComposedMatch> ComposedMatches => _composedMatches;
-        public IReadOnlyList<ComplexMatch> ComplexMatches => _complexMatches;
 
         public void Init()
         {
@@ -34,7 +29,7 @@ namespace GameLogic.Services
             _complexMatches.Clear();
         }
         
-        public void FindMatches(List<List<Tile>> newBoard)
+        public DetectedMatches FindMatches(List<List<Tile>> newBoard)
         {
             Reset();
 
@@ -61,7 +56,9 @@ namespace GameLogic.Services
             DetectComposeMatch();
             DetectedComplexMatch();
 
-            ShowMatchLogs();
+            ShowMatchLogs(); // Debug
+
+            return new DetectedMatches(_complexMatches, _composedMatches, _horizontalMatches.Concat(_verticalMatches));
         }
 
         private void AddOrIncreaseHorizontalMatch(int row, int column)
@@ -94,45 +91,24 @@ namespace GameLogic.Services
             _verticalMatches.Add(new VerticalMatch(column,3,row-2));
         }
 
-        public bool HasHorizontalMatch()
+        private bool HasHorizontalMatch()
         {
             return _horizontalMatches.Count > 0;
         }
 
-        public bool HasVerticalMatch()
+        private bool HasVerticalMatch()
         {
             return _verticalMatches.Count > 0;
         }
 
-        public bool HasBasicMatch()
+        private bool HasBasicMatch()
         {
             return HasHorizontalMatch() || HasVerticalMatch();
         }
 
-        public bool HasComposeMatch()
+        private bool HasComposeMatch()
         {
             return _composedMatches.Count > 0;
-        }
-
-        public bool HasComposeMatchL()
-        {
-            if (!HasComposeMatch())
-                return false;
-
-            return _composedMatches.Any(x => x.IsMatchL());
-        }
-        
-        public bool HasComposeMatchT()
-        {
-            if (!HasComposeMatch())
-                return false;
-
-            return _composedMatches.Any(x => x.IsMatchT());
-        }
-
-        public bool HasComplexMatch()
-        {
-            return _complexMatches.Count > 0;
         }
 
         public List<Vector2Int> GetMatchedPositions()
@@ -214,16 +190,6 @@ namespace GameLogic.Services
             }
 
             return result;
-        }
-        
-        public int HorizontalMatchesCounter()
-        {
-            return _horizontalMatches.Count;
-        }
-        
-        public int VerticalMatchesCounter()
-        {
-            return _verticalMatches.Count;
         }
         
         

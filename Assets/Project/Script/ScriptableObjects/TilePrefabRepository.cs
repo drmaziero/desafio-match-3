@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Models;
+using UnityEngine;
 
 namespace ScriptableObjects
 {
@@ -6,7 +8,22 @@ namespace ScriptableObjects
     public class TilePrefabRepository : ScriptableObject
     {
         [SerializeField] private GameObject[] _tileTypePrefabList;
+        [SerializeField] private GameObject[] _effectTypePrefabList;
 
-        public GameObject[] TileTypePrefabList => _tileTypePrefabList;
+        public GameObject GetTilePrefab(TileType type)
+        {
+            if (type == TileType.None)
+                throw new ArgumentOutOfRangeException($"Type {type} is not prefab valid");
+                
+            return _tileTypePrefabList[(int)type];
+        }
+
+        public GameObject GetEffectTilePrefab(SpecialTileType type)
+        {
+            if (type == SpecialTileType.None)
+                throw new ArgumentOutOfRangeException($"Type {type} is not prefab valid");
+
+            return _effectTypePrefabList[(int)type];
+        }
     }
 }

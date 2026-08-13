@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameLogic.Services;
@@ -52,24 +53,17 @@ namespace Controllers
         }
         #endregion
 
-        private void AnimateBoard(List<BoardSequence> boardSequences, int index, Action onComplete)
+        private IEnumerator AnimateBoard(IEnumerable<BoardSequence> boardSequences, Action onComplete)
         {
-            BoardSequence boardSequence = boardSequences[index];
-
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(_boardView.DestroyTiles(boardSequence.MatchedPosition));
-            sequence.Append(_boardView.MoveTiles(boardSequence.MovedTiles));
-            sequence.Append(_boardView.CreateTile(boardSequence.AddedTiles));
-
-            index += 1;
-            if (index < boardSequences.Count)
+            foreach (var boardSequence in boardSequences)
             {
-                sequence.onComplete += () => AnimateBoard(boardSequences, index, onComplete);
+                yield return _boardView.DestroyTiles(boardSequence.MatchedPosition).WaitForCompletion();
+                yield return _boardView.CreateSpecialTile(boardSequence.AddedSpecialTiles).WaitForCompletion();
+                yield return _boardView.MoveTiles(boardSequence.MovedTiles).WaitForCompletion();
+                yield return _boardView.CreateTile(boardSequence.AddedTiles);
             }
-            else
-            {
-                sequence.onComplete += () => onComplete();
-            }
+            
+            onComplete?.Invoke();
         }
 
         private void OnTileClick(int x, int y)
@@ -92,7 +86,7 @@ namespace Controllers
                         if (isValid)
                         {
                             List<BoardSequence> swapResult = _gameService.SwapTile(_selectedX, _selectedY, x, y);
-                            AnimateBoard(swapResult, 0, () => _isAnimating = false);
+                            StartCoroutine(AnimateBoard(swapResult, () => { _isAnimating = false; }));
                         }
                         else
                         {

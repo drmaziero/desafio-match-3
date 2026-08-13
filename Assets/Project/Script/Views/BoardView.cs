@@ -39,10 +39,10 @@ namespace Views
 
                     _tileSpots[y][x] = tileSpot;
 
-                    int tileTypeIndex = board[y][x].Type;
-                    if (tileTypeIndex > -1)
+                    var tileTypeIndex = board[y][x].Type;
+                    if (tileTypeIndex != TileType.None)
                     {
-                        GameObject tilePrefab = _tilePrefabRepository.TileTypePrefabList[tileTypeIndex];
+                        GameObject tilePrefab = _tilePrefabRepository.GetTilePrefab(tileTypeIndex);
                         GameObject tile = Instantiate(tilePrefab);
                         tileSpot.SetTile(tile);
 
@@ -62,7 +62,7 @@ namespace Views
 
                 TileSpotView tileSpot = _tileSpots[position.y][position.x];
 
-                GameObject tilePrefab = _tilePrefabRepository.TileTypePrefabList[addedTileInfo.Type];
+                GameObject tilePrefab = _tilePrefabRepository.GetTilePrefab(addedTileInfo.Type);
                 GameObject tile = Instantiate(tilePrefab);
                 tileSpot.SetTile(tile);
 
@@ -75,11 +75,33 @@ namespace Views
             return sequence;
         }
 
-        public Tween DestroyTiles(List<Vector2Int> matchedPosition)
+        public Tween CreateSpecialTile(IEnumerable<AddedSpecialTileInfo> addedSpecialTiles)
         {
-            for (int i = 0; i < matchedPosition.Count; i++)
+            Sequence sequence = DOTween.Sequence();
+            foreach (var addedSpecialTileInfo in addedSpecialTiles)
             {
-                Vector2Int position = matchedPosition[i];
+                Vector2Int position = addedSpecialTileInfo.Position;
+                TileSpotView tileSpot = _tileSpots[position.y][position.x];
+                
+                GameObject specialTilePrefab =
+                    _tilePrefabRepository.GetEffectTilePrefab(addedSpecialTileInfo.SpecialTileType);
+                GameObject specialTile = Instantiate(specialTilePrefab);
+
+                var oldTime = _tiles[position.y][position.x];
+                tileSpot.ReplaceTile(oldTime, specialTile);
+                _tiles[position.y][position.x] = specialTile;
+                
+                specialTile.transform.localScale = Vector2.zero;
+                sequence.Join(specialTile.transform.DOScale(1.0f, 0.2f));
+            }
+
+            return sequence;
+        }
+
+        public Tween DestroyTiles(IEnumerable<Vector2Int> matchedPosition)
+        {
+            foreach (var position in matchedPosition)
+            {
                 Destroy(_tiles[position.y][position.x]);
                 _tiles[position.y][position.x] = null;
             }

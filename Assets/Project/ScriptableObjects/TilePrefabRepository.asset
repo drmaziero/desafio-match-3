@@ -20,3 +20,10 @@ MonoBehaviour:
   - {fileID: 8811796958392367493, guid: dbb3cd93728abaa43a394a4320380812, type: 3}
   - {fileID: 3248726331797900192, guid: 90b6f1c7b50730c47ba7294b1f2bbbd4, type: 3}
   - {fileID: 5683098699188789233, guid: 21d43d9bcb34c784aba98010c0ad6084, type: 3}
+  _effectTypePrefabList:
+  - {fileID: 8946506890877536852, guid: 6f835344de0bb48cf842e48de621fbb6, type: 3}
+  - {fileID: 1310488127366533420, guid: db91142c2174a41ac8553aa7900632f1, type: 3}
+  - {fileID: 6304523731716396019, guid: eb91d38ad8a4d4ee08a7a66f46494188, type: 3}
+  - {fileID: 649945616565256624, guid: 69cebded6bd7b4987809be0585e5facc, type: 3}
+  - {fileID: 303079195373003718, guid: 1861adc20648b45258a0eaf016296aac, type: 3}
+  - {fileID: 3430517442662407316, guid: 614885c44fddf42d896c05afc086d4de, type: 3}

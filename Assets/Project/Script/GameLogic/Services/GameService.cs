@@ -1,27 +1,34 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using GameLogic.Effects;
 using Models;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameLogic.Services
 {
     public class GameService
     {
         private List<List<Tile>> _boardTiles;
-        private List<int> _tilesTypes;
+        private List<TileType> _tilesTypes;
         private int _tileCount;
         private MatchingService _matchingService;
+        private MatchEffectService _effectService;
         
         public ScoreService ScoreService { get; private set; }
 
         public GameService(ScoreConfig scoreConfig)
         {
             _matchingService = new MatchingService();
+            _effectService = new MatchEffectService();
+            
             ScoreService = new ScoreService(scoreConfig);
             
         }
         public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
         {
-            _tilesTypes = new List<int> { 0, 1, 2, 3 };
+            _tilesTypes = new List<TileType> { TileType.Blue, TileType.Green, TileType.Orange, TileType.Yellow };
             _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
             
             _matchingService.Init();
@@ -56,10 +63,12 @@ namespace GameLogic.Services
                 }
             }
 
+            if (newBoard[toY][toX].SpecialType != SpecialTileType.None ||
+                newBoard[fromY][fromX].SpecialType != SpecialTileType.None)
+                return true;
+
             return false;
         }
-
-       
 
         public List<BoardSequence> SwapTile(int fromX, int fromY, int toX, int toY)
         {
@@ -69,89 +78,45 @@ namespace GameLogic.Services
 
             List<BoardSequence> boardSequences = new();
 
-            _matchingService.FindMatches(newBoard);
-
+            var detectedMatches = _matchingService.FindMatches(newBoard);
+            var effectTiles = _effectService.GetEffectOnTiles(newBoard,
+                new List<Vector2Int>() { new(fromX, fromY), new(toX, toY) });
+            
             int cascadeCounter = 1;
             
-            while (_matchingService.HasBasicMatch())
+            while (detectedMatches.HasBasicMatches || effectTiles.Any())
             {
-                ScoreService.ComputeScore(_matchingService.ComplexMatches, _matchingService.ComposedMatches,
-                    _matchingService.HorizontalMatches, _matchingService.VerticalMatches, cascadeCounter);
+                ScoreService.ComputeScore(detectedMatches, cascadeCounter);
+
+                Vector2Int? movedPosition = cascadeCounter == 1 ? new Vector2Int(toX, toY) : null;
+                var effects = _effectService.CreateEffects(detectedMatches, newBoard, movedPosition);
+
+                var initPositions = new HashSet<Vector2Int>();
                 
-                List<Vector2Int> matchedPosition = _matchingService.GetMatchedPositions();
-                
-                foreach (var matchedPos in matchedPosition)
-                    newBoard[matchedPos.y][matchedPos.x] = new Tile { Id = -1, Type = -1 };
+                if (detectedMatches.HasBasicMatches)
+                    initPositions.UnionWith(_matchingService.GetMatchedPositions());
+               
+                if (effectTiles.Any())
+                    initPositions.UnionWith(_effectService.GetEffectsPositions(newBoard, effectTiles));
 
-                // Dropping the tiles
-                Dictionary<int, MovedTileInfo> movedTiles = new();
-                List<MovedTileInfo> movedTilesList = new();
-                for (int i = 0; i < matchedPosition.Count; i++)
-                {
-                    int x = matchedPosition[i].x;
-                    int y = matchedPosition[i].y;
-                    if (y > 0)
-                    {
-                        for (int j = y; j > 0; j--)
-                        {
-                            Tile movedTile = newBoard[j - 1][x];
-                            newBoard[j][x] = movedTile;
-                            if (movedTile.Type > -1)
-                            {
-                                if (movedTiles.ContainsKey(movedTile.Id))
-                                {
-                                    movedTiles[movedTile.Id].To = new Vector2Int(x, j);
-                                }
-                                else
-                                {
-                                    MovedTileInfo movedTileInfo = new()
-                                    {
-                                        From = new Vector2Int(x, j - 1),
-                                        To = new Vector2Int(x, j)
-                                    };
-                                    movedTiles.Add(movedTile.Id, movedTileInfo);
-                                    movedTilesList.Add(movedTileInfo);
-                                }
-                            }
-                        }
+                effectTiles.Clear();
+                var matchedPosition = _effectService.ResolveEffectCascate(newBoard, initPositions);
 
-                        newBoard[0][x] = new Tile
-                        {
-                            Id = -1,
-                            Type = -1
-                        };
-                    }
-                }
+                var addedSpecialTileInfo = CreateEffectTiles(newBoard, effects, matchedPosition);
+                RemovedMatchedTiles(newBoard, matchedPosition);
 
-                // Filling the board
-                List<AddedTileInfo> addedTiles = new();
-                for (int y = newBoard.Count - 1; y > -1; y--)
-                {
-                    for (int x = newBoard[y].Count - 1; x > -1; x--)
-                    {
-                        if (newBoard[y][x].Type == -1)
-                        {
-                            int tileType = Random.Range(0, _tilesTypes.Count);
-                            Tile tile = newBoard[y][x];
-                            tile.Id = _tileCount++;
-                            tile.Type = _tilesTypes[tileType];
-                            addedTiles.Add(new AddedTileInfo
-                            {
-                                Position = new Vector2Int(x, y),
-                                Type = tile.Type
-                            });
-                        }
-                    }
-                }
+                var movedTilesList = DroppingTiles(matchedPosition, newBoard);
+                var addedTiles = FillingTiles(newBoard);
 
                 BoardSequence sequence = new()
                 {
                     MatchedPosition = matchedPosition,
                     MovedTiles = movedTilesList,
-                    AddedTiles = addedTiles
+                    AddedTiles = addedTiles,
+                    AddedSpecialTiles = addedSpecialTileInfo
                 };
                 boardSequences.Add(sequence);
-                _matchingService.FindMatches(newBoard);
+                detectedMatches = _matchingService.FindMatches(newBoard);
 
                 cascadeCounter++;
             }
@@ -159,6 +124,95 @@ namespace GameLogic.Services
             _boardTiles = newBoard;
 
             return boardSequences;
+        }
+
+        private List<AddedTileInfo> FillingTiles(List<List<Tile>> newBoard)
+        {
+            // Filling the board
+            List<AddedTileInfo> addedTiles = new();
+            for (int y = newBoard.Count - 1; y > -1; y--)
+            {
+                for (int x = newBoard[y].Count - 1; x > -1; x--)
+                {
+                    if (newBoard[y][x].Type == TileType.None)
+                    {
+                        int tileIndex = Random.Range(0, _tilesTypes.Count);
+                        Tile tile = newBoard[y][x];
+                        tile.ChangeId(_tileCount++);
+                        tile.ChangeTileType(_tilesTypes[tileIndex]);
+                        addedTiles.Add(new AddedTileInfo
+                        {
+                            Position = new Vector2Int(x, y),
+                            Type = tile.Type
+                        });
+                    }
+                }
+            }
+
+            return addedTiles;
+        }
+
+        private static List<MovedTileInfo> DroppingTiles(IEnumerable<Vector2Int> matchedPosition, List<List<Tile>> newBoard)
+        {
+            // Dropping the tiles
+            Dictionary<int, MovedTileInfo> movedTiles = new();
+            List<MovedTileInfo> movedTilesList = new();
+            foreach (var position in matchedPosition)
+            {
+                int x = position.x;
+                int y = position.y;
+                if (y > 0)
+                {
+                    for (int j = y; j > 0; j--)
+                    {
+                        Tile movedTile = newBoard[j - 1][x];
+                        newBoard[j][x] = movedTile;
+                        if (movedTile.Type != TileType.None)
+                        {
+                            if (movedTiles.ContainsKey(movedTile.Id))
+                            {
+                                movedTiles[movedTile.Id].To = new Vector2Int(x, j);
+                            }
+                            else
+                            {
+                                MovedTileInfo movedTileInfo = new()
+                                {
+                                    From = new Vector2Int(x, j - 1),
+                                    To = new Vector2Int(x, j)
+                                };
+                                movedTiles.Add(movedTile.Id, movedTileInfo);
+                                movedTilesList.Add(movedTileInfo);
+                            }
+                        }
+                    }
+
+                    newBoard[0][x] = new Tile(-1, TileType.None, SpecialTileType.None);
+                }
+            }
+
+            return movedTilesList;
+        }
+
+        private void RemovedMatchedTiles(List<List<Tile>> board, IEnumerable<Vector2Int> matchedPosition)
+        {
+            foreach (var matchedPos in matchedPosition)
+                board[matchedPos.y][matchedPos.x] = new Tile(-1, TileType.None, SpecialTileType.None);
+        }
+
+        private List<AddedSpecialTileInfo> CreateEffectTiles(List<List<Tile>> board, IEnumerable<IMatchEffect> effects, HashSet<Vector2Int> matchedPositions)
+        {
+            var specialTileInfos = new List<AddedSpecialTileInfo>();
+
+            foreach (var effect in effects)
+            {
+                var id = board[effect.Origin.y][effect.Origin.x].Id;
+                board[effect.Origin.y][effect.Origin.x] = new Tile(id, effect.TileType, effect.SpecialTileType);
+                specialTileInfos.Add(new AddedSpecialTileInfo()
+                    { Position = effect.Origin, Type = effect.TileType, SpecialTileType = effect.SpecialTileType });
+                matchedPositions.Remove(effect.Origin);
+            }
+
+            return specialTileInfos;
         }
 
         private static List<List<Tile>> CopyBoard(List<List<Tile>> boardToCopy)
@@ -170,14 +224,14 @@ namespace GameLogic.Services
                 for (int x = 0; x < boardToCopy[y].Count; x++)
                 {
                     Tile tile = boardToCopy[y][x];
-                    newBoard[y].Add(new Tile { Id = tile.Id, Type = tile.Type });
+                    newBoard[y].Add(new Tile(tile.Id, tile.Type, tile.SpecialType));
                 }
             }
 
             return newBoard;
         }
 
-        private List<List<Tile>> CreateBoard(int width, int height, List<int> tileTypes)
+        private List<List<Tile>> CreateBoard(int width, int height, List<TileType> tileTypes)
         {
             List<List<Tile>> board = new(height);
             _tileCount = 0;
@@ -186,7 +240,7 @@ namespace GameLogic.Services
                 board.Add(new List<Tile>(width));
                 for (int x = 0; x < width; x++)
                 {
-                    board[y].Add(new Tile { Id = -1, Type = -1 });
+                    board[y].Add(new Tile(-1, TileType.None, SpecialTileType.None));
                 }
             }
 
@@ -194,7 +248,7 @@ namespace GameLogic.Services
             {
                 for (int x = 0; x < width; x++)
                 {
-                    List<int> noMatchTypes = new(tileTypes.Count);
+                    List<TileType> noMatchTypes = new(tileTypes.Count);
                     for (int i = 0; i < tileTypes.Count; i++)
                     {
                         noMatchTypes.Add(_tilesTypes[i]);
@@ -212,8 +266,8 @@ namespace GameLogic.Services
                         noMatchTypes.Remove(board[y - 1][x].Type);
                     }
 
-                    board[y][x].Id = _tileCount++;
-                    board[y][x].Type = noMatchTypes[Random.Range(0, noMatchTypes.Count)];
+                    board[y][x].ChangeId(_tileCount++);
+                    board[y][x].ChangeTileType(noMatchTypes[Random.Range(0, noMatchTypes.Count)]);
                 }
             }
 
