@@ -7,15 +7,12 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "TilePrefabRepository", menuName = "Gameplay/TilePrefabRepository")]
     public class TilePrefabRepository : ScriptableObject
     {
-        [SerializeField] private GameObject[] _tileTypePrefabList;
+        [SerializeField] private GameObject _tileTypePrefab;
         [SerializeField] private GameObject[] _effectTypePrefabList;
 
-        public GameObject GetTilePrefab(TileType type)
+        public GameObject GetTilePrefab()
         {
-            if (type == TileType.None)
-                throw new ArgumentOutOfRangeException($"Type {type} is not prefab valid");
-                
-            return _tileTypePrefabList[(int)type];
+            return _tileTypePrefab;
         }
 
         public GameObject GetEffectTilePrefab(SpecialTileType type)
