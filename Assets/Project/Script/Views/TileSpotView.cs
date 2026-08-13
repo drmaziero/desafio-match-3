@@ -23,10 +23,13 @@ namespace Views
 
         public Tween AnimatedSetTile(GameObject tile)
         {
-            tile.transform.SetParent(transform);
             tile.transform.DOKill();
 
-            return tile.transform.DOMove(transform.position, 0.3f);
+            return tile.transform.DOMove(transform.position, 0.3f).OnComplete(() =>
+            {
+                tile.transform.SetParent(transform);
+                tile.transform.localPosition = Vector3.zero;
+            });
         }
 
         public void SetPosition(int x, int y)
@@ -37,6 +40,12 @@ namespace Views
 
         public void SetTile(GameObject tile)
         {
+            if (transform.childCount > 0)
+            {
+                Debug.LogError($"Bad Tile Detected! Desactive child");
+                for (int i = 0; i < transform.childCount; i++)
+                    transform.GetChild(i).gameObject.SetActive(false);
+            }
             tile.transform.SetParent(transform, false);
             tile.transform.position = transform.position;
         }
