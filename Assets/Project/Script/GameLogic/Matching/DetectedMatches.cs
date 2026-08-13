@@ -23,8 +23,8 @@ namespace GameLogic.Matching
 
         public bool HasHorizontalMatched => BasicMatches.Any(x => x.IsHorizontal());
         public bool HasVerticalMatched => BasicMatches.Any(x => x.IsVertical());
-        public int HorizontalMatchesCount => BasicMatches.Select(x => x.IsHorizontal()).Count();
-        public int VerticalMatchesCount => BasicMatches.Select(x => x.IsVertical()).Count();
+        public int HorizontalMatchesCount => BasicMatches.Count(x => x.IsHorizontal());
+        public int VerticalMatchesCount => BasicMatches.Count(x => x.IsVertical());
         public bool HasComposedMatchL => ComposedMatches.Any(x => x.IsMatchL());
         public bool HasComposedMatchT => ComposedMatches.Any(x => x.IsMatchT());
     }

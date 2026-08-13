@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.Effects;
@@ -106,6 +107,76 @@ namespace GameLogic.Services
                 return movedPosition.Value;
 
             return match.GetDefaultOrigin();
+        }
+
+        public List<Vector2Int> GetEffectsPositions(List<List<Tile>> newBoard, IEnumerable<Vector2Int> positions)
+        {
+            var effectPositions = new List<Vector2Int>();
+            
+            foreach (var position in positions)
+            {
+                var currentEffect = CreateEffectFromTile(newBoard[position.y][position.x], position);
+                effectPositions.AddRange(currentEffect.GetAffectPositions(newBoard));
+            }
+            
+            return effectPositions;
+        }
+
+        public List<Vector2Int> GetEffectOnTiles(List<List<Tile>> board, IEnumerable<Vector2Int> positions)
+        {
+            return positions.Where(pos => HasEffectOnTile(board, pos)).ToList();
+        }
+        
+        private bool HasEffectOnTile(List<List<Tile>> board, Vector2Int position)
+        {
+            return board[position.y][position.x].SpecialType != SpecialTileType.None;
+        }
+
+        private IMatchEffect CreateEffectFromTile(Tile tile, Vector2Int position)
+        {
+            IMatchEffect currentEffect = tile.SpecialType switch
+            {
+                SpecialTileType.ClearRow => new ClearLineEffect(position, tile.Type),
+                SpecialTileType.ClearColumn => new ClearColumnEffect(position, tile.Type),
+                SpecialTileType.ClearColor => new ClearColor(position, tile.Type),
+                SpecialTileType.ExplosionRadius3 => new ExplosionEffect(position, 3, tile.Type),
+                SpecialTileType.ClearCross => new ClearCrossEffect(position, tile.Type),
+                SpecialTileType.ExplosionRadius5AndCross => new ExplosionAndCleanCrossEffect(position, 5, tile.Type),
+                _ => throw new ArgumentOutOfRangeException($"{tile.SpecialType} not create an effect valid")
+            };
+
+            return currentEffect;
+        }
+
+        public HashSet<Vector2Int> ResolveEffectCascate(List<List<Tile>> board, IEnumerable<Vector2Int> initPositions)
+        {
+            var finalPositions = new HashSet<Vector2Int>(initPositions);
+            var activeTileIds = new HashSet<int>();
+            var pendingPositions = new Queue<Vector2Int>(initPositions);
+
+            while (pendingPositions.Count > 0)
+            {
+                var position = pendingPositions.Dequeue();
+                var tile = board[position.y][position.x];
+                
+                if (tile.SpecialType == SpecialTileType.None)
+                    continue;
+                
+                if (!activeTileIds.Add(tile.Id))
+                    continue;
+
+                IMatchEffect currentEffect = CreateEffectFromTile(tile, position);
+                
+                foreach (var affectPosition in currentEffect.GetAffectPositions(board))
+                {
+                    if (finalPositions.Add(affectPosition))
+                    {
+                        pendingPositions.Enqueue(affectPosition);
+                    }
+                }
+            }
+
+            return finalPositions;
         }
     }
 }

@@ -86,8 +86,9 @@ namespace Views
                 GameObject specialTilePrefab =
                     _tilePrefabRepository.GetEffectTilePrefab(addedSpecialTileInfo.SpecialTileType);
                 GameObject specialTile = Instantiate(specialTilePrefab);
-                tileSpot.ReplaceTile(specialTile);
 
+                var oldTime = _tiles[position.y][position.x];
+                tileSpot.ReplaceTile(oldTime, specialTile);
                 _tiles[position.y][position.x] = specialTile;
                 
                 specialTile.transform.localScale = Vector2.zero;
@@ -97,11 +98,10 @@ namespace Views
             return sequence;
         }
 
-        public Tween DestroyTiles(List<Vector2Int> matchedPosition)
+        public Tween DestroyTiles(IEnumerable<Vector2Int> matchedPosition)
         {
-            for (int i = 0; i < matchedPosition.Count; i++)
+            foreach (var position in matchedPosition)
             {
-                Vector2Int position = matchedPosition[i];
                 Destroy(_tiles[position.y][position.x]);
                 _tiles[position.y][position.x] = null;
             }

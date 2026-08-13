@@ -41,12 +41,15 @@ namespace Views
             tile.transform.position = transform.position;
         }
 
-        public void ReplaceTile(GameObject tile)
+        public void ReplaceTile(GameObject oldTile, GameObject newTile)
         {
-            foreach (Transform child in transform)
-                Destroy(child.gameObject);
-            
-            SetTile(tile);
+            if (oldTile != null)
+            {
+                oldTile.transform.DOKill();
+                Destroy(oldTile);
+            }
+
+            SetTile(newTile);
         }
 
         private void OnTileClick()
