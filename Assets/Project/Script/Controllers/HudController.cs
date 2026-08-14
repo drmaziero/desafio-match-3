@@ -1,35 +1,30 @@
-using GameLogic.Services;
+using System;
+using Models;
+using UnityEngine;
 using Views;
 
 namespace Controllers
 {
-    public class HudController
+    public class HudController : MonoBehaviour
     {
+        [SerializeField]
         private HudView _hudView;
-        private ScoreService _scoreService;
-        private LevelService _levelService;
 
-        public HudController(HudView hudView, ScoreService scoreService, LevelService levelService)
+        public void Init(TargetLevel targetLevel)
         {
-            _hudView = hudView;
-            _scoreService = scoreService;
-            _levelService = levelService;
-            
-            _scoreService.ScoreChanged += OnScoreChanged;
             OnScoreChanged(0);
-            _hudView.Init(_levelService.GetCurrentLevel().Target);
+            _hudView.Init(targetLevel);
         }
         
 
-        private void OnScoreChanged(int score)
+        public void OnScoreChanged(int score)
         {
             _hudView.UpdateScore(score);
         }
 
-        public void Dispose()
+        public void OnMovementChanged(int movementCounter)
         {
-            _scoreService.ScoreChanged -= OnScoreChanged;
+            _hudView.UpdateSwapTile(movementCounter);
         }
-
     }
 }

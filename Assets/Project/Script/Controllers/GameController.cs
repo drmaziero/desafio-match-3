@@ -2,10 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using GameLogic.Services;
 using Models;
-using ScriptableObjects.Level;
-using ScriptableObjects.Score;
 using UnityEngine;
 using Views;
 
@@ -13,20 +10,13 @@ namespace Controllers
 {
     public class GameController : MonoBehaviour
     {
+        public event Action<int, int, int, int> SwapRequested; 
+        
         [Header("Views")]
         [SerializeField] private ScoreView _scoreView; 
         [SerializeField] private BoardView _boardView;
         [SerializeField] private HudView _hudView;
-
-        [Header("Score Settings")] 
-        [SerializeField] private ScoreSettings _scoreSettings;
-
-        [Header("Level Config")] 
-        [SerializeField] private LevelListSettings _levelListSettings;
-
-        private GameService _gameService;
-
-        private ScoreController _scoreController;
+        
         private HudController _hudController;
         
         private bool _isAnimating;
@@ -36,28 +26,43 @@ namespace Controllers
         #region Unity
         private void Awake()
         {
-            _gameService = new GameService(_scoreSettings.CreateConfig(), _levelListSettings.GetLevelConfigs());
             _boardView.TileClicked += OnTileClick;
         }
 
         private void OnDestroy()
         {
             _boardView.TileClicked -= OnTileClick;
-            _scoreController?.Dispose();
         }
 
-        private void Start()
-        {
-            LevelConfig currentLevel = _gameService.LevelService.GetCurrentLevel();
-            List<List<Tile>> board = _gameService.StartGame(currentLevel.BoardSize.x, currentLevel.BoardSize.y, currentLevel.Types);
-            _scoreController = new ScoreController(_scoreView, _gameService.ScoreService);
-            _hudController = new HudController(_hudView, _gameService.ScoreService, _gameService.LevelService);
+        public void Init(List<List<Tile>> board)
+        {;
             _boardView.CreateBoard(board);
         }
         #endregion
 
-        private IEnumerator AnimateBoard(IEnumerable<BoardSequence> boardSequences, Action onComplete)
+        public void AnimateInvalidSwap(Vector2Int from, Vector2Int to)
         {
+            StartCoroutine(AnimateInvalidSwapCourotine(from, to));
+        }
+
+        private IEnumerator AnimateInvalidSwapCourotine(Vector2Int from, Vector2Int to)
+        {
+            yield return _boardView.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
+            yield return _boardView.SwapTiles(to.x, to.y, from.x, from.y).WaitForCompletion();
+
+            _isAnimating = false;
+        }
+
+        public void AnimateValidSwap(Vector2Int from, Vector2Int to, List<BoardSequence> boardSequences)
+        {
+            StartCoroutine(AnimateValidSwapCourotine(from, to, boardSequences));
+        }
+
+        private IEnumerator AnimateValidSwapCourotine(Vector2Int from, Vector2Int to,
+            IEnumerable<BoardSequence> boardSequences)
+        {
+            yield return _boardView.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
+
             foreach (var boardSequence in boardSequences)
             {
                 yield return _boardView.ClearTiles(boardSequence.MatchedPosition).WaitForCompletion();
@@ -65,8 +70,8 @@ namespace Controllers
                 yield return _boardView.MoveTiles(boardSequence.MovedTiles).WaitForCompletion();
                 yield return _boardView.RefillTiles(boardSequence.AddedTiles).WaitForCompletion();
             }
-            
-            onComplete?.Invoke();
+
+            _isAnimating = false;
         }
 
         private void OnTileClick(int x, int y)
@@ -83,21 +88,7 @@ namespace Controllers
                 else
                 {
                     _isAnimating = true;
-                    _boardView.SwapTiles(_selectedX, _selectedY, x, y).onComplete += () =>
-                    {
-                        bool isValid = _gameService.IsValidMovement(_selectedX, _selectedY, x, y);
-                        if (isValid)
-                        {
-                            List<BoardSequence> swapResult = _gameService.SwapTile(_selectedX, _selectedY, x, y);
-                            StartCoroutine(AnimateBoard(swapResult, () => { _isAnimating = false; }));
-                        }
-                        else
-                        {
-                            _boardView.SwapTiles(x, y, _selectedX, _selectedY).onComplete += () => _isAnimating = false;
-                        }
-                        _selectedX = -1;
-                        _selectedY = -1;
-                    };
+                    SwapRequested?.Invoke(_selectedX, _selectedY, x, y);
                 }
             }
             else
