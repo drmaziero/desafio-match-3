@@ -17,7 +17,13 @@ namespace Views
             RetryButton.onClick.AddListener(GoToRetry);
             MainMenuButton.onClick.AddListener(GoToMainMenu);
         }
-        
+
+        private void OnDestroy()
+        {
+            RetryButton.onClick.RemoveListener(GoToRetry);
+            MainMenuButton.onClick.RemoveListener(GoToMainMenu);
+        }
+
         private void GoToMainMenu()
         {
             OnGoToMainMenu?.Invoke();

@@ -18,6 +18,12 @@ namespace Views
             MainMenuButton.onClick.AddListener(GoToMainMenu);
         }
 
+        private void OnDestroy()
+        {
+            NextLevelButton.onClick.RemoveListener(GoToNextLevel);
+            MainMenuButton.onClick.RemoveListener(GoToMainMenu);
+        }
+
         private void GoToMainMenu()
         {
             OnGoToMainMenu?.Invoke();

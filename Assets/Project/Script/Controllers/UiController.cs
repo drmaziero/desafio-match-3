@@ -6,8 +6,7 @@ namespace Controllers
 {
     public class UiController : MonoBehaviour
     {
-        [SerializeField] private GameObject mainMenuUI;
-        [SerializeField] private GameObject loadingUI;
+        [SerializeField] private MainMenuUiView mainMenuUI;
         [SerializeField] private GameplayView gameplayUI;
         [SerializeField] private VictoryUiView victoryUI;
         [SerializeField] private LoseUiView loseUI;
@@ -19,6 +18,7 @@ namespace Controllers
         private void Awake()
         {
             _screens = new Dictionary<UiType, IUiView>();
+            _screens.Add(UiType.MainMenu, mainMenuUI);
             _screens.Add(UiType.Gameplay, gameplayUI);
             _screens.Add(UiType.Victory, victoryUI);
             _screens.Add(UiType.Lose, loseUI);
@@ -27,8 +27,9 @@ namespace Controllers
             victoryUI.OnGoToNextLevel += GoToNextLevel;
             loseUI.OnGoToMainMenu += GoToMainMenu;
             loseUI.OnGoToRetry += GoToRetryLevel;
+            mainMenuUI.GoToGamePlay += GoToGameplay;
 
-            _currentUI = _screens[UiType.Gameplay];
+            _currentUI = _screens[UiType.MainMenu];
             _currentUI.Show();
         }
 
@@ -38,6 +39,14 @@ namespace Controllers
             victoryUI.OnGoToNextLevel -= GoToNextLevel;
             loseUI.OnGoToMainMenu -= GoToMainMenu;
             loseUI.OnGoToRetry -= GoToRetryLevel;
+            mainMenuUI.GoToGamePlay -= GoToGameplay;
+        }
+
+        private void GoToGameplay()
+        {
+            _currentUI.Hide();
+            _currentUI = _screens[UiType.Gameplay];
+            _currentUI.Show();
         }
 
         private void GoToRetryLevel()
@@ -74,7 +83,6 @@ namespace Controllers
     public enum UiType
     {
         MainMenu,
-        Loading,
         Gameplay,
         Victory,
         Lose
