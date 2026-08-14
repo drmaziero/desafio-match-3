@@ -12,4 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67391311297c41bb808f6bc4b0e0def5, type: 3}
   m_Name: LevelListSettings
   m_EditorClassIdentifier: ScriptableObjects::ScriptableObjects.Level.LevelListSettings
-  allLevels: []
+  allLevels:
+  - {fileID: 11400000, guid: 560da74c9e79548fea63a3bba22bba65, type: 2}
+  - {fileID: 11400000, guid: 30c13db12d0104371bd2328584a6820b, type: 2}
+  - {fileID: 11400000, guid: c8d14229400da4403a37c498e00d79dc, type: 2}
+  - {fileID: 11400000, guid: 54379c835d05547a5bb0238b2fffa3e1, type: 2}
+  - {fileID: 11400000, guid: d361cc04c5c7b4bb4b97500f3a7646df, type: 2}
+  - {fileID: 11400000, guid: 9395ffd106c354925bdb60cc58010808, type: 2}
+  - {fileID: 11400000, guid: 7da76cc6b283b4653b1190a8220f0f51, type: 2}
+  - {fileID: 11400000, guid: edd133f218ac84b6d926b7240f318d2c, type: 2}
+  - {fileID: 11400000, guid: 33557818cf04942f7a3b52ffae3cef24, type: 2}
+  - {fileID: 11400000, guid: e225a32d743d34681a022eb2f370d979, type: 2}
+  - {fileID: 11400000, guid: 3757489fe1cc14ce3a58932e8f5412c7, type: 2}
+  - {fileID: 11400000, guid: 282b5bc56b7144d7e874defbbfe9d519, type: 2}
+  - {fileID: 11400000, guid: 4d673a68d5c0247518a822571e8dcd6c, type: 2}
+  - {fileID: 11400000, guid: ecb5212fea2724e6caf164c8335f22da, type: 2}
+  - {fileID: 11400000, guid: 8c5a84c6dfb7a495fac345e146f7eca3, type: 2}
+  - {fileID: 11400000, guid: 740210500648045059572b2137e8b478, type: 2}
+  - {fileID: 11400000, guid: d9cbfd88baa6542aaaae978b3ea9b896, type: 2}
+  - {fileID: 11400000, guid: 596fced57b6aa454ca74576ce1b33313, type: 2}
+  - {fileID: 11400000, guid: a6be52817ff004eabb48d873e4e0de22, type: 2}
+  - {fileID: 11400000, guid: 77e1ccefe13ca4d13ad735149cfed48c, type: 2}
+  - {fileID: 11400000, guid: 23255c580925346fc8de56533c006051, type: 2}

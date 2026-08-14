@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.Effects;
@@ -16,19 +15,20 @@ namespace GameLogic.Services
         private MatchingService _matchingService;
         private MatchEffectService _effectService;
         
-        public ScoreService ScoreService { get; private set; }
+        public ScoreService ScoreService { get; }
+        public LevelService LevelService { get; }
 
-        public GameService(ScoreConfig scoreConfig)
+        public GameService(ScoreConfig scoreConfig, List<LevelConfig> levelConfigs)
         {
             _matchingService = new MatchingService();
             _effectService = new MatchEffectService();
             
             ScoreService = new ScoreService(scoreConfig);
-            
+            LevelService = new LevelService(levelConfigs);
         }
-        public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
+        public List<List<Tile>> StartGame(int boardWidth, int boardHeight, List<TileType> tileTypes)
         {
-            _tilesTypes = new List<TileType> { TileType.Blue, TileType.Green, TileType.Orange, TileType.Yellow };
+            _tilesTypes = tileTypes;
             _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
             
             _matchingService.Init();

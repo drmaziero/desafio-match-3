@@ -767,9 +767,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreView: {fileID: 399096315}
   _boardView: {fileID: 429446043}
-  _boardHeight: 10
-  _boardWidth: 5
   _scoreSettings: {fileID: 11400000, guid: 41aead3d0779e4988a85377c42a26b9d, type: 2}
+  _levelListSettings: {fileID: 11400000, guid: 46a850f9776cc4ef59b42ab20f50fe04, type: 2}
 --- !u!4 &1361904665
 Transform:
   m_ObjectHideFlags: 0

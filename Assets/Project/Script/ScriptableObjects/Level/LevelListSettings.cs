@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Models;
 using UnityEngine;
 
@@ -9,9 +10,9 @@ namespace ScriptableObjects.Level
     {
         [field: SerializeField] private List<LevelSettings> allLevels;
 
-        public LevelConfig GetLevel(int levelIndex)
+        public List<LevelConfig> GetLevelConfigs()
         {
-            return allLevels[levelIndex].CreateLevel();
+            return allLevels.Select(setting => setting.CreateLevel()).ToList();
         }
     }
 }
