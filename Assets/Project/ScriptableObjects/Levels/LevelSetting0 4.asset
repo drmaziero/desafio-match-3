@@ -17,5 +17,9 @@ MonoBehaviour:
   typeList: 00000000030000000400000006000000
   targetSettings:
     score: 4000
-    tileSettings: []
-    specialSettings: []
+    tileSettings:
+    - type: 6
+      count: 40
+    specialSettings:
+    - type: 5
+      count: 1

@@ -17,13 +17,9 @@ namespace Views
         
         private Queue<TargetLevelView> _targetPoolQueue;
 
-        private void Awake()
-        {
-            _targetPoolQueue = new Queue<TargetLevelView>();
-        }
-
         public void Init(TargetLevel target)
         {
+            _targetPoolQueue = new Queue<TargetLevelView>();
             Reset();
 
             if (target.HasTargetScore())

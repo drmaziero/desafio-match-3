@@ -21,8 +21,10 @@ namespace Views
         private Dictionary<TileType, Color> _tileTypeDictionary;
         private Dictionary<SpecialTileType, GameObject> _specialTypeDictionary;
         private int _targetCount;
-
-        private void Awake()
+        private bool _initialized = false;
+        
+        
+        public void Init(TileType type, SpecialTileType specialTileType, int count)
         {
             _tileTypeDictionary = new Dictionary<TileType, Color>();
             _specialTypeDictionary = new Dictionary<SpecialTileType, GameObject>();
@@ -33,13 +35,8 @@ namespace Views
             foreach (var specialIcon in specialIcons)
                 _specialTypeDictionary.Add(specialIcon.type, specialIcon.icon);
 
-            _targetCount = 0;
+            _initialized = true;
             
-            Debug.LogWarning($"{gameObject.name} is On Awake");
-        }
-
-        public void Init(TileType type, SpecialTileType specialTileType, int count)
-        {
             Reset();
             
             _targetCount = count;
@@ -59,21 +56,25 @@ namespace Views
             }
             
             LayoutRebuilder.ForceRebuildLayoutImmediate(HorizontalLayoutGroup.GetComponent<RectTransform>());
-            UpdateCount(0);
+            UpdateCount();
         }
 
         public void Reset()
         {
-            Debug.LogWarning($"{gameObject.name} is Trying to Reset");
+            if (!_initialized)
+                return;
+            
             scoreIcon.SetActive(false);
             tileIcon.SetActive(false);
             foreach (var keyValuePair in _specialTypeDictionary)
                 keyValuePair.Value.SetActive(false);
+
+            _initialized = false;
         }
 
-        public void UpdateCount(int count)
+        public void UpdateCount()
         {
-            counter.SetText($"{count}/{_targetCount}");
+            counter.SetText($"{_targetCount}");
         }
     }
 

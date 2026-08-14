@@ -16,6 +16,6 @@ MonoBehaviour:
   maxSwapTiles: 20
   typeList: 00000000030000000400000006000000
   targetSettings:
-    score: 10
+    score: 1000
     tileSettings: []
     specialSettings: []
