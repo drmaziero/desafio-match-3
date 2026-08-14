@@ -14,140 +14,132 @@ namespace Views
 
         [SerializeField] private GridLayoutGroup _boardContainer;
         [SerializeField] private TilePrefabRepository _tilePrefabRepository;
-        [SerializeField] private TileSpotView _tileSpotPrefab;
-
-        private GameObject[][] _tiles;
-        private TileSpotView[][] _tileSpots;
+        [SerializeField] private TileView tilePrefab;
+        
+        private TileView[][] _tiles;
 
         public void CreateBoard(List<List<Tile>> board)
         {
             _boardContainer.constraintCount = board[0].Count;
-            _tiles = new GameObject[board.Count][];
-            _tileSpots = new TileSpotView[board.Count][];
+            _tiles = new TileView[board.Count][];
 
             for (int y = 0; y < board.Count; y++)
             {
-                _tiles[y] = new GameObject[board[0].Count];
-                _tileSpots[y] = new TileSpotView[board[0].Count];
+                _tiles[y] = new TileView[board[0].Count];
 
                 for (int x = 0; x < board[0].Count; x++)
                 {
-                    TileSpotView tileSpot = Instantiate(_tileSpotPrefab);
-                    tileSpot.transform.SetParent(_boardContainer.transform, false);
-                    tileSpot.SetPosition(x, y);
-                    tileSpot.Clicked += TileSpot_Clicked;
-
-                    _tileSpots[y][x] = tileSpot;
-
-                    var tileTypeIndex = board[y][x].Type;
-                    if (tileTypeIndex != TileType.None)
-                    {
-                        GameObject tilePrefab = _tilePrefabRepository.GetTilePrefab(tileTypeIndex);
-                        GameObject tile = Instantiate(tilePrefab);
-                        tileSpot.SetTile(tile);
-
-                        _tiles[y][x] = tile;
-                    }
+                    TileView tileView = Instantiate(tilePrefab, _boardContainer.transform, false);
+                    tileView.SetPosition(x, y);
+                    tileView.Clicked += TileSpot_Clicked;
+                    tileView.ApplyState(new TileViewState(board[y][x].Type, board[y][x].SpecialType));
+                    _tiles[y][x] = tileView;
                 }
             }
         }
 
-        public Tween CreateTile(List<AddedTileInfo> addedTiles)
+        public Tween RefillTiles(List<AddedTileInfo> addedTiles)
         {
             Sequence sequence = DOTween.Sequence();
-            for (int i = 0; i < addedTiles.Count; i++)
+            foreach (var addedTileInfo in addedTiles)
             {
-                AddedTileInfo addedTileInfo = addedTiles[i];
                 Vector2Int position = addedTileInfo.Position;
+                TileView tile = _tiles[position.y][position.x];
+                tile.ApplyTileType(addedTileInfo.Type);
 
-                TileSpotView tileSpot = _tileSpots[position.y][position.x];
-
-                GameObject tilePrefab = _tilePrefabRepository.GetTilePrefab(addedTileInfo.Type);
-                GameObject tile = Instantiate(tilePrefab);
-                tileSpot.SetTile(tile);
-
-                _tiles[position.y][position.x] = tile;
-
-                tile.transform.localScale = Vector2.zero;
-                sequence.Join(tile.transform.DOScale(1.0f, 0.2f));
+                sequence.Join(tile.AnimateShow());
             }
 
             return sequence;
         }
-
+        
         public Tween CreateSpecialTile(IEnumerable<AddedSpecialTileInfo> addedSpecialTiles)
         {
             Sequence sequence = DOTween.Sequence();
-            foreach (var addedSpecialTileInfo in addedSpecialTiles)
+            foreach (var specialTileInfo in addedSpecialTiles)
             {
-                Vector2Int position = addedSpecialTileInfo.Position;
-                TileSpotView tileSpot = _tileSpots[position.y][position.x];
+                Vector2Int position = specialTileInfo.Position;
+                TileView tileView = _tiles[position.y][position.x];
+                tileView.ApplySpecialType(specialTileInfo.SpecialTileType);
                 
-                GameObject specialTilePrefab =
-                    _tilePrefabRepository.GetEffectTilePrefab(addedSpecialTileInfo.SpecialTileType);
-                GameObject specialTile = Instantiate(specialTilePrefab);
+                sequence.Join(tileView.AnimateSpecialCreated());
+            }
+            return sequence;
+        }
+        
 
-                var oldTime = _tiles[position.y][position.x];
-                tileSpot.ReplaceTile(oldTime, specialTile);
-                _tiles[position.y][position.x] = specialTile;
-                
-                specialTile.transform.localScale = Vector2.zero;
-                sequence.Join(specialTile.transform.DOScale(1.0f, 0.2f));
+        public Tween ClearTiles(IEnumerable<Vector2Int> matchedPosition)
+        {
+            Sequence sequence = DOTween.Sequence();
+            foreach (var position in matchedPosition)
+            {
+                TileView tileView = _tiles[position.y][position.x];
+                sequence.Join(tileView.AnimateClear());
             }
 
             return sequence;
-        }
-
-        public Tween DestroyTiles(IEnumerable<Vector2Int> matchedPosition)
-        {
-            foreach (var position in matchedPosition)
-            {
-                Destroy(_tiles[position.y][position.x]);
-                _tiles[position.y][position.x] = null;
-            }
-
-            return DOVirtual.DelayedCall(0.2f, () => { });
         }
 
         public Tween MoveTiles(List<MovedTileInfo> movedTiles)
         {
-            GameObject[][] tiles = new GameObject[_tiles.Length][];
-            for (int y = 0; y < _tiles.Length; y++)
+            var motionList = new List<TileViewMotion>();
+            
+            foreach (var moveInfo in movedTiles)
             {
-                tiles[y] = new GameObject[_tiles[y].Length];
-                for (int x = 0; x < _tiles[y].Length; x++)
+                TileView fromView = _tiles[moveInfo.From.y][moveInfo.From.x];
+                TileView toView = _tiles[moveInfo.To.y][moveInfo.To.x];
+                
+                motionList.Add(new TileViewMotion()
                 {
-                    tiles[y][x] = _tiles[y][x];
-                }
+                    From = fromView,
+                    To = toView,
+                    State = fromView.GetState()
+                });
             }
-
+            
             Sequence sequence = DOTween.Sequence();
-            for (int i = 0; i < movedTiles.Count; i++)
+            
+            foreach (var motion in motionList)
+                sequence.Join(motion.From.AnimateMoveTo(motion.To.transform.position));
+
+            sequence.OnComplete(() =>
             {
-                MovedTileInfo movedTileInfo = movedTiles[i];
+                foreach (var motion in motionList)
+                {
+                    motion.From.SetEmpty();
+                    motion.From.ResetVisualTransform();
+                }
 
-                Vector2Int from = movedTileInfo.From;
-                Vector2Int to = movedTileInfo.To;
-
-                sequence.Join(_tileSpots[to.y][to.x].AnimatedSetTile(_tiles[from.y][from.x]));
-
-                tiles[to.y][to.x] = _tiles[from.y][from.x];
-            }
-
-            _tiles = tiles;
-
+                foreach (var motion in motionList)
+                {
+                    motion.To.ApplyState(motion.State);
+                    motion.To.ResetVisualTransform();
+                }
+            });
+            
             return sequence;
         }
 
         public Tween SwapTiles(int fromX, int fromY, int toX, int toY)
         {
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(_tileSpots[fromY][fromX].AnimatedSetTile(_tiles[toY][toX]));
-            sequence.Join(_tileSpots[toY][toX].AnimatedSetTile(_tiles[fromY][fromX]));
+            var from = new Vector2Int(fromX, fromY);
+            var to = new Vector2Int(toX, toY);
 
-            (_tiles[toY][toX], _tiles[fromY][fromX]) = (_tiles[fromY][fromX], _tiles[toY][toX]);
+            var motions = new List<MovedTileInfo>()
+            {
+                new()
+                {
+                    From = from,
+                    To = to
+                },
+                new()
+                {
+                    From = to,
+                    To = from
+                }
+            };
 
-            return sequence;
+            return MoveTiles(motions);
         }
 
         #region Events

@@ -57,10 +57,10 @@ namespace Controllers
         {
             foreach (var boardSequence in boardSequences)
             {
-                yield return _boardView.DestroyTiles(boardSequence.MatchedPosition).WaitForCompletion();
+                yield return _boardView.ClearTiles(boardSequence.MatchedPosition).WaitForCompletion();
                 yield return _boardView.CreateSpecialTile(boardSequence.AddedSpecialTiles).WaitForCompletion();
                 yield return _boardView.MoveTiles(boardSequence.MovedTiles).WaitForCompletion();
-                yield return _boardView.CreateTile(boardSequence.AddedTiles);
+                yield return _boardView.RefillTiles(boardSequence.AddedTiles).WaitForCompletion();
             }
             
             onComplete?.Invoke();
