@@ -46,6 +46,12 @@ namespace GameLogic.Services
             _currentScore = score;
         }
 
+        public void UpgradeLevel()
+        {
+            _currentLevel++;
+            PlayerPrefs.SetInt(levelPlayerPrefKey,_currentLevel);
+        }
+
         
         public bool IsEndGame()
         {

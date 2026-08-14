@@ -14,6 +14,7 @@ namespace Project.Script.Manager
         [Header("Controller")]
         [SerializeField]
         private HudController _hudController;
+        [SerializeField] private UiController _uiController;
 
         [SerializeField] private GameController _gameController;
         
@@ -50,9 +51,14 @@ namespace Project.Script.Manager
             _gameController.TurnCompleted -= OnTurnCompleted;
         }
 
-        public void Start()
+        private void OnEnable()
         {
             StartGame();
+        }
+
+        private void OnDisable()
+        {
+            _gameController.Reset();
         }
 
         public void StartGame()
@@ -67,7 +73,6 @@ namespace Project.Script.Manager
             _gameController.Init(board);
         }
 
-       
 
         private void OnScoreChanges(int score)
         {
@@ -109,11 +114,16 @@ namespace Project.Script.Manager
         
         private void OnTurnCompleted()
         {
-            if (_levelService.IsEndGame())
-            {
-                Debug.LogWarning("Game Finished");
-                Debug.LogWarning($"Is Win: {_levelService.IsCompleteAllTargets()}");
-            }
+            var isWin = _levelService.IsCompleteAllTargets();
+            var isEndGame = _levelService.IsEndGame();
+            
+            if (!isEndGame)
+                return;
+            
+            if (isWin)
+                _levelService.UpgradeLevel();
+            
+            _uiController.GameplayFinished(isWin);
         }
     }
 }

@@ -39,6 +39,12 @@ namespace Controllers
         {;
             _boardView.CreateBoard(board);
         }
+
+        public void Reset()
+        {
+            _boardView.ClearBoard();
+        }
+
         #endregion
 
         public void AnimateInvalidSwap(Vector2Int from, Vector2Int to)
