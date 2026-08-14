@@ -1,0 +1,1573 @@
+fileFormatVersion: 2
+guid: e8ee93ad6fd05470f986332e35fd6642
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3803254783625140157
+    second: clearColumnLiquid_0
+  - first:
+      213: 8161988649250772055
+    second: clearColumnLiquid_1
+  - first:
+      213: -706947588366064488
+    second: clearColumnLiquid_2
+  - first:
+      213: 3149493809399339451
+    second: clearColumnLiquid_3
+  - first:
+      213: 8273001038394447743
+    second: clearColumnLiquid_4
+  - first:
+      213: -3851760966913585508
+    second: clearColumnLiquid_5
+  - first:
+      213: 1064789200795810336
+    second: clearColumnLiquid_6
+  - first:
+      213: -3666339724726950129
+    second: clearColumnLiquid_7
+  - first:
+      213: -2121776798539124928
+    second: clearColumnLiquid_8
+  - first:
+      213: 8925493400909934390
+    second: clearColumnLiquid_9
+  - first:
+      213: 6863337544187420030
+    second: clearColumnLiquid_10
+  - first:
+      213: -8100084061614138966
+    second: clearColumnLiquid_11
+  - first:
+      213: -8703346082528556254
+    second: clearColumnLiquid_12
+  - first:
+      213: -5022511816136766984
+    second: clearColumnLiquid_13
+  - first:
+      213: -7340067718810198664
+    second: clearColumnLiquid_14
+  - first:
+      213: -134104037238952566
+    second: clearColumnLiquid_15
+  - first:
+      213: -6711966728373077490
+    second: clearColumnLiquid_16
+  - first:
+      213: 1676725757889080614
+    second: clearColumnLiquid_17
+  - first:
+      213: -3501294139119249021
+    second: clearColumnLiquid_18
+  - first:
+      213: -2153623992518421428
+    second: clearColumnLiquid_19
+  - first:
+      213: -7564535941567845950
+    second: clearColumnLiquid_20
+  - first:
+      213: 2887445180501783045
+    second: clearColumnLiquid_21
+  - first:
+      213: -7123388400494464508
+    second: clearColumnLiquid_22
+  - first:
+      213: 349089215693421049
+    second: clearColumnLiquid_23
+  - first:
+      213: 3363719227094567369
+    second: clearColumnLiquid_24
+  - first:
+      213: -8775963079223346202
+    second: clearColumnLiquid_25
+  - first:
+      213: -1333809331557253254
+    second: clearColumnLiquid_26
+  - first:
+      213: -7230512330384330377
+    second: clearColumnLiquid_27
+  - first:
+      213: 2571229301824015514
+    second: clearColumnLiquid_28
+  - first:
+      213: 7938310061491338324
+    second: clearColumnLiquid_29
+  - first:
+      213: 1282010711147531534
+    second: clearColumnLiquid_30
+  - first:
+      213: 3251735101109736265
+    second: clearColumnLiquid_31
+  - first:
+      213: -3960909385536452039
+    second: clearColumnLiquid_32
+  - first:
+      213: 4711131151823093108
+    second: clearColumnLiquid_33
+  - first:
+      213: -1194644878610954239
+    second: clearColumnLiquid_34
+  - first:
+      213: 222594836508909041
+    second: clearColumnLiquid_35
+  - first:
+      213: 2927234417055657473
+    second: clearColumnLiquid_36
+  - first:
+      213: -5350133974587143662
+    second: clearColumnLiquid_37
+  - first:
+      213: -4624838953453815692
+    second: clearColumnLiquid_38
+  - first:
+      213: -3376845883799201373
+    second: clearColumnLiquid_39
+  - first:
+      213: -2228675118057806472
+    second: clearColumnLiquid_40
+  - first:
+      213: 3813214717298546230
+    second: clearColumnLiquid_41
+  - first:
+      213: 8019040555283262816
+    second: clearColumnLiquid_42
+  - first:
+      213: 1845081718213793030
+    second: clearColumnLiquid_43
+  - first:
+      213: -6271022737910440521
+    second: clearColumnLiquid_44
+  - first:
+      213: -3321964926234790777
+    second: clearColumnLiquid_45
+  - first:
+      213: 6751810780393839181
+    second: clearColumnLiquid_46
+  - first:
+      213: -4888686937093878943
+    second: clearColumnLiquid_47
+  - first:
+      213: -2162092587727913333
+    second: clearColumnLiquid_48
+  - first:
+      213: 8023850292437627302
+    second: clearColumnLiquid_49
+  - first:
+      213: 7824351812137046132
+    second: clearColumnLiquid_50
+  - first:
+      213: -1576654292933367684
+    second: clearColumnLiquid_51
+  - first:
+      213: -4807734092738987797
+    second: clearColumnLiquid_52
+  - first:
+      213: 6059917332816474037
+    second: clearColumnLiquid_53
+  - first:
+      213: 7065006585285589578
+    second: clearColumnLiquid_54
+  - first:
+      213: 7460186758849887479
+    second: clearColumnLiquid_55
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: clearColumnLiquid_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1022
+        height: 1536
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 348e7bfbcef183bc0800000000000000
+      internalID: -3803254783625140157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_1
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 1501
+        width: 33
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 754dc53be65354170800000000000000
+      internalID: 8161988649250772055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_2
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 1531
+        width: 9
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8942f98f9ea6036f0800000000000000
+      internalID: -706947588366064488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_3
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 1525
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb91a83deef35bb20800000000000000
+      internalID: 3149493809399339451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_4
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 1511
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7750f7bc9a9fc270800000000000000
+      internalID: 8273001038394447743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_5
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 1159
+        width: 123
+        height: 287
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9e866fdecbcb8ac0800000000000000
+      internalID: -3851760966913585508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_6
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 1342
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02a3b1af224e6ce00800000000000000
+      internalID: 1064789200795810336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_7
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 1319
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f072fb9027b8e1dc0800000000000000
+      internalID: -3666339724726950129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1198
+        width: 5
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04fe86e4e3fed82e0800000000000000
+      internalID: -2121776798539124928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 1239
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f645675f8bddb70800000000000000
+      internalID: 8925493400909934390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_10
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 1231
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7d94e602297f3f50800000000000000
+      internalID: 6863337544187420030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_11
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1221
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa99fa84678b69f80800000000000000
+      internalID: -8100084061614138966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1166
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22b0999a9d0873780800000000000000
+      internalID: -8703346082528556254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_13
+      rect:
+        serializedVersion: 2
+        x: 966
+        y: 1061
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f947f61d147c4ab0800000000000000
+      internalID: -5022511816136766984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_14
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 1063
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87d91019c47d22a90800000000000000
+      internalID: -7340067718810198664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 911
+        width: 15
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d2d61b611932ef0800000000000000
+      internalID: -134104037238952566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_16
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 951
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0af41372dd4ad2a0800000000000000
+      internalID: -6711966728373077490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 846
+        width: 5
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62de9b0713de44710800000000000000
+      internalID: 1676725757889080614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_18
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 841
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 389d3a7f787e86fc0800000000000000
+      internalID: -3501294139119249021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_19
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 799
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c445e22a36acc12e0800000000000000
+      internalID: -2153623992518421428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 711
+        width: 5
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c96c28c3ae550790800000000000000
+      internalID: -7564535941567845950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_21
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 691
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502f834e714421820800000000000000
+      internalID: 2887445180501783045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_22
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 671
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 402b367bdf3a42d90800000000000000
+      internalID: -7123388400494464508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 607
+        width: 6
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f97358cac638d400800000000000000
+      internalID: 349089215693421049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_24
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 533
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c98f17b0d45eae20800000000000000
+      internalID: 3363719227094567369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_25
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 531
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ebf2f49314853680800000000000000
+      internalID: -8775963079223346202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_26
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 452
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7fbd62da7b5d7de0800000000000000
+      internalID: -1333809331557253254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_27
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 453
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7713c5b285f08ab90800000000000000
+      internalID: -7230512330384330377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_28
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 407
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9ccb435d67dea320800000000000000
+      internalID: 2571229301824015514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_29
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 287
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45cb91421fa8a2e60800000000000000
+      internalID: 7938310061491338324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_30
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 245
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0dc13c03fd9ac110800000000000000
+      internalID: 1282010711147531534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_31
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 207
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 943905598db702d20800000000000000
+      internalID: 3251735101109736265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 159
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93ac69f46e50809c0800000000000000
+      internalID: -3960909385536452039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_33
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 159
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d31ba62dc416140800000000000000
+      internalID: 4711131151823093108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_34
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 98
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10887a9ffc4cb6fe0800000000000000
+      internalID: -1194644878610954239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_35
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 107
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fd13fe03d0d61300800000000000000
+      internalID: 222594836508909041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_36
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 101
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10e66e27130af9820800000000000000
+      internalID: 2927234417055657473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_37
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 79
+        width: 9
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21a0cff0f7180c5b0800000000000000
+      internalID: -5350133974587143662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_38
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 63
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 478fefba97541dfb0800000000000000
+      internalID: -4624838953453815692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_39
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 55
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a998ea5f880321d0800000000000000
+      internalID: -3376845883799201373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_40
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 49
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 875a964c9c72211e0800000000000000
+      internalID: -2228675118057806472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_41
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 45
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6361fd405924be430800000000000000
+      internalID: 3813214717298546230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_42
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 47
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06d2c19f5ea594f60800000000000000
+      internalID: 8019040555283262816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_43
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 39
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60553bb0c0c0b9910800000000000000
+      internalID: 1845081718213793030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_44
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 37
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bd53709b0ad8f8a0800000000000000
+      internalID: -6271022737910440521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_45
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 13
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 784f777008206e1d0800000000000000
+      internalID: -3321964926234790777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_46
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 31
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4a1704d12043bd50800000000000000
+      internalID: 6751810780393839181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_47
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 7
+        width: 41
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b4d60d125e72cb0800000000000000
+      internalID: -4888686937093878943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_48
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 9
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8ef8f82f34bef1e0800000000000000
+      internalID: -2162092587727913333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_49
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 31
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1b8ab24517a5f60800000000000000
+      internalID: 8023850292437627302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_50
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 11
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 470dc18948ea59c60800000000000000
+      internalID: 7824351812137046132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_51
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 13
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c78ac1826499e1ae0800000000000000
+      internalID: -1576654292933367684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_52
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 23
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be8f1cba05f774db0800000000000000
+      internalID: -4807734092738987797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_53
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 15
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bf22c615b6291450800000000000000
+      internalID: 6059917332816474037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_54
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 14
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4a3ebbae02fb0260800000000000000
+      internalID: 7065006585285589578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColumnLiquid_55
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 0
+        width: 44
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fcf157d458e78760800000000000000
+      internalID: 7460186758849887479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      clearColumnLiquid_0: -3803254783625140157
+      clearColumnLiquid_1: 8161988649250772055
+      clearColumnLiquid_10: 6863337544187420030
+      clearColumnLiquid_11: -8100084061614138966
+      clearColumnLiquid_12: -8703346082528556254
+      clearColumnLiquid_13: -5022511816136766984
+      clearColumnLiquid_14: -7340067718810198664
+      clearColumnLiquid_15: -134104037238952566
+      clearColumnLiquid_16: -6711966728373077490
+      clearColumnLiquid_17: 1676725757889080614
+      clearColumnLiquid_18: -3501294139119249021
+      clearColumnLiquid_19: -2153623992518421428
+      clearColumnLiquid_2: -706947588366064488
+      clearColumnLiquid_20: -7564535941567845950
+      clearColumnLiquid_21: 2887445180501783045
+      clearColumnLiquid_22: -7123388400494464508
+      clearColumnLiquid_23: 349089215693421049
+      clearColumnLiquid_24: 3363719227094567369
+      clearColumnLiquid_25: -8775963079223346202
+      clearColumnLiquid_26: -1333809331557253254
+      clearColumnLiquid_27: -7230512330384330377
+      clearColumnLiquid_28: 2571229301824015514
+      clearColumnLiquid_29: 7938310061491338324
+      clearColumnLiquid_3: 3149493809399339451
+      clearColumnLiquid_30: 1282010711147531534
+      clearColumnLiquid_31: 3251735101109736265
+      clearColumnLiquid_32: -3960909385536452039
+      clearColumnLiquid_33: 4711131151823093108
+      clearColumnLiquid_34: -1194644878610954239
+      clearColumnLiquid_35: 222594836508909041
+      clearColumnLiquid_36: 2927234417055657473
+      clearColumnLiquid_37: -5350133974587143662
+      clearColumnLiquid_38: -4624838953453815692
+      clearColumnLiquid_39: -3376845883799201373
+      clearColumnLiquid_4: 8273001038394447743
+      clearColumnLiquid_40: -2228675118057806472
+      clearColumnLiquid_41: 3813214717298546230
+      clearColumnLiquid_42: 8019040555283262816
+      clearColumnLiquid_43: 1845081718213793030
+      clearColumnLiquid_44: -6271022737910440521
+      clearColumnLiquid_45: -3321964926234790777
+      clearColumnLiquid_46: 6751810780393839181
+      clearColumnLiquid_47: -4888686937093878943
+      clearColumnLiquid_48: -2162092587727913333
+      clearColumnLiquid_49: 8023850292437627302
+      clearColumnLiquid_5: -3851760966913585508
+      clearColumnLiquid_50: 7824351812137046132
+      clearColumnLiquid_51: -1576654292933367684
+      clearColumnLiquid_52: -4807734092738987797
+      clearColumnLiquid_53: 6059917332816474037
+      clearColumnLiquid_54: 7065006585285589578
+      clearColumnLiquid_55: 7460186758849887479
+      clearColumnLiquid_6: 1064789200795810336
+      clearColumnLiquid_7: -3666339724726950129
+      clearColumnLiquid_8: -2121776798539124928
+      clearColumnLiquid_9: 8925493400909934390
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

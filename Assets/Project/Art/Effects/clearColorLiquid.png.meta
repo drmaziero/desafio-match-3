@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: c755341acc90749308dd599e476c6c29
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4383161075041944070
+    second: clearColorLiquid_0
+  - first:
+      213: -5573202746239640529
+    second: clearColorLiquid_1
+  - first:
+      213: -4379993896909372458
+    second: clearColorLiquid_2
+  - first:
+      213: 4050173028092975362
+    second: clearColorLiquid_3
+  - first:
+      213: 2800658130131007327
+    second: clearColorLiquid_4
+  - first:
+      213: -3760618183984217548
+    second: clearColorLiquid_5
+  - first:
+      213: -3079190663967753009
+    second: clearColorLiquid_6
+  - first:
+      213: 696361593726304332
+    second: clearColorLiquid_7
+  - first:
+      213: 6501122648055029201
+    second: clearColorLiquid_8
+  - first:
+      213: -3361732908094875137
+    second: clearColorLiquid_9
+  - first:
+      213: 2695896567436460820
+    second: clearColorLiquid_10
+  - first:
+      213: -6101096090450761599
+    second: clearColorLiquid_11
+  - first:
+      213: 3455006817646427095
+    second: clearColorLiquid_12
+  - first:
+      213: -7329591393576090685
+    second: clearColorLiquid_13
+  - first:
+      213: -404139586776708681
+    second: clearColorLiquid_14
+  - first:
+      213: -954916530915792609
+    second: clearColorLiquid_15
+  - first:
+      213: 7378278803821824997
+    second: clearColorLiquid_16
+  - first:
+      213: 3308338538306888122
+    second: clearColorLiquid_17
+  - first:
+      213: 145882766796982533
+    second: clearColorLiquid_18
+  - first:
+      213: 3789893687871548239
+    second: clearColorLiquid_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: clearColorLiquid_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 901
+        width: 233
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 602c13756cd14dc30800000000000000
+      internalID: 4383161075041944070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_1
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 893
+        width: 189
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2c972161a108a2b0800000000000000
+      internalID: -5573202746239640529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_2
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 989
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d38658c1c22733c0800000000000000
+      internalID: -4379993896909372458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_3
+      rect:
+        serializedVersion: 2
+        x: 1192
+        y: 951
+        width: 173
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 209995a09ea153830800000000000000
+      internalID: 4050173028092975362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_4
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 889
+        width: 75
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57b4c71bbfedd620800000000000000
+      internalID: 2800658130131007327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 895
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4320fbfafa99fcbc0800000000000000
+      internalID: -3760618183984217548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_6
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 887
+        width: 59
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fccb086c7648445d0800000000000000
+      internalID: -3079190663967753009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_7
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 912
+        width: 11
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4008451e29f9a900800000000000000
+      internalID: 696361593726304332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_8
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 21
+        width: 1489
+        height: 871
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dd119e9a90a83a50800000000000000
+      internalID: 6501122648055029201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_9
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 861
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff993473bb9b851d0800000000000000
+      internalID: -3361732908094875137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_10
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 856
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 413ce3505afb96520800000000000000
+      internalID: 2695896567436460820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_11
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 863
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18868244e6d845ba0800000000000000
+      internalID: -6101096090450761599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_12
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 81
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7db3e5e2566a2ff20800000000000000
+      internalID: 3455006817646427095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_13
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 80
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c3032d167f084a90800000000000000
+      internalID: -7329591393576090685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_14
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 89
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b94082ef25346af0800000000000000
+      internalID: -404139586776708681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_15
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 79
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f19ad9879747fb2f0800000000000000
+      internalID: -954916530915792609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_16
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 93
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5eb0893fa79e46660800000000000000
+      internalID: 7378278803821824997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_17
+      rect:
+        serializedVersion: 2
+        x: 1392
+        y: 91
+        width: 35
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab1648c4f5499ed20800000000000000
+      internalID: 3308338538306888122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_18
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 67
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50909cd7a97460200800000000000000
+      internalID: 145882766796982533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clearColorLiquid_19
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 35
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4b241aba38689430800000000000000
+      internalID: 3789893687871548239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      clearColorLiquid_0: 4383161075041944070
+      clearColorLiquid_1: -5573202746239640529
+      clearColorLiquid_10: 2695896567436460820
+      clearColorLiquid_11: -6101096090450761599
+      clearColorLiquid_12: 3455006817646427095
+      clearColorLiquid_13: -7329591393576090685
+      clearColorLiquid_14: -404139586776708681
+      clearColorLiquid_15: -954916530915792609
+      clearColorLiquid_16: 7378278803821824997
+      clearColorLiquid_17: 3308338538306888122
+      clearColorLiquid_18: 145882766796982533
+      clearColorLiquid_19: 3789893687871548239
+      clearColorLiquid_2: -4379993896909372458
+      clearColorLiquid_3: 4050173028092975362
+      clearColorLiquid_4: 2800658130131007327
+      clearColorLiquid_5: -3760618183984217548
+      clearColorLiquid_6: -3079190663967753009
+      clearColorLiquid_7: 696361593726304332
+      clearColorLiquid_8: 6501122648055029201
+      clearColorLiquid_9: -3361732908094875137
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -56,8 +56,6 @@ namespace GameLogic.Services
             DetectComposeMatch();
             DetectedComplexMatch();
 
-            ShowMatchLogs(); // Debug
-
             return new DetectedMatches(_complexMatches, _composedMatches, _horizontalMatches.Concat(_verticalMatches));
         }
 
@@ -191,22 +189,37 @@ namespace GameLogic.Services
 
             return result;
         }
-        
-        
-        //------- Debug
-        private void ShowMatchLogs()
-        {
-            foreach (var horizontalMatch in _horizontalMatches)
-                Debug.LogWarning("Horizontal Match!");
 
-            foreach (var verticalMatch in _verticalMatches)
-                Debug.LogWarning("Vertical Match!");
+        public bool HasMatchWithPosition(List<List<Tile>> board, Vector2Int position, TileType type)
+        {
+            int count = 0;
+            for (var y = 0; y < board.Count; y++)
+            {
+                if (board[y][position.x].Type == type)
+                {
+                    count++;
+                    if (count >= 3)
+                        return true;
+                }
+                else
+                    count = 0;
+            }
+
+            count = 0;
             
-            foreach (var composedMatch in _composedMatches)
-                Debug.LogWarning("Compose Match!");
+            for (var x = 0; x < board[position.y].Count; x++)
+            {
+                if (board[position.y][x].Type == type)
+                {
+                    count++;
+                    if (count >= 3)
+                        return true;
+                }
+                else
+                    count = 0;
+            }
             
-            foreach (var complexMatch in _complexMatches)
-                Debug.LogWarning("Complex Match!");
+            return false;
         }
     }
 }
