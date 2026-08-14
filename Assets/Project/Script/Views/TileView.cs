@@ -215,18 +215,7 @@ namespace Views
         }
     }
     
-    [Serializable]
-    public struct TileColor
-    {
-        public TileType type;
-        public Color color;
-    }
+   
 
-    [Serializable]
-    public struct SpecialComponents
-    {
-        public SpecialTileType type;
-        public Image liquid;
-        public GameObject root;
-    }
+    
 }

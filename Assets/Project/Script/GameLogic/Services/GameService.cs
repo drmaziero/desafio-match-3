@@ -43,25 +43,11 @@ namespace GameLogic.Services
 
             (newBoard[toY][toX], newBoard[fromY][fromX]) = (newBoard[fromY][fromX], newBoard[toY][toX]);
 
-            for (int y = 0; y < newBoard.Count; y++)
-            {
-                for (int x = 0; x < newBoard[y].Count; x++)
-                {
-                    if (x > 1 &&
-                        newBoard[y][x].Type == newBoard[y][x - 1].Type &&
-                        newBoard[y][x - 1].Type == newBoard[y][x - 2].Type)
-                    {
-                        return true;
-                    }
+            if (_matchingService.HasMatchWithPosition(newBoard, new Vector2Int(fromX, fromY), newBoard[fromY][fromX].Type))
+                return true;
 
-                    if (y > 1 &&
-                        newBoard[y][x].Type == newBoard[y - 1][x].Type &&
-                        newBoard[y - 1][x].Type == newBoard[y - 2][x].Type)
-                    {
-                        return true;
-                    }
-                }
-            }
+            if (_matchingService.HasMatchWithPosition(newBoard, new Vector2Int(toX, toY), newBoard[toY][toX].Type))
+                return true;
 
             if (newBoard[toY][toX].SpecialType != SpecialTileType.None ||
                 newBoard[fromY][fromX].SpecialType != SpecialTileType.None)

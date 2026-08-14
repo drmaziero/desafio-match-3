@@ -42,7 +42,7 @@ namespace GameLogic.Services
                 var origin = complexMatch.Origin;
                 var tileType = board[origin.y][origin.x].Type;
 
-                effects.Add(new ExplosionAndCleanCrossEffect(origin, 5, tileType));
+                effects.Add(new ExplosionAndCleanCrossEffect(origin, 3, tileType));
                 _consumptionTracker.Consume(complexMatch.BasicMatches);
             }
         }
@@ -59,7 +59,7 @@ namespace GameLogic.Services
                 var tileType = board[origin.y][origin.x].Type;
 
                 if (composedMatch.IsMatchL())
-                    effects.Add(new ExplosionEffect(origin, 3, tileType));
+                    effects.Add(new ExplosionEffect(origin, 1, tileType));
                 else
                     effects.Add(new ClearCrossEffect(origin, tileType));
 
@@ -74,7 +74,7 @@ namespace GameLogic.Services
             {
                 if (_consumptionTracker.IsConsumed(match))
                     continue;
-
+                
                 if (match.Count <= 3)
                 {
                     _consumptionTracker.Consume(match);
@@ -83,7 +83,7 @@ namespace GameLogic.Services
                 
                 var origin = GetEffectOrigin(match, movedPosition);
                 var tileType = board[origin.y][origin.x].Type;
-
+                
                 switch (match.Count)
                 {
                     case > 4:
@@ -139,9 +139,9 @@ namespace GameLogic.Services
                 SpecialTileType.ClearRow => new ClearLineEffect(position, tile.Type),
                 SpecialTileType.ClearColumn => new ClearColumnEffect(position, tile.Type),
                 SpecialTileType.ClearColor => new ClearColor(position, tile.Type),
-                SpecialTileType.ExplosionRadius3 => new ExplosionEffect(position, 3, tile.Type),
+                SpecialTileType.ExplosionRadius3 => new ExplosionEffect(position, 1, tile.Type),
                 SpecialTileType.ClearCross => new ClearCrossEffect(position, tile.Type),
-                SpecialTileType.ExplosionRadius5AndCross => new ExplosionAndCleanCrossEffect(position, 5, tile.Type),
+                SpecialTileType.ExplosionRadius5AndCross => new ExplosionAndCleanCrossEffect(position, 3, tile.Type),
                 _ => throw new ArgumentOutOfRangeException($"{tile.SpecialType} not create an effect valid")
             };
 
