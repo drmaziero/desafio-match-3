@@ -12,6 +12,7 @@ namespace GameLogic.Services
     public class GameService
     {
         public event Action<DetectedMatches, int> ComputeScore;
+        public event Action<HashSet<Vector2Int>,List<List<Tile>>> ComputeMatches; 
         
         private List<List<Tile>> _boardTiles;
         private List<TileType> _tilesTypes;
@@ -91,7 +92,8 @@ namespace GameLogic.Services
 
                 effectTiles.Clear();
                 var matchedPosition = _effectService.ResolveEffectCascate(newBoard, initPositions);
-
+                ComputeMatches?.Invoke(matchedPosition,newBoard);
+                
                 var addedSpecialTileInfo = CreateEffectTiles(newBoard, effects, matchedPosition);
                 RemovedMatchedTiles(newBoard, matchedPosition);
 
@@ -107,7 +109,7 @@ namespace GameLogic.Services
                 };
                 boardSequences.Add(sequence);
                 detectedMatches = _matchingService.FindMatches(newBoard);
-
+                
                 cascadeCounter++;
             }
 

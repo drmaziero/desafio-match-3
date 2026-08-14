@@ -36,6 +36,7 @@ namespace Project.Script.Manager
             _levelService = new LevelService(_levelListSettings.GetLevelConfigs());
             
             _gameService.ComputeScore += _scoreService.ComputeScore;
+            _gameService.ComputeMatches += _levelService.ComputeMatches;
             _scoreService.ScoreChanged += OnScoreChanges;
             _levelService.MovementCountChanged += _hudController.OnMovementChanged;
             _gameController.SwapRequested += OnSwapRequested;
@@ -49,6 +50,7 @@ namespace Project.Script.Manager
             _levelService.MovementCountChanged -= _hudController.OnMovementChanged;
             _gameController.SwapRequested -= OnSwapRequested;
             _gameController.TurnCompleted -= OnTurnCompleted;
+            _gameService.ComputeMatches -= _levelService.ComputeMatches;
         }
 
         private void OnEnable()

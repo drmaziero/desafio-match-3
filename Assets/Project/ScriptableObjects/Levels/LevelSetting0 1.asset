@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c091eb004226438a975c7633cffd41aa, type: 3}
   m_Name: LevelSetting0 1
   m_EditorClassIdentifier: ScriptableObjects::ScriptableObjects.Level.LevelSettings
-  boardSize: {x: 10, y: 10}
-  maxSwapTiles: 1
+  boardSize: {x: 7, y: 10}
+  maxSwapTiles: 10
   typeList: 000000000300000004000000060000000100000005000000
   targetSettings:
-    score: 4000
+    score: 1
     tileSettings:
     - type: 5
       count: 20
