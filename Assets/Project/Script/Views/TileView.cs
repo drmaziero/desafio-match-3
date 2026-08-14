@@ -23,6 +23,11 @@ namespace Views
         [SerializeField] private GameObject normalStateContainer;
         [SerializeField] private GameObject specialStateContainer;
         [SerializeField] private Transform visualContainer;
+        [SerializeField] private GameObject fxContainer;
+
+        [Header("FX")] 
+        [SerializeField] private Image explosionTileImage;
+        [SerializeField] private Animator explosionTileFx;
         
         private Dictionary<TileType, Color> _colorDictionary;
         private Dictionary<SpecialTileType, GameObject> _specialRoots;
@@ -48,6 +53,8 @@ namespace Views
                 _specialRoots.Add(specialComponent.type, specialComponent.root);
                 _specialLiquids.Add(specialComponent.type, specialComponent.liquid);
             }
+            
+            fxContainer.SetActive(false);
             
             SetEmpty();
         }
@@ -145,7 +152,15 @@ namespace Views
         public Tween AnimateClear()
         {
             visualContainer.DOKill();
-            return visualContainer.DOScale(Vector3.zero, 0.2f).OnComplete(SetEmpty);
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(visualContainer.DOScale(1.08f, 0.05f));
+            sequence.AppendCallback(() =>
+            {
+                PlayClearTileFX(_colorDictionary[_type]);
+            });
+            sequence.Append(visualContainer.DOScale(Vector3.zero, 0.05f).SetEase(Ease.InBack)).OnComplete(SetEmpty);
+            return sequence;
         }
 
         public Tween AnimateMoveTo(Vector3 target)
@@ -163,6 +178,18 @@ namespace Views
         private void OnTileClick()
         {
             Clicked?.Invoke(_x, _y);
+        }
+
+        private void PlayClearTileFX(Color color)
+        {
+            explosionTileImage.color = Color.Lerp(color, Color.white, 0.25f);
+            fxContainer.SetActive(true);
+            explosionTileFx.Play("explode", 0, 0.0f);
+
+            DOVirtual.DelayedCall(0.2f, () =>
+            {
+                fxContainer.SetActive(false);
+            });
         }
     }
     
