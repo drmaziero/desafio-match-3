@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameLogic.Effects;
+using GameLogic.Matching;
 using Models;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,30 +11,27 @@ namespace GameLogic.Services
 {
     public class GameService
     {
+        public event Action<DetectedMatches, int> ComputeScore;
+        public event Action<HashSet<Vector2Int>,List<List<Tile>>> ComputeMatches; 
+        
         private List<List<Tile>> _boardTiles;
         private List<TileType> _tilesTypes;
         private int _tileCount;
         private MatchingService _matchingService;
         private MatchEffectService _effectService;
-        
-        public ScoreService ScoreService { get; private set; }
 
-        public GameService(ScoreConfig scoreConfig)
+        public GameService()
         {
             _matchingService = new MatchingService();
             _effectService = new MatchEffectService();
-            
-            ScoreService = new ScoreService(scoreConfig);
-            
         }
-        public List<List<Tile>> StartGame(int boardWidth, int boardHeight)
+        
+        public List<List<Tile>> StartGame(int boardWidth, int boardHeight, List<TileType> tileTypes)
         {
-            _tilesTypes = new List<TileType> { TileType.Blue, TileType.Green, TileType.Orange, TileType.Yellow };
+            _tilesTypes = tileTypes;
             _boardTiles = CreateBoard(boardWidth, boardHeight, _tilesTypes);
             
             _matchingService.Init();
-            ScoreService.Init();
-            
             return _boardTiles;
         }
         
@@ -43,15 +41,22 @@ namespace GameLogic.Services
 
             (newBoard[toY][toX], newBoard[fromY][fromX]) = (newBoard[fromY][fromX], newBoard[toY][toX]);
 
-            if (_matchingService.HasMatchWithPosition(newBoard, new Vector2Int(fromX, fromY), newBoard[fromY][fromX].Type))
+            if (_matchingService.HasMatchWithPosition(newBoard, new Vector2Int(fromX, fromY),
+                    newBoard[fromY][fromX].Type))
+            {
                 return true;
+            }
 
             if (_matchingService.HasMatchWithPosition(newBoard, new Vector2Int(toX, toY), newBoard[toY][toX].Type))
+            {
                 return true;
+            }
 
             if (newBoard[toY][toX].SpecialType != SpecialTileType.None ||
                 newBoard[fromY][fromX].SpecialType != SpecialTileType.None)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -72,7 +77,7 @@ namespace GameLogic.Services
             
             while (detectedMatches.HasBasicMatches || effectTiles.Any())
             {
-                ScoreService.ComputeScore(detectedMatches, cascadeCounter);
+                ComputeScore?.Invoke(detectedMatches, cascadeCounter);
 
                 Vector2Int? movedPosition = cascadeCounter == 1 ? new Vector2Int(toX, toY) : null;
                 var effects = _effectService.CreateEffects(detectedMatches, newBoard, movedPosition);
@@ -87,7 +92,8 @@ namespace GameLogic.Services
 
                 effectTiles.Clear();
                 var matchedPosition = _effectService.ResolveEffectCascate(newBoard, initPositions);
-
+                ComputeMatches?.Invoke(matchedPosition,newBoard);
+                
                 var addedSpecialTileInfo = CreateEffectTiles(newBoard, effects, matchedPosition);
                 RemovedMatchedTiles(newBoard, matchedPosition);
 
@@ -103,7 +109,7 @@ namespace GameLogic.Services
                 };
                 boardSequences.Add(sequence);
                 detectedMatches = _matchingService.FindMatches(newBoard);
-
+                
                 cascadeCounter++;
             }
 

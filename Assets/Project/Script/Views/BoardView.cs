@@ -38,6 +38,23 @@ namespace Views
             }
         }
 
+        public void ClearBoard()
+        {
+            if (_tiles == null)
+                return;
+
+            foreach (var row in _tiles)
+            {
+                foreach (var tile in row)
+                {
+                    if (tile != null)
+                        Destroy(tile.gameObject);
+                }
+            }
+
+            _tiles = null;
+        }
+
         public Tween RefillTiles(List<AddedTileInfo> addedTiles)
         {
             Sequence sequence = DOTween.Sequence();
