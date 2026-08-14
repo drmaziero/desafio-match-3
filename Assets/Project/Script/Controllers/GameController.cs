@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using GameLogic.Services;
 using Models;
+using ScriptableObjects.Level;
 using ScriptableObjects.Score;
 using UnityEngine;
 using Views;
@@ -15,17 +16,18 @@ namespace Controllers
         [Header("Views")]
         [SerializeField] private ScoreView _scoreView; 
         [SerializeField] private BoardView _boardView;
-        
-        [Header("Board Config")]
-        [SerializeField] private int _boardHeight = 10;
-        [SerializeField] private int _boardWidth = 10;
+        [SerializeField] private HudView _hudView;
 
         [Header("Score Settings")] 
         [SerializeField] private ScoreSettings _scoreSettings;
 
+        [Header("Level Config")] 
+        [SerializeField] private LevelListSettings _levelListSettings;
+
         private GameService _gameService;
 
         private ScoreController _scoreController;
+        private HudController _hudController;
         
         private bool _isAnimating;
         private int _selectedX = -1;
@@ -34,7 +36,7 @@ namespace Controllers
         #region Unity
         private void Awake()
         {
-            _gameService = new GameService(_scoreSettings.CreateConfig());
+            _gameService = new GameService(_scoreSettings.CreateConfig(), _levelListSettings.GetLevelConfigs());
             _boardView.TileClicked += OnTileClick;
         }
 
@@ -46,8 +48,10 @@ namespace Controllers
 
         private void Start()
         {
-            List<List<Tile>> board = _gameService.StartGame(_boardWidth, _boardHeight);
+            LevelConfig currentLevel = _gameService.LevelService.GetCurrentLevel();
+            List<List<Tile>> board = _gameService.StartGame(currentLevel.BoardSize.x, currentLevel.BoardSize.y, currentLevel.Types);
             _scoreController = new ScoreController(_scoreView, _gameService.ScoreService);
+            _hudController = new HudController(_hudView, _gameService.ScoreService, _gameService.LevelService);
             _boardView.CreateBoard(board);
         }
         #endregion

@@ -15,6 +15,21 @@ namespace Models
             TypeCounter = typeCounter.ToArray();
             SpecialCounter = specialCounter.ToArray();
         }
+
+        public bool HasTargetScore()
+        {
+            return Score > 0;
+        }
+
+        public bool HasTargetType()
+        {
+            return TypeCounter.Length > 0;
+        }
+
+        public bool HasTargetSpecial()
+        {
+            return SpecialCounter.Length > 0;
+        }
     }
 
     public class TileTypeCounter
