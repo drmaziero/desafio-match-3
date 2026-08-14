@@ -35,10 +35,19 @@ namespace Project.Script.Manager
             _levelService = new LevelService(_levelListSettings.GetLevelConfigs());
             
             _gameService.ComputeScore += _scoreService.ComputeScore;
-            _scoreService.ScoreChanged += _hudController.OnScoreChanged;
+            _scoreService.ScoreChanged += OnScoreChanges;
             _levelService.MovementCountChanged += _hudController.OnMovementChanged;
-
             _gameController.SwapRequested += OnSwapRequested;
+            _gameController.TurnCompleted += OnTurnCompleted;
+        }
+
+        private void OnDestroy()
+        {
+            _gameService.ComputeScore -= _scoreService.ComputeScore;
+            _scoreService.ScoreChanged -= OnScoreChanges;
+            _levelService.MovementCountChanged -= _hudController.OnMovementChanged;
+            _gameController.SwapRequested -= OnSwapRequested;
+            _gameController.TurnCompleted -= OnTurnCompleted;
         }
 
         public void Start()
@@ -58,9 +67,12 @@ namespace Project.Script.Manager
             _gameController.Init(board);
         }
 
-        private void OnDestroy()
+       
+
+        private void OnScoreChanges(int score)
         {
-            _gameService.ComputeScore -= _scoreService.ComputeScore;
+            _hudController.OnScoreChanged(score);
+            _levelService.UpdateScore(score);
         }
         
         private void OnSwapRequested(int fromX, int fromY, int toX, int toY)
@@ -93,6 +105,15 @@ namespace Project.Script.Manager
                 new Vector2Int(fromX, fromY),
                 new Vector2Int(toX, toY),
                 result);
+        }
+        
+        private void OnTurnCompleted()
+        {
+            if (_levelService.IsEndGame())
+            {
+                Debug.LogWarning("Game Finished");
+                Debug.LogWarning($"Is Win: {_levelService.IsCompleteAllTargets()}");
+            }
         }
     }
 }

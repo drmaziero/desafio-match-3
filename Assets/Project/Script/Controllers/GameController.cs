@@ -10,7 +10,8 @@ namespace Controllers
 {
     public class GameController : MonoBehaviour
     {
-        public event Action<int, int, int, int> SwapRequested; 
+        public event Action<int, int, int, int> SwapRequested;
+        public event Action TurnCompleted; 
         
         [Header("Views")]
         [SerializeField] private ScoreView _scoreView; 
@@ -42,10 +43,10 @@ namespace Controllers
 
         public void AnimateInvalidSwap(Vector2Int from, Vector2Int to)
         {
-            StartCoroutine(AnimateInvalidSwapCourotine(from, to));
+            StartCoroutine(AnimateInvalidSwapCoroutine(from, to));
         }
 
-        private IEnumerator AnimateInvalidSwapCourotine(Vector2Int from, Vector2Int to)
+        private IEnumerator AnimateInvalidSwapCoroutine(Vector2Int from, Vector2Int to)
         {
             yield return _boardView.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
             yield return _boardView.SwapTiles(to.x, to.y, from.x, from.y).WaitForCompletion();
@@ -55,10 +56,10 @@ namespace Controllers
 
         public void AnimateValidSwap(Vector2Int from, Vector2Int to, List<BoardSequence> boardSequences)
         {
-            StartCoroutine(AnimateValidSwapCourotine(from, to, boardSequences));
+            StartCoroutine(AnimateValidSwapCoroutine(from, to, boardSequences));
         }
 
-        private IEnumerator AnimateValidSwapCourotine(Vector2Int from, Vector2Int to,
+        private IEnumerator AnimateValidSwapCoroutine(Vector2Int from, Vector2Int to,
             IEnumerable<BoardSequence> boardSequences)
         {
             yield return _boardView.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
@@ -72,6 +73,7 @@ namespace Controllers
             }
 
             _isAnimating = false;
+            TurnCompleted?.Invoke();
         }
 
         private void OnTileClick(int x, int y)

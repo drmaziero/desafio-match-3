@@ -9,9 +9,10 @@ namespace GameLogic.Services
     {
         public event Action<int> MovementCountChanged; 
         private List<LevelConfig> _levelConfigs;
-        private int _maxTileMovements;
+        private int _tileMovementCount;
         private int _currentLevel;
         private const string levelPlayerPrefKey = "Level";
+        private int _currentScore;
         
         public LevelService(List<LevelConfig> levelConfigs)
         {
@@ -24,8 +25,9 @@ namespace GameLogic.Services
                 PlayerPrefs.SetInt(levelPlayerPrefKey,0);
 
             _currentLevel = PlayerPrefs.GetInt(levelPlayerPrefKey);
-            _maxTileMovements = GetCurrentLevel().MaxSwapTile;
-            MovementCountChanged?.Invoke(_maxTileMovements);
+            _tileMovementCount = GetCurrentLevel().MaxSwapTile;
+            _currentScore = 0;
+            MovementCountChanged?.Invoke(_tileMovementCount);
         }
 
         public LevelConfig GetCurrentLevel()
@@ -35,35 +37,36 @@ namespace GameLogic.Services
 
         public void DecreaseMovementCount()
         {
-            _maxTileMovements--;
-            MovementCountChanged?.Invoke(_maxTileMovements);
+            _tileMovementCount--;
+            MovementCountChanged?.Invoke(_tileMovementCount);
         }
 
-        /*
-        public bool VerifyEndGame()
+        public void UpdateScore(int score)
         {
-            
-            bool isEndGame;
-
-
+            _currentScore = score;
         }
 
-        private bool ISCompleteAllTargets(int score)
+        
+        public bool IsEndGame()
+        {
+            return !CanMoveTiles() || IsCompleteAllTargets();
+        }
+
+        private bool CanMoveTiles()
+        {
+            return _tileMovementCount > 0;
+        }
+
+        public bool IsCompleteAllTargets()
         {
             var currentLevel = GetCurrentLevel();
 
             var isCompleted = true;
 
             if (currentLevel.Target.HasTargetScore())
-                isCompleted = isCompleted && score >= currentLevel.Target.Score;
+                isCompleted = isCompleted && _currentScore >= currentLevel.Target.Score;
 
             return isCompleted;
         }
-
-        public bool IsWin()
-        {
-            
-        }
-        */
     }
 }
