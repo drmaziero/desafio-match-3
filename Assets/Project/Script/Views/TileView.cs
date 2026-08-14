@@ -23,15 +23,14 @@ namespace Views
         [SerializeField] private GameObject normalStateContainer;
         [SerializeField] private GameObject specialStateContainer;
         [SerializeField] private Transform visualContainer;
-        [SerializeField] private GameObject fxContainer;
 
-        [Header("FX")] 
-        [SerializeField] private Image explosionTileImage;
-        [SerializeField] private Animator explosionTileFx;
+
+        [Header("FX")] [SerializeField] private List<TileViewFX> fxComponents;
         
         private Dictionary<TileType, Color> _colorDictionary;
         private Dictionary<SpecialTileType, GameObject> _specialRoots;
         private Dictionary<SpecialTileType, Image> _specialLiquids;
+        private Dictionary<TileFX, TileViewFX> _fxDictionary;
         
         private int _x;
         private int _y;
@@ -44,6 +43,7 @@ namespace Views
             _colorDictionary = new Dictionary<TileType, Color>();
             _specialRoots = new Dictionary<SpecialTileType, GameObject>();
             _specialLiquids = new Dictionary<SpecialTileType, Image>();
+            _fxDictionary = new Dictionary<TileFX, TileViewFX>();
 
             foreach (var tileColor in colors)
                 _colorDictionary.Add(tileColor.type, tileColor.color);
@@ -54,7 +54,11 @@ namespace Views
                 _specialLiquids.Add(specialComponent.type, specialComponent.liquid);
             }
             
-            fxContainer.SetActive(false);
+            foreach (var fx in fxComponents)
+            {
+                _fxDictionary.Add(fx.type, fx);
+                fx.root.SetActive(false);
+            }
             
             SetEmpty();
         }
@@ -145,8 +149,13 @@ namespace Views
         public Tween AnimateSpecialCreated()
         {
             visualContainer.DOKill();
+
+            Sequence sequence = DOTween.Sequence();
             visualContainer.localScale = Vector3.zero;
-            return visualContainer.DOScale(1.0f, 0.2f).SetEase(Ease.OutBack);
+            sequence.Append(visualContainer.DOScale(0.5f, 0.1f));
+            sequence.AppendCallback(PlayCreateSpecialTileFX);
+            sequence.Append(visualContainer.DOScale(1.0f, 0.1f)).SetEase(Ease.OutBack);
+            return sequence;
         }
 
         public Tween AnimateClear()
@@ -182,13 +191,26 @@ namespace Views
 
         private void PlayClearTileFX(Color color)
         {
-            explosionTileImage.color = Color.Lerp(color, Color.white, 0.25f);
-            fxContainer.SetActive(true);
-            explosionTileFx.Play("explode", 0, 0.0f);
+            var currentFx = _fxDictionary[TileFX.ExplodeTile];
+            currentFx.image.color = Color.Lerp(color, Color.white, 0.25f);
+            currentFx.root.SetActive(true);
+            currentFx.animator.Play(currentFx.animationName, 0, 0.0f);
 
             DOVirtual.DelayedCall(0.2f, () =>
             {
-                fxContainer.SetActive(false);
+                currentFx.root.SetActive(false);
+            });
+        }
+
+        private void PlayCreateSpecialTileFX()
+        {
+            var currentFx = _fxDictionary[TileFX.CreateSpecialTile];
+            currentFx.root.SetActive(true);
+            currentFx.animator.Play(currentFx.animationName, 0, 0.0f);
+
+            DOVirtual.DelayedCall(0.2f, () =>
+            {
+                currentFx.root.SetActive(false);
             });
         }
     }
