@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Views
+namespace Views.UI
 {
     public class LoseUiView : MonoBehaviour, IUiView
     {

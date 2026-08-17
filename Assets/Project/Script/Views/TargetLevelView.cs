@@ -22,6 +22,8 @@ namespace Views
         private Dictionary<SpecialTileType, GameObject> _specialTypeDictionary;
         private int _targetCount;
         private bool _initialized = false;
+        private TileType _type;
+        private SpecialTileType _specialType;
         
         
         public void Init(TileType type, SpecialTileType specialTileType, int count)
@@ -39,6 +41,8 @@ namespace Views
             
             Reset();
             
+            _type = type;
+            _specialType = specialTileType;
             _targetCount = count;
             if (type == TileType.None && specialTileType == SpecialTileType.None)
                 scoreIcon.SetActive(true);
@@ -56,14 +60,16 @@ namespace Views
             }
             
             LayoutRebuilder.ForceRebuildLayoutImmediate(HorizontalLayoutGroup.GetComponent<RectTransform>());
-            UpdateCount();
+            UpdateCount(0);
         }
 
         public void Reset()
         {
             if (!_initialized)
                 return;
-            
+
+            _type = TileType.None;
+            _specialType = SpecialTileType.None;
             scoreIcon.SetActive(false);
             tileIcon.SetActive(false);
             foreach (var keyValuePair in _specialTypeDictionary)
@@ -72,9 +78,36 @@ namespace Views
             _initialized = false;
         }
 
-        public void UpdateCount()
+        public void UpdateCount(int value)
         {
-            counter.SetText($"{_targetCount}");
+            counter.SetText($"{value}/{_targetCount}");
+        }
+
+        public bool IsScoreView()
+        {
+            return _type == TileType.None && _specialType == SpecialTileType.None;
+        }
+
+        public bool IsTypeView()
+        {
+            return _type != TileType.None;
+        }
+
+        public bool IsSpecialTypeView()
+        {
+            return _specialType != SpecialTileType.None;
+        }
+
+        public void UpdateTileCounter(TileType type, int value)
+        {
+            if (_type == type)
+                UpdateCount(value);
+        }
+
+        public void UpdateSpecialCounter(SpecialTileType specialType, int value)
+        {
+            if (_specialType == specialType)
+                UpdateCount(value);
         }
     }
 

@@ -5,7 +5,7 @@ using Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Views
+namespace Views.Tile
 {
     public class TileView : MonoBehaviour
     {

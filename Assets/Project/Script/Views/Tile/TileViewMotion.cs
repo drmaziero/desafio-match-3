@@ -1,4 +1,4 @@
-namespace Views
+namespace Views.Tile
 {
     public struct TileViewMotion
     {

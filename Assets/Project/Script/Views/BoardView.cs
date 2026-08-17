@@ -5,6 +5,7 @@ using Models;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
+using Views.Tile;
 
 namespace Views
 {
@@ -18,7 +19,7 @@ namespace Views
         
         private TileView[][] _tiles;
 
-        public void CreateBoard(List<List<Tile>> board)
+        public void CreateBoard(List<List<Models.Tile>> board)
         {
             _boardContainer.constraintCount = board[0].Count;
             _tiles = new TileView[board.Count][];

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Views
+namespace Views.UI
 {
     public class GameplayView : MonoBehaviour, IUiView
     {

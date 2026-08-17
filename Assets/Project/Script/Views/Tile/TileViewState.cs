@@ -1,6 +1,6 @@
 using Models;
 
-namespace Views
+namespace Views.Tile
 {
     public struct TileViewState
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Views
+namespace Views.Tile
 {
     [Serializable]
     public struct TileViewFX

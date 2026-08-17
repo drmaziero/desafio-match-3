@@ -1,4 +1,4 @@
-namespace Views
+namespace Views.UI
 {
     public interface IUiView
     {

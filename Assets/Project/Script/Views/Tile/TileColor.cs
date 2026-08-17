@@ -2,7 +2,7 @@ using System;
 using Models;
 using UnityEngine;
 
-namespace Views
+namespace Views.Tile
 {
     [Serializable]
     public struct TileColor
