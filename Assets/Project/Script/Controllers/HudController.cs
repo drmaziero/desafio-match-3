@@ -9,9 +9,10 @@ namespace Controllers
         [SerializeField]
         private HudView _hudView;
 
-        public void Init(TargetLevel targetLevel)
+        public void Init(TargetLevel targetLevel, int newLife)
         {
             _hudView.Init(targetLevel);
+            _hudView.UpdateLife(newLife);
         }
         
 
@@ -34,6 +35,11 @@ namespace Controllers
         public void OnSpecialCounterChanged(SpecialTileType type, int newCounter)
         {
             _hudView.UpdateSpecialCounter(type, newCounter);
+        }
+
+        public void UpdateLife(int newLife)
+        {
+            _hudView.UpdateLife(newLife);
         }
     }
 }

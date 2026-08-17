@@ -27,6 +27,7 @@ namespace Project.Script.Manager
         private GameService _gameService;
         private ScoreService _scoreService;
         private LevelService _levelService;
+        private LifeService _lifeService;
 
 
         private void Awake()
@@ -34,6 +35,7 @@ namespace Project.Script.Manager
             _gameService = new GameService();
             _scoreService = new ScoreService(_scoreSettings.CreateConfig());
             _levelService = new LevelService(_levelListSettings.GetLevelConfigs());
+            _lifeService = new LifeService();
             
             _gameService.ComputeScore += _scoreService.ComputeScore;
             _gameService.ComputeMatches += _levelService.ComputeMatches;
@@ -41,9 +43,11 @@ namespace Project.Script.Manager
             _levelService.MovementCountChanged += _hudController.OnMovementChanged;
             _levelService.TileCountChanged += _hudController.OnTileCounterChanged;
             _levelService.SpecialCountChanged += _hudController.OnSpecialCounterChanged;
+            _lifeService.LifeChanged += OnLifeChanged;
             
             _gameController.SwapRequested += OnSwapRequested;
             _gameController.TurnCompleted += OnTurnCompleted;
+            _lifeService.LifeChanged -= OnLifeChanged;
         }
 
         private void OnDestroy()
@@ -70,14 +74,25 @@ namespace Project.Script.Manager
 
         public void StartGame()
         {
+            if (!_lifeService.HasLife())
+            {
+                ShowNoLife();
+                return;
+            }
+            
             _scoreService.Init();
             _levelService.Init();
             
             LevelConfig currentLevel = _levelService.GetCurrentLevel();
-            _hudController.Init(currentLevel.Target);
+            _hudController.Init(currentLevel.Target, _lifeService.Life);
             List<List<Tile>> board = _gameService.StartGame(currentLevel.BoardSize.x, currentLevel.BoardSize.y, currentLevel.Types);
             
             _gameController.Init(board);
+        }
+
+        private void ShowNoLife()
+        {
+            _uiController.ShowNoLife(_lifeService.GetTimeUntilNextLife());
         }
 
 
@@ -129,8 +144,16 @@ namespace Project.Script.Manager
             
             if (isWin)
                 _levelService.UpgradeLevel();
+            else
+                _lifeService.TryDecreaseLife();
             
             _uiController.GameplayFinished(isWin);
         }
+
+        private void OnLifeChanged(int life)
+        {
+            _hudController.UpdateLife(life);
+        }
+        
     }
 }

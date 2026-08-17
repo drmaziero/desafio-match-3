@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Views;
 using Views.UI;
 
 namespace Controllers
@@ -11,6 +11,7 @@ namespace Controllers
         [SerializeField] private GameplayView gameplayUI;
         [SerializeField] private VictoryUiView victoryUI;
         [SerializeField] private LoseUiView loseUI;
+        [SerializeField] private NoLifeView noLifeUI;
 
         private Dictionary<UiType, IUiView> _screens;
         private IUiView _currentUI;
@@ -23,12 +24,14 @@ namespace Controllers
             _screens.Add(UiType.Gameplay, gameplayUI);
             _screens.Add(UiType.Victory, victoryUI);
             _screens.Add(UiType.Lose, loseUI);
+            _screens.Add(UiType.NoLife, noLifeUI);
 
             victoryUI.OnGoToMainMenu += GoToMainMenu;
             victoryUI.OnGoToNextLevel += GoToNextLevel;
             loseUI.OnGoToMainMenu += GoToMainMenu;
             loseUI.OnGoToRetry += GoToRetryLevel;
             mainMenuUI.GoToGamePlay += GoToGameplay;
+            noLifeUI.OnGoToMainMenu += GoToMainMenu; 
 
             _currentUI = _screens[UiType.MainMenu];
             _currentUI.Show();
@@ -41,6 +44,7 @@ namespace Controllers
             loseUI.OnGoToMainMenu -= GoToMainMenu;
             loseUI.OnGoToRetry -= GoToRetryLevel;
             mainMenuUI.GoToGamePlay -= GoToGameplay;
+            noLifeUI.OnGoToMainMenu -= GoToMainMenu; 
         }
 
         private void GoToGameplay()
@@ -77,6 +81,13 @@ namespace Controllers
             _currentUI = isWin ? _screens[UiType.Victory] : _screens[UiType.Lose];
             _currentUI.Show();
         }
+
+        public void ShowNoLife(TimeSpan? remaining)
+        {
+            ((NoLifeView)_screens[UiType.NoLife]).Init(_currentUI, remaining);
+            _currentUI = _screens[UiType.NoLife];
+            _currentUI.Show();
+        }
         
         
     }
@@ -86,6 +97,7 @@ namespace Controllers
         MainMenu,
         Gameplay,
         Victory,
-        Lose
+        Lose,
+        NoLife
     }
 }

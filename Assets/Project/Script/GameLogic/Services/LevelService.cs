@@ -58,6 +58,7 @@ namespace GameLogic.Services
         {
             _currentLevel++;
             PlayerPrefs.SetInt(levelPlayerPrefKey,_currentLevel);
+            PlayerPrefs.Save();
         }
 
         
