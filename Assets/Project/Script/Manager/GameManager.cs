@@ -47,39 +47,30 @@ namespace Project.Script.Manager
             
             _gameController.SwapRequested += OnSwapRequested;
             _gameController.TurnCompleted += OnTurnCompleted;
-            _lifeService.LifeChanged -= OnLifeChanged;
+
+            _uiController.TryRetryGameRequest += TryStartGame;
+            _uiController.TryStartGameRequest += TryStartGame;
         }
 
         private void OnDestroy()
         {
             _gameService.ComputeScore -= _scoreService.ComputeScore;
+            _gameService.ComputeMatches -= _levelService.ComputeMatches;
+            
             _scoreService.ScoreChanged -= OnScoreChanges;
             _levelService.MovementCountChanged -= _hudController.OnMovementChanged;
             _levelService.TileCountChanged -= _hudController.OnTileCounterChanged;
             _levelService.SpecialCountChanged -= _hudController.OnSpecialCounterChanged;
+            _lifeService.LifeChanged -= OnLifeChanged;
             _gameController.SwapRequested -= OnSwapRequested;
             _gameController.TurnCompleted -= OnTurnCompleted;
-            _gameService.ComputeMatches -= _levelService.ComputeMatches;
-        }
-
-        private void OnEnable()
-        {
-            StartGame();
-        }
-
-        private void OnDisable()
-        {
-            _gameController.Reset();
-        }
-
-        public void StartGame()
-        {
-            if (!_lifeService.HasLife())
-            {
-                ShowNoLife();
-                return;
-            }
             
+            _uiController.TryRetryGameRequest -= TryStartGame;
+            _uiController.TryStartGameRequest -= TryStartGame;
+        }
+
+        private void StartGame()
+        {
             _scoreService.Init();
             _levelService.Init();
             
@@ -153,6 +144,18 @@ namespace Project.Script.Manager
         private void OnLifeChanged(int life)
         {
             _hudController.UpdateLife(life);
+        }
+        
+        private void TryStartGame()
+        {
+            if (!_lifeService.HasLife())
+            {
+                ShowNoLife();
+                return;
+            }
+            
+            _uiController.GoToGamePlay();
+            StartGame();
         }
         
     }

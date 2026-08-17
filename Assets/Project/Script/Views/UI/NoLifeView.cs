@@ -8,61 +8,74 @@ namespace Views.UI
 {
     public class NoLifeView : MonoBehaviour, IUiView
     {
-        public event Action OnGoToMainMenu;
-
         [SerializeField] private Button closeButton;
         [SerializeField] private TextMeshProUGUI nextLifeTimer;
         
-        private IUiView _previousView;
         private TimeSpan? _remainingTime;
+        private Coroutine _timerCoroutine;
 
         private void Awake()
         {
-            closeButton.onClick.AddListener(GoToMainMenu);
+            closeButton.onClick.AddListener(Close);
         }
 
         private void OnDestroy()
         {
-            closeButton.onClick.RemoveListener(GoToMainMenu);
+            closeButton.onClick.RemoveListener(Close);
         }
         
-        public void Init(IUiView previousView, TimeSpan? remainingTime)
+        public void Init(TimeSpan? remainingTime)
         {
-            _previousView = previousView;
             _remainingTime = remainingTime;
         }
 
         private IEnumerator UpdateTimer()
         {
             if (_remainingTime == null)
-                yield return null;
+                yield break;
             
-            while (true)
+            while (_remainingTime.Value > TimeSpan.Zero)
             {
                 _remainingTime -= TimeSpan.FromSeconds(1);
-                if (_remainingTime != null)
-                    nextLifeTimer.SetText($"{_remainingTime.Value.Minutes}:{_remainingTime.Value.Seconds}");
-
-                yield return new WaitForSeconds(1);
+                UpdateTimerText();
+                yield return new WaitForSecondsRealtime(1);
             }
+            
+            _remainingTime = TimeSpan.Zero;
+            UpdateTimerText();
+            Close();
+        }
+
+        private void UpdateTimerText()
+        {
+            if (_remainingTime != null)
+                nextLifeTimer.SetText($"{_remainingTime.Value.Minutes:00}:{_remainingTime.Value.Seconds:00}");
         }
         
         
-        private void GoToMainMenu()
+        private void Close()
         {
-            OnGoToMainMenu?.Invoke();
+            Hide();
         }
 
         public void Show()
         {
             gameObject.SetActive(true);
-            StartCoroutine(UpdateTimer());
+            
+            if (_timerCoroutine != null)
+                StopCoroutine(_timerCoroutine);
+            
+            _timerCoroutine = StartCoroutine(UpdateTimer());
         }
 
         public void Hide()
         {
+            if (_timerCoroutine != null)
+            {
+                StopCoroutine(_timerCoroutine);
+                _timerCoroutine = null;
+            }
             gameObject.SetActive(false);
-            _previousView.Hide();
         }
     }
 }

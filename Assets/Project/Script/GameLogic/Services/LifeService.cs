@@ -41,7 +41,7 @@ namespace GameLogic.Services
             SaveLife();
             
             if (wasFull || _targetTime == DateTime.MinValue)
-                SaveTargetTimer();
+                StartLifeTimer();
             
             LifeChanged?.Invoke(Life);
             return true;

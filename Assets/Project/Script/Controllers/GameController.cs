@@ -43,6 +43,11 @@ namespace Controllers
         {
             _boardView.ClearBoard();
         }
+        
+        private void OnDisable()
+        {
+            Reset();
+        }
 
         #endregion
 

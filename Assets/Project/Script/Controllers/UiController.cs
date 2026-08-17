@@ -7,6 +7,9 @@ namespace Controllers
 {
     public class UiController : MonoBehaviour
     {
+        public event Action TryRetryGameRequest;
+        public event Action TryStartGameRequest;
+        
         [SerializeField] private MainMenuUiView mainMenuUI;
         [SerializeField] private GameplayView gameplayUI;
         [SerializeField] private VictoryUiView victoryUI;
@@ -29,9 +32,8 @@ namespace Controllers
             victoryUI.OnGoToMainMenu += GoToMainMenu;
             victoryUI.OnGoToNextLevel += GoToNextLevel;
             loseUI.OnGoToMainMenu += GoToMainMenu;
-            loseUI.OnGoToRetry += GoToRetryLevel;
-            mainMenuUI.GoToGamePlay += GoToGameplay;
-            noLifeUI.OnGoToMainMenu += GoToMainMenu; 
+            loseUI.OnGoToRetry += TryRetryGame;
+            mainMenuUI.GoToGamePlay += TryStartGame;
 
             _currentUI = _screens[UiType.MainMenu];
             _currentUI.Show();
@@ -42,19 +44,21 @@ namespace Controllers
             victoryUI.OnGoToMainMenu -= GoToMainMenu;
             victoryUI.OnGoToNextLevel -= GoToNextLevel;
             loseUI.OnGoToMainMenu -= GoToMainMenu;
-            loseUI.OnGoToRetry -= GoToRetryLevel;
-            mainMenuUI.GoToGamePlay -= GoToGameplay;
-            noLifeUI.OnGoToMainMenu -= GoToMainMenu; 
+            loseUI.OnGoToRetry -= TryRetryGame;
+            mainMenuUI.GoToGamePlay -= TryStartGame;
         }
 
-        private void GoToGameplay()
+        private void TryStartGame()
         {
-            _currentUI.Hide();
-            _currentUI = _screens[UiType.Gameplay];
-            _currentUI.Show();
+            TryStartGameRequest?.Invoke();
         }
 
-        private void GoToRetryLevel()
+        private void TryRetryGame()
+        {
+            TryRetryGameRequest?.Invoke();
+        }
+
+        public void GoToGamePlay()
         {
             _currentUI.Hide();
             _currentUI = _screens[UiType.Gameplay];
@@ -84,12 +88,10 @@ namespace Controllers
 
         public void ShowNoLife(TimeSpan? remaining)
         {
-            ((NoLifeView)_screens[UiType.NoLife]).Init(_currentUI, remaining);
-            _currentUI = _screens[UiType.NoLife];
-            _currentUI.Show();
+            NoLifeView noLifeView =  ((NoLifeView)_screens[UiType.NoLife]);
+            noLifeView.Init(remaining);
+            noLifeView.Show();
         }
-        
-        
     }
 
     public enum UiType
