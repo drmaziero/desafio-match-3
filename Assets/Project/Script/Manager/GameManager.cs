@@ -39,6 +39,9 @@ namespace Project.Script.Manager
             _gameService.ComputeMatches += _levelService.ComputeMatches;
             _scoreService.ScoreChanged += OnScoreChanges;
             _levelService.MovementCountChanged += _hudController.OnMovementChanged;
+            _levelService.TileCountChanged += _hudController.OnTileCounterChanged;
+            _levelService.SpecialCountChanged += _hudController.OnSpecialCounterChanged;
+            
             _gameController.SwapRequested += OnSwapRequested;
             _gameController.TurnCompleted += OnTurnCompleted;
         }
@@ -48,6 +51,8 @@ namespace Project.Script.Manager
             _gameService.ComputeScore -= _scoreService.ComputeScore;
             _scoreService.ScoreChanged -= OnScoreChanges;
             _levelService.MovementCountChanged -= _hudController.OnMovementChanged;
+            _levelService.TileCountChanged -= _hudController.OnTileCounterChanged;
+            _levelService.SpecialCountChanged -= _hudController.OnSpecialCounterChanged;
             _gameController.SwapRequested -= OnSwapRequested;
             _gameController.TurnCompleted -= OnTurnCompleted;
             _gameService.ComputeMatches -= _levelService.ComputeMatches;

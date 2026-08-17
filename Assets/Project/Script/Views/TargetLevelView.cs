@@ -21,13 +21,15 @@ namespace Views
         private Dictionary<TileType, Color> _tileTypeDictionary;
         private Dictionary<SpecialTileType, GameObject> _specialTypeDictionary;
         private int _targetCount;
-        private bool _initialized = false;
         private TileType _type;
         private SpecialTileType _specialType;
-        
-        
-        public void Init(TileType type, SpecialTileType specialTileType, int count)
+        private bool _initialized;
+
+        private void InitializeIfNeeded()
         {
+            if (_initialized)
+                return;
+            
             _tileTypeDictionary = new Dictionary<TileType, Color>();
             _specialTypeDictionary = new Dictionary<SpecialTileType, GameObject>();
             
@@ -38,7 +40,11 @@ namespace Views
                 _specialTypeDictionary.Add(specialIcon.type, specialIcon.icon);
 
             _initialized = true;
-            
+        }
+
+        public void Init(TileType type, SpecialTileType specialTileType, int count)
+        {
+            InitializeIfNeeded();
             Reset();
             
             _type = type;
@@ -65,17 +71,14 @@ namespace Views
 
         public void Reset()
         {
-            if (!_initialized)
-                return;
-
             _type = TileType.None;
             _specialType = SpecialTileType.None;
             scoreIcon.SetActive(false);
             tileIcon.SetActive(false);
+
+            if (_specialTypeDictionary == null) return;
             foreach (var keyValuePair in _specialTypeDictionary)
                 keyValuePair.Value.SetActive(false);
-
-            _initialized = false;
         }
 
         public void UpdateCount(int value)
@@ -88,26 +91,14 @@ namespace Views
             return _type == TileType.None && _specialType == SpecialTileType.None;
         }
 
-        public bool IsTypeView()
+        public bool IsTypeView(TileType type)
         {
-            return _type != TileType.None;
+            return _type != type;
         }
 
-        public bool IsSpecialTypeView()
+        public bool IsSpecialTypeView(SpecialTileType type)
         {
-            return _specialType != SpecialTileType.None;
-        }
-
-        public void UpdateTileCounter(TileType type, int value)
-        {
-            if (_type == type)
-                UpdateCount(value);
-        }
-
-        public void UpdateSpecialCounter(SpecialTileType specialType, int value)
-        {
-            if (_specialType == specialType)
-                UpdateCount(value);
+            return _specialType != type;
         }
     }
 

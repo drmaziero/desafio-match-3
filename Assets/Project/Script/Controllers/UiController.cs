@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Views;
+using Views.UI;
 
 namespace Controllers
 {

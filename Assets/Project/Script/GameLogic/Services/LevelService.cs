@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using GameLogic.Matching;
 using Models;
 using UnityEngine;
 
@@ -8,7 +7,10 @@ namespace GameLogic.Services
 {
     public class LevelService
     {
-        public event Action<int> MovementCountChanged; 
+        public event Action<int> MovementCountChanged;
+        public event Action<TileType, int> TileCountChanged;
+        public event Action<SpecialTileType, int> SpecialCountChanged; 
+        
         private List<LevelConfig> _levelConfigs;
         private int _tileMovementCount;
         private int _currentLevel;
@@ -113,16 +115,28 @@ namespace GameLogic.Services
         {
             foreach (var match in matches)
             {
-                if (board[match.y][match.x].SpecialType != SpecialTileType.None)
+                var specialType = board[match.y][match.x].SpecialType;
+                if (specialType != SpecialTileType.None)
                 {
-                    if (!_specialCounter.TryAdd(board[match.y][match.x].SpecialType, 1))
-                        _specialCounter[board[match.y][match.x].SpecialType]++;
-
+                    if (_specialCounter.TryAdd(specialType, 1))
+                        SpecialCountChanged?.Invoke(specialType,1);
+                    else
+                    {
+                        _specialCounter[specialType]++;
+                        SpecialCountChanged?.Invoke(specialType,_specialCounter[specialType]);
+                    }
                     continue;
                 }
 
-                if (!_tileCounter.TryAdd(board[match.y][match.x].Type, 1))
-                    _tileCounter[board[match.y][match.x].Type]++;
+
+                var curType = board[match.y][match.x].Type;
+                if (_tileCounter.TryAdd(curType, 1))
+                    TileCountChanged?.Invoke(curType,1);
+                else
+                {
+                    _tileCounter[curType]++;
+                    TileCountChanged?.Invoke(curType,_tileCounter[curType]);
+                }
             }
         }
     }

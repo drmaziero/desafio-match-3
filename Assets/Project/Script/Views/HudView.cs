@@ -18,11 +18,22 @@ namespace Views
         
         private Queue<TargetLevelView> _targetPoolQueue;
         private List<TargetLevelView> _allTargetViews;
-        
-        public void Init(TargetLevel target)
+        private bool _initialized;
+
+        private void InitializeIfNeeded()
         {
+            if (_initialized)
+                return;
+            
             _targetPoolQueue = new Queue<TargetLevelView>();
             _allTargetViews = new List<TargetLevelView>();
+
+            _initialized = true;
+        }
+
+        public void Init(TargetLevel target)
+        {
+            InitializeIfNeeded();
             Reset();
 
             UpdateScore(0);
@@ -63,13 +74,15 @@ namespace Views
 
         public void Reset()
         {
+            _targetPoolQueue.Clear();
+            _allTargetViews.Clear();
+
             foreach (var targetLevel in targetPool)
             {
                 targetLevel.Reset();
                 targetLevel.gameObject.SetActive(false);
                 _targetPoolQueue.Enqueue(targetLevel);
             }
-            _allTargetViews.Clear();
         }
 
         private TargetLevelView GetPool()
@@ -96,30 +109,20 @@ namespace Views
 
         public void UpdateTargetScore(int newScore)
         {
-            if (_allTargetViews.Any(x => x.IsScoreView()))
-            {
-                _allTargetViews.First(x=> x.IsScoreView()).UpdateCount(newScore);
-            }
+            var view = _allTargetViews.FirstOrDefault(x=> x.IsScoreView());
+            view?.UpdateCount(newScore);
         }
 
         public void UpdateTileCounter(TileType type, int newCounter)
         {
-            if (_allTargetViews.Any(x => x.IsTypeView()))
-            {
-                var typeView = _allTargetViews.Where(x => x.IsTypeView());
-                foreach (var view in typeView)
-                    view.UpdateTileCounter(type,newCounter);
-            }
+            var view = _allTargetViews.FirstOrDefault(x => x.IsTypeView(type));
+            view?.UpdateCount(newCounter);
         }
 
         public void UpdateSpecialCounter(SpecialTileType type, int newCounter)
         {
-            if (_allTargetViews.Any(x => x.IsSpecialTypeView()))
-            {
-                var specialView = _allTargetViews.Where(x => x.IsSpecialTypeView());
-                foreach (var view in specialView)
-                    view.UpdateSpecialCounter(type, newCounter);
-            }
+            var view = _allTargetViews.FirstOrDefault(x => x.IsSpecialTypeView(type));
+            view?.UpdateCount(newCounter);
         }
     }
 }

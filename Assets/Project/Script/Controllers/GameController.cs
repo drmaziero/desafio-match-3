@@ -14,7 +14,6 @@ namespace Controllers
         public event Action TurnCompleted; 
         
         [Header("Views")]
-        [SerializeField] private ScoreView _scoreView; 
         [SerializeField] private BoardView _boardView;
         [SerializeField] private HudView _hudView;
         
