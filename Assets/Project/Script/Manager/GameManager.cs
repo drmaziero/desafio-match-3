@@ -14,8 +14,8 @@ namespace Project.Script.Manager
         [Header("Controller")]
         [SerializeField] private HudController _hudController;
         [SerializeField] private UiController _uiController;
-        [SerializeField] private TileInputController _tileInputController;
-
+        [SerializeField] private InputController _inputController;
+        [SerializeField] private BoardController _boardController;
         [SerializeField] private GameController _gameController;
         
         [Header("Score Settings")] 
@@ -28,6 +28,7 @@ namespace Project.Script.Manager
         private ScoreService _scoreService;
         private LevelService _levelService;
         private LifeService _lifeService;
+        private bool _isResolvingTurn;
 
 
         private void Awake()
@@ -45,13 +46,17 @@ namespace Project.Script.Manager
             _levelService.SpecialCountChanged += _hudController.OnSpecialCounterChanged;
             _lifeService.LifeChanged += OnLifeChanged;
             
-            _tileInputController.SwapRequested += OnSwapRequested;
+            _inputController.SwapRequested += OnSwapRequested;
             _gameController.TurnCompleted += OnTurnCompleted;
-            _gameController.TurnCompleted += _tileInputController.SetDragCompleted;
-            _gameController.InvalidMovementCompleted += _tileInputController.SetDragCompleted;
+            _gameController.InvalidMovementCompleted += OnInvalidMovementCompleted;
+            _gameController.TurnCompleted += _inputController.SetDragCompleted;
+            _gameController.InvalidMovementCompleted += _inputController.SetDragCompleted;
 
             _uiController.TryRetryGameRequest += TryStartGame;
             _uiController.TryStartGameRequest += TryStartGame;
+            
+            _boardController.TileCreated += OnTileCreated;
+            _boardController.OutOfBoard += OnOutBoard;
         }
 
         private void OnDestroy()
@@ -65,13 +70,17 @@ namespace Project.Script.Manager
             _levelService.SpecialCountChanged -= _hudController.OnSpecialCounterChanged;
             _lifeService.LifeChanged -= OnLifeChanged;
             
-            _tileInputController.SwapRequested -= OnSwapRequested;
+            _inputController.SwapRequested -= OnSwapRequested;
             _gameController.TurnCompleted -= OnTurnCompleted;
-            _gameController.TurnCompleted -= _tileInputController.SetDragCompleted;
-            _gameController.InvalidMovementCompleted -= _tileInputController.SetDragCompleted;
+            _gameController.InvalidMovementCompleted -= OnInvalidMovementCompleted;
+            _gameController.TurnCompleted -= _inputController.SetDragCompleted;
+            _gameController.InvalidMovementCompleted -= _inputController.SetDragCompleted;
             
             _uiController.TryRetryGameRequest -= TryStartGame;
             _uiController.TryStartGameRequest -= TryStartGame;
+            
+            _boardController.TileCreated -= OnTileCreated;
+            _boardController.OutOfBoard -= OnOutBoard;
         }
 
         private void StartGame()
@@ -100,6 +109,11 @@ namespace Project.Script.Manager
         
         private void OnSwapRequested(int fromX, int fromY, int toX, int toY)
         {
+            if (_isResolvingTurn)
+                return;
+
+            _isResolvingTurn = true;
+            
             bool isValid =
                 _gameService.IsValidMovement(
                     fromX,
@@ -132,6 +146,8 @@ namespace Project.Script.Manager
         
         private void OnTurnCompleted()
         {
+            _isResolvingTurn = false;
+            
             var isWin = _levelService.IsCompleteAllTargets();
             var isEndGame = _levelService.IsEndGame();
             
@@ -144,6 +160,11 @@ namespace Project.Script.Manager
                 _lifeService.TryDecreaseLife();
             
             _uiController.GameplayFinished(isWin);
+        }
+
+        private void OnInvalidMovementCompleted()
+        {
+            _isResolvingTurn = false;
         }
 
         private void OnLifeChanged(int life)
@@ -161,6 +182,16 @@ namespace Project.Script.Manager
             
             _uiController.GoToGamePlay();
             StartGame();
+        }
+        
+        private void OnTileCreated(TileController tileController)
+        {
+            _inputController.RegisterTileViewController(tileController);
+        }
+        
+        private void OnOutBoard()
+        {
+            _inputController.SetDragCompleted();
         }
         
     }

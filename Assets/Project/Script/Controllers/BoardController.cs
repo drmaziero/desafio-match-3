@@ -11,11 +11,11 @@ namespace Controllers
 {
     public class BoardController : MonoBehaviour, IPointerExitHandler
     {
-        public event Action<TileViewController> TileCreated;
+        public event Action<TileController> TileCreated;
         public event Action OutOfBoard;
 
         [SerializeField] private GridLayoutGroup _boardContainer;
-        [SerializeField] private TileViewController tilePrefab;
+        [SerializeField] private TileController tilePrefab;
         
         private TileView[][] _tiles;
 
@@ -30,7 +30,7 @@ namespace Controllers
 
                 for (int x = 0; x < board[0].Count; x++)
                 {
-                    TileViewController tileController = Instantiate(tilePrefab, _boardContainer.transform, false);
+                    TileController tileController = Instantiate(tilePrefab, _boardContainer.transform, false);
                     TileView tileView = tileController.GetView();
                     
                     tileView.SetPosition(x, y);

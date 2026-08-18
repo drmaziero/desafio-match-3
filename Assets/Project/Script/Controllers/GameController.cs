@@ -15,25 +15,11 @@ namespace Controllers
         
         [Header("Controller")]
         [SerializeField] private BoardController boardController;
-
-        [SerializeField] private TileInputController inputController;
         
         [Header("Views")]
         [SerializeField] private HudView _hudView;
         
         private HudController _hudController;
-        
-        private void Awake()
-        {
-            boardController.TileCreated += OnTileCreated;
-            boardController.OutOfBoard += OnOutBoard;
-        }
-        
-        private void OnDestroy()
-        {
-            boardController.TileCreated -= OnTileCreated;
-            boardController.OutOfBoard -= OnOutBoard;
-        }
 
         public void Init(List<List<Tile>> board)
         {;
@@ -47,19 +33,9 @@ namespace Controllers
         
         private void OnDisable()
         {
+            StopAllCoroutines();
             Reset();
         }
-        
-        private void OnTileCreated(TileViewController tileController)
-        {
-            inputController.RegisterTileViewController(tileController);
-        }
-        
-        private void OnOutBoard()
-        {
-           inputController.ResetPosition();
-        }
-
 
         public void AnimateInvalidSwap(Vector2Int from, Vector2Int to)
         {

@@ -5,18 +5,18 @@ using Views.Tile;
 
 namespace Controllers
 {
-    public class TileViewController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler
+    public class TileController : MonoBehaviour, IPointerEnterHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         public event Action<Vector2Int> EnterOnTile;
-        public event Action<Vector2Int> ExitOnTile;
-        public event Action DragRequested;
+        public event Action<Vector2Int> DragRequested;
         
         [SerializeField] private TileView tileView;
 
         private Vector2 _initDragPosition;
-        private const float _thresholdDistance = 5.0f;
+        private const float ThresholdDistance = 20.0f;
         private bool _isInitDrag;
-
+        private bool _dragRequested;
+        
         private void Awake()
         {
             _isInitDrag = false;
@@ -27,12 +27,6 @@ namespace Controllers
             EnterOnTile?.Invoke(tileView.GetPositon());
         }
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            ExitOnTile?.Invoke(tileView.GetPositon());
-            _isInitDrag = false;
-        }
-
         public TileView GetView()
         {
             return tileView;
@@ -40,18 +34,30 @@ namespace Controllers
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (!_isInitDrag) return;
+            if (!_isInitDrag || _dragRequested) 
+                return;
+            
             var currentDistance = Vector2.Distance(eventData.position, _initDragPosition);
-            if (currentDistance >= _thresholdDistance)
-                DragRequested?.Invoke();
+            if (currentDistance < ThresholdDistance)
+                return;
+
+            _dragRequested = true;
+                
+            DragRequested?.Invoke(tileView.GetPositon());
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             _initDragPosition = eventData.position;
             _isInitDrag = true;
+            _dragRequested = false;
         }
 
-        
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            _isInitDrag = false;
+            _dragRequested = false;
+        }
     }
 }

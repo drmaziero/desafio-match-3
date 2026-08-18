@@ -2532,7 +2532,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardController: {fileID: 429446043}
-  inputController: {fileID: 135223794}
   _hudView: {fileID: 922953445}
 --- !u!4 &1361904665
 Transform:
@@ -2855,7 +2854,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Manager::Project.Script.Manager.GameManager
   _hudController: {fileID: 5409355409341203808}
   _uiController: {fileID: 3960800}
-  _tileInputController: {fileID: 135223794}
+  _inputController: {fileID: 135223794}
+  _boardController: {fileID: 429446043}
   _gameController: {fileID: 1361904664}
   _scoreSettings: {fileID: 11400000, guid: 41aead3d0779e4988a85377c42a26b9d, type: 2}
   _levelListSettings: {fileID: 11400000, guid: 46a850f9776cc4ef59b42ab20f50fe04, type: 2}
