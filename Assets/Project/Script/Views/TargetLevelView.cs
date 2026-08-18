@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Models;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,9 @@ namespace Views
         private TileType _type;
         private SpecialTileType _specialType;
         private bool _initialized;
+        
+        private int _displayedCount;
+        private Tween _countTween;
 
         private void InitializeIfNeeded()
         {
@@ -71,6 +75,8 @@ namespace Views
 
         public void Reset()
         {
+            _displayedCount = 0;
+            
             _type = TileType.None;
             _specialType = SpecialTileType.None;
             scoreIcon.SetActive(false);
@@ -81,9 +87,21 @@ namespace Views
                 keyValuePair.Value.SetActive(false);
         }
 
-        public void UpdateCount(int value)
+        public void UpdateCount(int newCount)
         {
-            counter.SetText($"{value}/{_targetCount}");
+            _countTween?.Kill();
+            
+            if (newCount <= 0)
+                counter.SetText($"{newCount}/{_targetCount}");
+            else
+            {
+                _countTween = DOTween.To(()=> _displayedCount, value => 
+                    {
+                        _displayedCount = value;
+                        counter.SetText($"{value}/{_targetCount}");
+                    },
+                    newCount, 1.0f).SetEase(Ease.OutQuad);
+            }
         }
 
         public bool IsScoreView()
@@ -93,12 +111,12 @@ namespace Views
 
         public bool IsTypeView(TileType type)
         {
-            return _type != type;
+            return _type == type;
         }
 
         public bool IsSpecialTypeView(SpecialTileType type)
         {
-            return _specialType != type;
+            return _specialType == type;
         }
     }
 

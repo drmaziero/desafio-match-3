@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Models;
 using TMPro;
 using UnityEngine;
@@ -19,6 +20,9 @@ namespace Views
         private Queue<TargetLevelView> _targetPoolQueue;
         private List<TargetLevelView> _allTargetViews;
         private bool _initialized;
+        
+        private int _displayedScore;
+        private Tween _scoreTween;
 
         private void InitializeIfNeeded()
         {
@@ -74,6 +78,8 @@ namespace Views
 
         public void Reset()
         {
+            _displayedScore = 0;
+            
             _targetPoolQueue.Clear();
             _allTargetViews.Clear();
 
@@ -99,7 +105,20 @@ namespace Views
 
         public void UpdateScore(int currentScore)
         {
-            score.SetText($"{currentScore}");
+            _scoreTween?.Kill();
+            
+            if (currentScore <= 0)
+                score.SetText($"{currentScore}");
+            else
+            {
+                _scoreTween = DOTween.To(()=> _displayedScore, value => 
+                {
+                    _displayedScore = value;
+                    score.SetText($"{value}");
+                },
+                currentScore, 1.0f).SetEase(Ease.OutQuad);
+            }
+            
         }
 
         public void UpdateSwapTile(int swapCount)
