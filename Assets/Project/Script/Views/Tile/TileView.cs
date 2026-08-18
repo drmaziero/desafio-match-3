@@ -9,10 +9,7 @@ namespace Views.Tile
 {
     public class TileView : MonoBehaviour
     {
-        public event Action<int, int> Clicked;
-
         [Header("Normal State")]
-        [SerializeField] private Button _button;
         [SerializeField] private Image liquid;
         [SerializeField] private List<TileColor> colors;
 
@@ -39,7 +36,6 @@ namespace Views.Tile
         
         private void Awake()
         {
-            _button.onClick.AddListener(OnTileClick);
             _colorDictionary = new Dictionary<TileType, Color>();
             _specialRoots = new Dictionary<SpecialTileType, GameObject>();
             _specialLiquids = new Dictionary<SpecialTileType, Image>();
@@ -62,11 +58,7 @@ namespace Views.Tile
             
             SetEmpty();
         }
-
-        private void OnDestroy()
-        {
-            _button.onClick.RemoveListener(OnTileClick);
-        }
+        
         
         public void ApplyTileType(TileType type)
         {
@@ -80,8 +72,6 @@ namespace Views.Tile
 
             specialStateContainer.SetActive(false);
             normalStateContainer.SetActive(true);
-            
-            _button.interactable = true;
         }
         
         public void ApplySpecialType(SpecialTileType type)
@@ -97,8 +87,6 @@ namespace Views.Tile
             specialStateContainer.SetActive(true);
             
             _specialRoots[type].SetActive(true);
-            
-            _button.interactable = true;
         }
 
         public void SetEmpty()
@@ -111,8 +99,6 @@ namespace Views.Tile
                 _specialRoots[_specialType].SetActive(false);
             
             _specialType = SpecialTileType.None;
-            
-            _button.interactable = false;
         }
 
         public TileViewState GetState()
@@ -187,11 +173,6 @@ namespace Views.Tile
         public Vector2Int GetPositon()
         {
             return new Vector2Int(_x, _y);
-        }
-
-        private void OnTileClick()
-        {
-            Clicked?.Invoke(_x, _y);
         }
 
         private void PlayClearTileFX(Color color)

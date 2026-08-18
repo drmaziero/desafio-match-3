@@ -13,7 +13,6 @@ namespace Controllers
     {
         public event Action<TileViewController> TileCreated;
         public event Action OutOfBoard;
-        public event Action<int, int> TileClicked;
 
         [SerializeField] private GridLayoutGroup _boardContainer;
         [SerializeField] private TileViewController tilePrefab;
@@ -35,7 +34,6 @@ namespace Controllers
                     TileView tileView = tileController.GetView();
                     
                     tileView.SetPosition(x, y);
-                    tileView.Clicked += TileSpot_Clicked;
                     tileView.ApplyState(new TileViewState(board[y][x].Type, board[y][x].SpecialType));
                     
                     TileCreated?.Invoke(tileController);
@@ -163,11 +161,6 @@ namespace Controllers
             };
 
             return MoveTiles(motions);
-        }
-        
-        private void TileSpot_Clicked(int x, int y)
-        {
-            TileClicked?.Invoke(x, y);
         }
         
         public void OnPointerExit(PointerEventData eventData)

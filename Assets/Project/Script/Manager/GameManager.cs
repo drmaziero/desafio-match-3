@@ -45,8 +45,10 @@ namespace Project.Script.Manager
             _levelService.SpecialCountChanged += _hudController.OnSpecialCounterChanged;
             _lifeService.LifeChanged += OnLifeChanged;
             
-            _gameController.SwapRequested += OnSwapRequested;
+            _tileInputController.SwapRequested += OnSwapRequested;
             _gameController.TurnCompleted += OnTurnCompleted;
+            _gameController.TurnCompleted += _tileInputController.SetDragCompleted;
+            _gameController.InvalidMovementCompleted += _tileInputController.SetDragCompleted;
 
             _uiController.TryRetryGameRequest += TryStartGame;
             _uiController.TryStartGameRequest += TryStartGame;
@@ -62,8 +64,11 @@ namespace Project.Script.Manager
             _levelService.TileCountChanged -= _hudController.OnTileCounterChanged;
             _levelService.SpecialCountChanged -= _hudController.OnSpecialCounterChanged;
             _lifeService.LifeChanged -= OnLifeChanged;
-            _gameController.SwapRequested -= OnSwapRequested;
+            
+            _tileInputController.SwapRequested -= OnSwapRequested;
             _gameController.TurnCompleted -= OnTurnCompleted;
+            _gameController.TurnCompleted -= _tileInputController.SetDragCompleted;
+            _gameController.InvalidMovementCompleted -= _tileInputController.SetDragCompleted;
             
             _uiController.TryRetryGameRequest -= TryStartGame;
             _uiController.TryStartGameRequest -= TryStartGame;
