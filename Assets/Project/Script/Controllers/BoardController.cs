@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Models;
-using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Views.Tile;
 
-namespace Views
+namespace Controllers
 {
-    public class BoardView : MonoBehaviour
+    public class BoardController : MonoBehaviour, IPointerExitHandler
     {
+        public event Action<TileViewController> TileCreated;
+        public event Action OutOfBoard;
         public event Action<int, int> TileClicked;
 
         [SerializeField] private GridLayoutGroup _boardContainer;
-        [SerializeField] private TilePrefabRepository _tilePrefabRepository;
-        [SerializeField] private TileView tilePrefab;
+        [SerializeField] private TileViewController tilePrefab;
         
         private TileView[][] _tiles;
 
-        public void CreateBoard(List<List<Models.Tile>> board)
+        public void CreateBoard(List<List<Tile>> board)
         {
             _boardContainer.constraintCount = board[0].Count;
             _tiles = new TileView[board.Count][];
@@ -30,11 +31,15 @@ namespace Views
 
                 for (int x = 0; x < board[0].Count; x++)
                 {
-                    TileView tileView = Instantiate(tilePrefab, _boardContainer.transform, false);
+                    TileViewController tileController = Instantiate(tilePrefab, _boardContainer.transform, false);
+                    TileView tileView = tileController.GetView();
+                    
                     tileView.SetPosition(x, y);
                     tileView.Clicked += TileSpot_Clicked;
                     tileView.ApplyState(new TileViewState(board[y][x].Type, board[y][x].SpecialType));
-                    _tiles[y][x] = tileView;
+                    
+                    TileCreated?.Invoke(tileController);
+                    _tiles[y][x] = tileController.GetView();
                 }
             }
         }
@@ -159,12 +164,15 @@ namespace Views
 
             return MoveTiles(motions);
         }
-
-        #region Events
+        
         private void TileSpot_Clicked(int x, int y)
         {
-            TileClicked(x, y);
+            TileClicked?.Invoke(x, y);
         }
-        #endregion
+        
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            OutOfBoard?.Invoke();
+        }
     }
 }

@@ -184,6 +184,11 @@ namespace Views.Tile
             _y = y;
         }
 
+        public Vector2Int GetPositon()
+        {
+            return new Vector2Int(_x, _y);
+        }
+
         private void OnTileClick()
         {
             Clicked?.Invoke(_x, _y);
@@ -214,8 +219,4 @@ namespace Views.Tile
             });
         }
     }
-    
-   
-
-    
 }

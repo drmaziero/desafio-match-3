@@ -13,8 +13,12 @@ namespace Controllers
         public event Action<int, int, int, int> SwapRequested;
         public event Action TurnCompleted; 
         
+        [Header("Controller")]
+        [SerializeField] private BoardController boardController;
+
+        [SerializeField] private TileInputController inputController;
+        
         [Header("Views")]
-        [SerializeField] private BoardView _boardView;
         [SerializeField] private HudView _hudView;
         
         private HudController _hudController;
@@ -22,34 +26,46 @@ namespace Controllers
         private bool _isAnimating;
         private int _selectedX = -1;
         private int _selectedY = -1;
-
-        #region Unity
+        
         private void Awake()
         {
-            _boardView.TileClicked += OnTileClick;
+            boardController.TileClicked += OnTileClick;
+            boardController.TileCreated += OnTileCreated;
+            boardController.OutOfBoard += OnOutBoard;
         }
-
+        
         private void OnDestroy()
         {
-            _boardView.TileClicked -= OnTileClick;
+            boardController.TileClicked -= OnTileClick;
+            boardController.TileCreated -= OnTileCreated;
+            boardController.OutOfBoard -= OnOutBoard;
         }
 
         public void Init(List<List<Tile>> board)
         {;
-            _boardView.CreateBoard(board);
+            boardController.CreateBoard(board);
         }
 
         public void Reset()
         {
-            _boardView.ClearBoard();
+            boardController.ClearBoard();
         }
         
         private void OnDisable()
         {
             Reset();
         }
+        
+        private void OnTileCreated(TileViewController tileController)
+        {
+            inputController.RegisterTileViewController(tileController);
+        }
+        
+        private void OnOutBoard()
+        {
+           inputController.ResetPosition();
+        }
 
-        #endregion
 
         public void AnimateInvalidSwap(Vector2Int from, Vector2Int to)
         {
@@ -58,8 +74,8 @@ namespace Controllers
 
         private IEnumerator AnimateInvalidSwapCoroutine(Vector2Int from, Vector2Int to)
         {
-            yield return _boardView.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
-            yield return _boardView.SwapTiles(to.x, to.y, from.x, from.y).WaitForCompletion();
+            yield return boardController.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
+            yield return boardController.SwapTiles(to.x, to.y, from.x, from.y).WaitForCompletion();
 
             _isAnimating = false;
         }
@@ -72,14 +88,14 @@ namespace Controllers
         private IEnumerator AnimateValidSwapCoroutine(Vector2Int from, Vector2Int to,
             IEnumerable<BoardSequence> boardSequences)
         {
-            yield return _boardView.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
+            yield return boardController.SwapTiles(from.x, from.y, to.x, to.y).WaitForCompletion();
 
             foreach (var boardSequence in boardSequences)
             {
-                yield return _boardView.ClearTiles(boardSequence.MatchedPosition).WaitForCompletion();
-                yield return _boardView.CreateSpecialTile(boardSequence.AddedSpecialTiles).WaitForCompletion();
-                yield return _boardView.MoveTiles(boardSequence.MovedTiles).WaitForCompletion();
-                yield return _boardView.RefillTiles(boardSequence.AddedTiles).WaitForCompletion();
+                yield return boardController.ClearTiles(boardSequence.MatchedPosition).WaitForCompletion();
+                yield return boardController.CreateSpecialTile(boardSequence.AddedSpecialTiles).WaitForCompletion();
+                yield return boardController.MoveTiles(boardSequence.MovedTiles).WaitForCompletion();
+                yield return boardController.RefillTiles(boardSequence.AddedTiles).WaitForCompletion();
             }
 
             _isAnimating = false;

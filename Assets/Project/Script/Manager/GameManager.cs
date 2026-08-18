@@ -12,9 +12,9 @@ namespace Project.Script.Manager
     public class GameManager : MonoBehaviour
     {
         [Header("Controller")]
-        [SerializeField]
-        private HudController _hudController;
+        [SerializeField] private HudController _hudController;
         [SerializeField] private UiController _uiController;
+        [SerializeField] private TileInputController _tileInputController;
 
         [SerializeField] private GameController _gameController;
         

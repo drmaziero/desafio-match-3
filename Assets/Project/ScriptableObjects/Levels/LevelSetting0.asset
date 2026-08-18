@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelSetting0
   m_EditorClassIdentifier: ScriptableObjects::ScriptableObjects.Level.LevelSettings
   boardSize: {x: 7, y: 10}
-  maxSwapTiles: 20
+  maxSwapTiles: 1
   typeList: 00000000030000000400000006000000
   targetSettings:
     score: 1000
