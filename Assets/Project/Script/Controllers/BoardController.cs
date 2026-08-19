@@ -17,16 +17,16 @@ namespace Controllers
         [SerializeField] private GridLayoutGroup _boardContainer;
         [SerializeField] private TileController tilePrefab;
         
-        private TileView[][] _tiles;
+        private TileController[][] _tiles;
 
         public void CreateBoard(List<List<Tile>> board)
         {
             _boardContainer.constraintCount = board[0].Count;
-            _tiles = new TileView[board.Count][];
+            _tiles = new TileController[board.Count][];
 
             for (int y = 0; y < board.Count; y++)
             {
-                _tiles[y] = new TileView[board[0].Count];
+                _tiles[y] = new TileController[board[0].Count];
 
                 for (int x = 0; x < board[0].Count; x++)
                 {
@@ -37,7 +37,7 @@ namespace Controllers
                     tileView.ApplyState(new TileViewState(board[y][x].Type, board[y][x].SpecialType));
                     
                     TileCreated?.Invoke(tileController);
-                    _tiles[y][x] = tileController.GetView();
+                    _tiles[y][x] = tileController;
                 }
             }
         }
@@ -65,10 +65,10 @@ namespace Controllers
             foreach (var addedTileInfo in addedTiles)
             {
                 Vector2Int position = addedTileInfo.Position;
-                TileView tile = _tiles[position.y][position.x];
-                tile.ApplyTileType(addedTileInfo.Type);
+                TileController tile = _tiles[position.y][position.x];
+                tile.GetView().ApplyTileType(addedTileInfo.Type);
 
-                sequence.Join(tile.AnimateShow());
+                sequence.Join(tile.GetView().AnimateShow());
             }
 
             return sequence;
@@ -80,10 +80,10 @@ namespace Controllers
             foreach (var specialTileInfo in addedSpecialTiles)
             {
                 Vector2Int position = specialTileInfo.Position;
-                TileView tileView = _tiles[position.y][position.x];
-                tileView.ApplySpecialType(specialTileInfo.SpecialTileType);
+                TileController tile = _tiles[position.y][position.x];
+                tile.GetView().ApplySpecialType(specialTileInfo.SpecialTileType);
                 
-                sequence.Join(tileView.AnimateSpecialCreated());
+                sequence.Join(tile.GetView().AnimateSpecialCreated());
             }
             return sequence;
         }
@@ -91,14 +91,30 @@ namespace Controllers
 
         public Tween ClearTiles(IEnumerable<Vector2Int> matchedPosition)
         {
-            Sequence sequence = DOTween.Sequence();
+            Sequence mainSequence = DOTween.Sequence();
+            Sequence normalGroup = DOTween.Sequence();
+            
             foreach (var position in matchedPosition)
             {
-                TileView tileView = _tiles[position.y][position.x];
-                sequence.Join(tileView.AnimateClear());
+                TileController tile = _tiles[position.y][position.x];
+                var tileState = tile.GetView().GetState();
+                bool isExplosion = tileState.SpecialType is SpecialTileType.ExplosionRadius3
+                    or SpecialTileType.ExplosionRadius5AndCross;
+                
+                if (isExplosion)
+                {
+                    mainSequence.Append(normalGroup);
+                    mainSequence.Append(tile.GetView().AnimateClear());
+                    normalGroup = DOTween.Sequence();
+                }
+                else
+                {
+                    normalGroup.Join(tile.GetView().AnimateClear());
+                }
             }
 
-            return sequence;
+            mainSequence.Append(normalGroup);
+            return mainSequence;
         }
 
         public Tween MoveTiles(List<MovedTileInfo> movedTiles)
@@ -107,14 +123,14 @@ namespace Controllers
             
             foreach (var moveInfo in movedTiles)
             {
-                TileView fromView = _tiles[moveInfo.From.y][moveInfo.From.x];
-                TileView toView = _tiles[moveInfo.To.y][moveInfo.To.x];
+                TileController fromController = _tiles[moveInfo.From.y][moveInfo.From.x];
+                TileController toController = _tiles[moveInfo.To.y][moveInfo.To.x];
                 
                 motionList.Add(new TileViewMotion()
                 {
-                    From = fromView,
-                    To = toView,
-                    State = fromView.GetState()
+                    From = fromController.GetView(),
+                    To = toController.GetView(),
+                    State = fromController.GetView().GetState()
                 });
             }
             

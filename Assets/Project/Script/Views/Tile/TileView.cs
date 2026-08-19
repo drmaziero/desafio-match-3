@@ -147,14 +147,57 @@ namespace Views.Tile
         public Tween AnimateClear()
         {
             visualContainer.DOKill();
-
+            return _specialType is SpecialTileType.ExplosionRadius3 or
+                SpecialTileType.ExplosionRadius5AndCross
+                ? AnimateExplosionClear()
+                : AnimateNormalClear();
+        }
+        
+        private Tween AnimateNormalClear()
+        {
             Sequence sequence = DOTween.Sequence();
+            var color = _colorDictionary[_type];
             sequence.Append(visualContainer.DOScale(1.08f, 0.05f));
             sequence.AppendCallback(() =>
             {
-                PlayClearTileFX(_colorDictionary[_type]);
+                PlayClearTileFX(color);
             });
-            sequence.Append(visualContainer.DOScale(Vector3.zero, 0.05f).SetEase(Ease.InBack)).OnComplete(SetEmpty);
+            sequence.Append(visualContainer.DOScale(Vector3.zero, 0.05f).SetEase(Ease.InBack));
+                sequence.OnComplete(()=>
+                {
+                    SetEmpty();
+                    ResetVisualTransform();
+                });
+                
+            return sequence;
+        }
+
+        private Tween AnimateExplosionClear()
+        {
+            const float shakeDuration = 1.0f;
+            const float explosionDuration = 0.3f;
+
+            var type = _specialType;
+            var color = _colorDictionary[_type];
+
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(visualContainer.DOScale(1.08f, 0.05f));
+            sequence.Append(visualContainer.DOShakePosition(shakeDuration, 8.0f, 25, 30.0f));
+            sequence.AppendCallback(() =>
+            {
+                PlayClearWithExplosionTileFX(type, color);
+            });
+
+            sequence.AppendInterval(explosionDuration - 0.05f);
+            sequence.AppendCallback(StopClearTileFX);
+
+            sequence.OnComplete(() =>
+            {
+                SetEmpty();
+                ResetVisualTransform();
+            });
+
             return sequence;
         }
 
@@ -180,7 +223,7 @@ namespace Views.Tile
             var currentFx = _fxDictionary[TileFX.ExplodeTile];
             currentFx.image.color = Color.Lerp(color, Color.white, 0.25f);
             currentFx.root.SetActive(true);
-            currentFx.animator.Play(currentFx.animationName, 0, 0.0f);
+            currentFx.animator.SetTrigger("Normal");
 
             DOVirtual.DelayedCall(0.2f, () =>
             {
@@ -198,6 +241,20 @@ namespace Views.Tile
             {
                 currentFx.root.SetActive(false);
             });
+        }
+        
+        private void PlayClearWithExplosionTileFX(SpecialTileType type, Color color)
+        {
+            var currentFx = _fxDictionary[TileFX.ExplodeTile];
+            currentFx.image.color = Color.Lerp(color, Color.white, 0.25f);
+            currentFx.root.SetActive(true);
+            currentFx.animator.SetTrigger(type == SpecialTileType.ExplosionRadius3 ? "Radius1" : "Radius3");
+        }
+
+        private void StopClearTileFX()
+        {
+            var currentFx = _fxDictionary[TileFX.ExplodeTile];
+            currentFx.root.SetActive(false);
         }
     }
 }
