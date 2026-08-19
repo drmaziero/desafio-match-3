@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using DG.Tweening;
 using Models;
@@ -92,10 +93,7 @@ namespace Controllers
 
         public Tween ClearTiles(IEnumerable<Vector2Int> matchedPosition, Vector2Int? activatedSpecialPosition)
         {
-            Sequence mainSequence = DOTween.Sequence();
-            Sequence normalGroup = DOTween.Sequence();
-            
-            var positionsList = matchedPosition.ToList();
+            var mainSequence = DOTween.Sequence();
 
             if (activatedSpecialPosition.HasValue)
             {
@@ -103,7 +101,37 @@ namespace Controllers
                 var specialTile = _tiles[specialPosition.y][specialPosition.x];
 
                 mainSequence.Append(specialTile.GetView().AnimateClear());
+
+                switch (specialTile.GetView().SpecialType)
+                {
+                    case SpecialTileType.None:
+                        throw new InvalidDataException("Special none to Clear");
+                    case SpecialTileType.ClearRow:
+                        mainSequence.Append(ClearUsingClearRow(matchedPosition, activatedSpecialPosition.Value));
+                        break;
+                    case SpecialTileType.ClearColumn:
+                        mainSequence.Append(ClearUsingClearColumn(matchedPosition, activatedSpecialPosition.Value));
+                        break;
+                    case SpecialTileType.ClearCross:
+                        mainSequence.Append(ClearUsingClearCross(matchedPosition, activatedSpecialPosition.Value));
+                        break;
+                    default:
+                        mainSequence.Append(DefaultClear(matchedPosition, activatedSpecialPosition));
+                        break;
+                }
             }
+            else
+                mainSequence.Append(DefaultClear(matchedPosition, null));
+            
+            return mainSequence;
+        }
+
+        private Tween DefaultClear(IEnumerable<Vector2Int> matchedPosition, Vector2Int? activatedSpecialPosition)
+        {
+            var mainSequence = DOTween.Sequence();
+            var normalGroup = DOTween.Sequence();
+            
+            var positionsList = matchedPosition.ToList();
 
             foreach (var position in positionsList)
             {
@@ -119,29 +147,91 @@ namespace Controllers
             }
 
             mainSequence.Append(normalGroup);
-            
-            /*
-            foreach (var position in positionsList)
-            {
-                TileController tile = _tiles[position.y][position.x];
-                var tileState = tile.GetView().GetState();
-                bool isExplosion = tileState.SpecialType is SpecialTileType.ExplosionRadius3
-                    or SpecialTileType.ExplosionRadius5AndCross;
-                
-                if (isExplosion)
-                {
-                    mainSequence.Append(normalGroup);
-                    mainSequence.Append(tile.GetView().AnimateClear());
-                    normalGroup = DOTween.Sequence();
-                }
-                else
-                {
-                    normalGroup.Join(tile.GetView().AnimateClear());
-                }
-                */
-
-            mainSequence.Append(normalGroup);
             return mainSequence;
+        }
+
+        private Tween ClearUsingClearRow(IEnumerable<Vector2Int> matchedPosition, Vector2Int activatedSpecialPosition)
+        {
+            var sequence = DOTween.Sequence();
+            
+            var positionsList = matchedPosition.ToList();
+            var origin = activatedSpecialPosition;
+
+            var stages = positionsList
+                .Where(position => position != origin)
+                .GroupBy(position => Mathf.Abs(position.x - origin.x))
+                .OrderBy(group => group.Key);
+
+            foreach (var stage in stages)
+            {
+                var stageSequence = DOTween.Sequence();
+
+                foreach (var position in stage)
+                {
+                    var tile = _tiles[position.y][position.x];
+                    stageSequence.Join(tile.GetView().AnimateClear());
+                }
+
+                sequence.Append(stageSequence);
+            }
+           
+            return sequence;
+        }
+        
+        private Tween ClearUsingClearColumn(IEnumerable<Vector2Int> matchedPosition, Vector2Int activatedSpecialPosition)
+        {
+            var sequence = DOTween.Sequence();
+            
+            var positionsList = matchedPosition.ToList();
+            var origin = activatedSpecialPosition;
+
+            var stages = positionsList
+                .Where(position => position != origin)
+                .GroupBy(position => Mathf.Abs(position.y - origin.y))
+                .OrderBy(group => group.Key);
+
+            foreach (var stage in stages)
+            {
+                var stageSequence = DOTween.Sequence();
+
+                foreach (var position in stage)
+                {
+                    var tile = _tiles[position.y][position.x];
+                    stageSequence.Join(tile.GetView().AnimateClear());
+                }
+
+                sequence.Append(stageSequence);
+            }
+           
+            return sequence;
+        }
+        
+        private Tween ClearUsingClearCross(IEnumerable<Vector2Int> matchedPosition, Vector2Int activatedSpecialPosition)
+        {
+            var sequence = DOTween.Sequence();
+            
+            var positionsList = matchedPosition.ToList();
+            var origin = activatedSpecialPosition;
+
+            var stages = positionsList
+                .Where(position => position != origin)
+                .GroupBy(position => Mathf.Abs(position.x - origin.x) + Mathf.Abs(position.y - origin.y))
+                .OrderBy(group => group.Key);
+
+            foreach (var stage in stages)
+            {
+                var stageSequence = DOTween.Sequence();
+
+                foreach (var position in stage)
+                {
+                    var tile = _tiles[position.y][position.x];
+                    stageSequence.Join(tile.GetView().AnimateClear());
+                }
+
+                sequence.Append(stageSequence);
+            }
+           
+            return sequence;
         }
 
         public Tween MoveTiles(List<MovedTileInfo> movedTiles)

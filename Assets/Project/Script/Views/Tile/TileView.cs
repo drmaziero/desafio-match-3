@@ -32,7 +32,7 @@ namespace Views.Tile
         private int _x;
         private int _y;
         private TileType _type;
-        private SpecialTileType _specialType;
+        public SpecialTileType SpecialType { get; private set; }
 
         private Tween _pendingShakeTween;
         public bool IsPendingSpecial { get; private set; }
@@ -68,10 +68,10 @@ namespace Views.Tile
         
         public void ApplyTileType(TileType type)
         {
-            if (_specialType != SpecialTileType.None)
-                _specialRoots[_specialType].SetActive(false);
+            if (SpecialType != SpecialTileType.None)
+                _specialRoots[SpecialType].SetActive(false);
 
-            _specialType = SpecialTileType.None;
+            SpecialType = SpecialTileType.None;
             _type = type;
             
             liquid.color = _colorDictionary[type];
@@ -82,10 +82,10 @@ namespace Views.Tile
         
         public void ApplySpecialType(SpecialTileType type)
         {
-            if (_specialType != SpecialTileType.None)
-                _specialRoots[_specialType].SetActive(false);
+            if (SpecialType != SpecialTileType.None)
+                _specialRoots[SpecialType].SetActive(false);
             
-            _specialType = type;
+            SpecialType = type;
             
             _specialLiquids[type].color = _colorDictionary[_type];
             
@@ -103,10 +103,10 @@ namespace Views.Tile
             normalStateContainer.SetActive(false);
             specialStateContainer.SetActive(false);
             
-            if (_specialType != SpecialTileType.None)
-                _specialRoots[_specialType].SetActive(false);
+            if (SpecialType != SpecialTileType.None)
+                _specialRoots[SpecialType].SetActive(false);
             
-            _specialType = SpecialTileType.None;
+            SpecialType = SpecialTileType.None;
             
             _pendingShakeTween = null;
             IsPendingSpecial = false;
@@ -114,7 +114,7 @@ namespace Views.Tile
 
         public TileViewState GetState()
         {
-            return new TileViewState(_type, _specialType);
+            return new TileViewState(_type, SpecialType);
         }
         
         public void ApplyState(TileViewState state)
@@ -158,7 +158,7 @@ namespace Views.Tile
         public Tween AnimateClear()
         {
             visualContainer.DOKill();
-            return _specialType is SpecialTileType.ExplosionRadius3 or
+            return SpecialType is SpecialTileType.ExplosionRadius3 or
                 SpecialTileType.ExplosionRadius5AndCross
                 ? AnimateExplosionClear()
                 : AnimateNormalClear();
@@ -188,7 +188,7 @@ namespace Views.Tile
             const float shakeDuration = 1.0f;
             const float explosionDuration = 0.3f;
 
-            var type = _specialType;
+            var type = SpecialType;
             var color = _colorDictionary[_type];
 
             Sequence sequence = DOTween.Sequence();
