@@ -5,5 +5,6 @@ namespace Views.Tile
         public TileView From;
         public TileView To;
         public TileViewState State;
+        public bool IsPendingSpecial;
     }
 }

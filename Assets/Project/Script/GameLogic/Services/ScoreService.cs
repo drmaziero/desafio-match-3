@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameLogic.Matching;
 using Models;
+using UnityEngine;
 
 namespace GameLogic.Services
 {
@@ -40,6 +42,13 @@ namespace GameLogic.Services
             if (detectedMatches.HasBasicMatches)
                 newScore += CalcBasicMatchScore(detectedMatches.BasicMatches);
 
+            int multiplier = _config.GetCascadeMultiplier(cascadeCounter);
+            AddScore(newScore * multiplier);
+        }
+
+        public void ComputeSpecialScore(IEnumerable<Vector2Int> positions, SpecialTileType type, int cascadeCounter)
+        {
+            int newScore = _config.GetSpecialScore(type) + positions.Count() * _config.GetSpecialScoreElement(type);
             int multiplier = _config.GetCascadeMultiplier(cascadeCounter);
             AddScore(newScore * multiplier);
         }
@@ -103,5 +112,6 @@ namespace GameLogic.Services
 
             return score;
         }
+        
     }
 }

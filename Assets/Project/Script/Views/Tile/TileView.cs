@@ -33,6 +33,9 @@ namespace Views.Tile
         private int _y;
         private TileType _type;
         private SpecialTileType _specialType;
+
+        private Tween _pendingShakeTween;
+        public bool IsPendingSpecial { get; private set; }
         
         private void Awake()
         {
@@ -40,6 +43,9 @@ namespace Views.Tile
             _specialRoots = new Dictionary<SpecialTileType, GameObject>();
             _specialLiquids = new Dictionary<SpecialTileType, Image>();
             _fxDictionary = new Dictionary<TileFX, TileViewFX>();
+
+            _pendingShakeTween = null;
+            IsPendingSpecial = false;
 
             foreach (var tileColor in colors)
                 _colorDictionary.Add(tileColor.type, tileColor.color);
@@ -91,6 +97,8 @@ namespace Views.Tile
 
         public void SetEmpty()
         {
+            StopSpecialShake();
+            
             _type = TileType.None;
             normalStateContainer.SetActive(false);
             specialStateContainer.SetActive(false);
@@ -99,6 +107,9 @@ namespace Views.Tile
                 _specialRoots[_specialType].SetActive(false);
             
             _specialType = SpecialTileType.None;
+            
+            _pendingShakeTween = null;
+            IsPendingSpecial = false;
         }
 
         public TileViewState GetState()
@@ -189,7 +200,7 @@ namespace Views.Tile
                 PlayClearWithExplosionTileFX(type, color);
             });
 
-            sequence.AppendInterval(explosionDuration - 0.05f);
+            sequence.AppendInterval(explosionDuration);
             sequence.AppendCallback(StopClearTileFX);
 
             sequence.OnComplete(() =>
@@ -256,5 +267,27 @@ namespace Views.Tile
             var currentFx = _fxDictionary[TileFX.ExplodeTile];
             currentFx.root.SetActive(false);
         }
+
+        public void StartSpecialShake()
+        {
+            if (IsPendingSpecial)
+                return;
+
+            IsPendingSpecial = true;
+            _pendingShakeTween?.Kill();
+
+            _pendingShakeTween = specialStateContainer.transform.DOShakePosition(0.4f, 5.0f, 15, 20.0f, false, false)
+                .SetLoops(-1, LoopType.Restart);
+        }
+
+        public void StopSpecialShake()
+        {
+            IsPendingSpecial = false;
+            _pendingShakeTween?.Kill();
+            _pendingShakeTween = null;
+            
+            specialStateContainer.transform.localPosition = Vector3.zero;
+        }
+        
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Models;
@@ -32,6 +33,14 @@ namespace ScriptableObjects.Score
         [field: SerializeField]
         private int _complexElementScore = 1;
 
+        [Header("Special")] 
+        [field: SerializeField]
+        private List<SpecialTypeScore> _specialScore;
+
+        [Header("Elements On Match")] 
+        [field: SerializeField]
+        private List<SpecialTypeScore> _specialElementScore;
+        
         [Header("Cascate")] 
         [SerializeField] 
         private List<CascadeMultiplierEntry> _cascadeMultiplierEntries;
@@ -41,7 +50,16 @@ namespace ScriptableObjects.Score
             return new ScoreConfig(_horizontalMatchScore, _verticalMatchScore, _matchLScore, _matchTScore,
                 _complexMatchScore, _horizontalElementScore, _verticalElementScore, _matchLElementScore,
                 _matchTElementScore, _complexElementScore,
-                _cascadeMultiplierEntries.ToDictionary(x => x.cascadeCount, x => x.multiplier));
+                _cascadeMultiplierEntries.ToDictionary(x => x.cascadeCount, x => x.multiplier),
+                _specialScore.ToDictionary(specialTypeScore => specialTypeScore.type, specialTypeScore => specialTypeScore.score),
+                _specialElementScore.ToDictionary(specialTypeScore => specialTypeScore.type, specialTypeScore => specialTypeScore.score));
         }
+    }
+
+    [Serializable]
+    public class SpecialTypeScore
+    {
+        public SpecialTileType type;
+        public int score;
     }
 }

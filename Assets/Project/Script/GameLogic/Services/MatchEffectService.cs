@@ -109,22 +109,42 @@ namespace GameLogic.Services
             return match.GetDefaultOrigin();
         }
 
-        public List<Vector2Int> GetEffectsPositions(List<List<Tile>> newBoard, IEnumerable<Vector2Int> positions)
+        public HashSet<Vector2Int> GetEffectsPositions(List<List<Tile>> newBoard, IEnumerable<Vector2Int> positions)
         {
-            var effectPositions = new List<Vector2Int>();
+            var effectPositions = new HashSet<Vector2Int>();
             
             foreach (var position in positions)
             {
-                var currentEffect = CreateEffectFromTile(newBoard[position.y][position.x], position);
-                effectPositions.AddRange(currentEffect.GetAffectPositions(newBoard));
+                if (!IsValidPosition(newBoard,position))
+                    continue;
+
+                var tile = newBoard[position.y][position.x];
+                if (tile.SpecialType == SpecialTileType.None)
+                    continue;
+                
+                
+                var currentEffect = CreateEffectFromTile(tile, position);
+                foreach (var affectPosition in currentEffect.GetAffectPositions(newBoard))
+                {
+                    effectPositions.Add(affectPosition);
+                }
             }
             
             return effectPositions;
         }
 
-        public List<Vector2Int> GetEffectOnTiles(List<List<Tile>> board, IEnumerable<Vector2Int> positions)
+        public Queue<PendingSpecial> GetEffectOnTiles(List<List<Tile>> board, IEnumerable<Vector2Int> positions)
         {
-            return positions.Where(pos => HasEffectOnTile(board, pos)).ToList();
+            var result = positions.Where(pos => HasEffectOnTile(board, pos));
+            var pendingSpecial = new Queue<PendingSpecial>();
+
+            foreach (var pos in result)
+            {
+                var curTile = board[pos.y][pos.x];
+                pendingSpecial.Enqueue(new PendingSpecial(curTile.Id, curTile.SpecialType));
+            }
+
+            return pendingSpecial;
         }
         
         private bool HasEffectOnTile(List<List<Tile>> board, Vector2Int position)
@@ -148,35 +168,28 @@ namespace GameLogic.Services
             return currentEffect;
         }
 
-        public HashSet<Vector2Int> ResolveEffectCascate(List<List<Tile>> board, IEnumerable<Vector2Int> initPositions)
+        public IEnumerable<Vector2Int> GetSpecialAffected(List<List<Tile>> board, IEnumerable<Vector2Int> initPositions, int specialOriginId)
         {
-            var finalPositions = new HashSet<Vector2Int>(initPositions);
-            var activeTileIds = new HashSet<int>();
-            var pendingPositions = new Queue<Vector2Int>(initPositions);
-
-            while (pendingPositions.Count > 0)
+            foreach (var position in initPositions)
             {
-                var position = pendingPositions.Dequeue();
                 var tile = board[position.y][position.x];
                 
                 if (tile.SpecialType == SpecialTileType.None)
                     continue;
                 
-                if (!activeTileIds.Add(tile.Id))
+                if (tile.Id == specialOriginId)
                     continue;
 
-                IMatchEffect currentEffect = CreateEffectFromTile(tile, position);
-                
-                foreach (var affectPosition in currentEffect.GetAffectPositions(board))
-                {
-                    if (finalPositions.Add(affectPosition))
-                    {
-                        pendingPositions.Enqueue(affectPosition);
-                    }
-                }
+                yield return position;
             }
+        }
 
-            return finalPositions;
+        private bool IsValidPosition(List<List<Tile>> board, Vector2Int position)
+        {
+            return position.y >= 0 &&
+                   position.y < board.Count &&
+                   position.x >= 0 &&
+                   position.x < board[position.y].Count;
         }
     }
 }

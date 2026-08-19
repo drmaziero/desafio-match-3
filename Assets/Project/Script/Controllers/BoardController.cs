@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Models;
 using UnityEngine;
@@ -89,12 +90,38 @@ namespace Controllers
         }
         
 
-        public Tween ClearTiles(IEnumerable<Vector2Int> matchedPosition)
+        public Tween ClearTiles(IEnumerable<Vector2Int> matchedPosition, Vector2Int? activatedSpecialPosition)
         {
             Sequence mainSequence = DOTween.Sequence();
             Sequence normalGroup = DOTween.Sequence();
             
-            foreach (var position in matchedPosition)
+            var positionsList = matchedPosition.ToList();
+
+            if (activatedSpecialPosition.HasValue)
+            {
+                var specialPosition = activatedSpecialPosition.Value;
+                var specialTile = _tiles[specialPosition.y][specialPosition.x];
+
+                mainSequence.Append(specialTile.GetView().AnimateClear());
+            }
+
+            foreach (var position in positionsList)
+            {
+                if (activatedSpecialPosition.HasValue && position == activatedSpecialPosition.Value)
+                    continue;
+
+                var tile =
+                    _tiles[position.y][position.x];
+
+                normalGroup.Join(
+                    tile.GetView().AnimateClear()
+                );
+            }
+
+            mainSequence.Append(normalGroup);
+            
+            /*
+            foreach (var position in positionsList)
             {
                 TileController tile = _tiles[position.y][position.x];
                 var tileState = tile.GetView().GetState();
@@ -111,7 +138,7 @@ namespace Controllers
                 {
                     normalGroup.Join(tile.GetView().AnimateClear());
                 }
-            }
+                */
 
             mainSequence.Append(normalGroup);
             return mainSequence;
@@ -130,7 +157,8 @@ namespace Controllers
                 {
                     From = fromController.GetView(),
                     To = toController.GetView(),
-                    State = fromController.GetView().GetState()
+                    State = fromController.GetView().GetState(),
+                    IsPendingSpecial = fromController.GetView().IsPendingSpecial
                 });
             }
             
@@ -151,6 +179,9 @@ namespace Controllers
                 {
                     motion.To.ApplyState(motion.State);
                     motion.To.ResetVisualTransform();
+                    
+                    if (motion.IsPendingSpecial)
+                        motion.To.StartSpecialShake();
                 }
             });
             
@@ -182,6 +213,25 @@ namespace Controllers
         public void OnPointerExit(PointerEventData eventData)
         {
             OutOfBoard?.Invoke();
+        }
+
+        public void AnimateActiveSpecial(Vector2Int? position)
+        {
+            if (!position.HasValue)
+                return;
+
+            var tile = _tiles[position.Value.y][position.Value.x];
+            tile.GetView().StopSpecialShake();
+        }
+
+        public void StartPendingSpecials(List<Vector2Int> pendingSpecialPositions)
+        {
+            foreach (var pendingSpecial in pendingSpecialPositions)
+            {
+                var tile = _tiles[pendingSpecial.y][pendingSpecial.x];
+                tile.GetView().StartSpecialShake();
+            }
+            
         }
     }
 }
