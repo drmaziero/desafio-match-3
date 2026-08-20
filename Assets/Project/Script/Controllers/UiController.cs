@@ -15,6 +15,7 @@ namespace Controllers
         [SerializeField] private VictoryUiView victoryUI;
         [SerializeField] private LoseUiView loseUI;
         [SerializeField] private NoLifeView noLifeUI;
+        [SerializeField] private OnboardingUIView onboardingUI;
 
         private Dictionary<UiType, IUiView> _screens;
         private IUiView _currentUI;
@@ -28,17 +29,20 @@ namespace Controllers
             _screens.Add(UiType.Victory, victoryUI);
             _screens.Add(UiType.Lose, loseUI);
             _screens.Add(UiType.NoLife, noLifeUI);
+            _screens.Add(UiType.Onboarding, onboardingUI);
 
             victoryUI.OnGoToMainMenu += GoToMainMenu;
             victoryUI.OnGoToNextLevel += GoToNextLevel;
             loseUI.OnGoToMainMenu += GoToMainMenu;
             loseUI.OnGoToRetry += TryRetryGame;
             mainMenuUI.GoToGamePlay += TryStartGame;
+            mainMenuUI.GoToOnboarding += GoToOnboarding;
+            onboardingUI.GoToMainMenu += GoToMainMenu;
 
             _currentUI = _screens[UiType.MainMenu];
             _currentUI.Show();
         }
-
+        
         private void OnDestroy()
         {
             victoryUI.OnGoToMainMenu -= GoToMainMenu;
@@ -46,6 +50,8 @@ namespace Controllers
             loseUI.OnGoToMainMenu -= GoToMainMenu;
             loseUI.OnGoToRetry -= TryRetryGame;
             mainMenuUI.GoToGamePlay -= TryStartGame;
+            mainMenuUI.GoToOnboarding -= GoToOnboarding;
+            onboardingUI.GoToMainMenu -= GoToMainMenu;
         }
 
         private void TryStartGame()
@@ -92,6 +98,13 @@ namespace Controllers
             noLifeView.Init(remaining);
             noLifeView.Show();
         }
+        
+        private void GoToOnboarding()
+        {
+            _currentUI.Hide();
+            _currentUI = _screens[UiType.Onboarding];
+            _currentUI.Show();
+        }
     }
 
     public enum UiType
@@ -100,6 +113,7 @@ namespace Controllers
         Gameplay,
         Victory,
         Lose,
-        NoLife
+        NoLife,
+        Onboarding
     }
 }
