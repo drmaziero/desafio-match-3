@@ -115,6 +115,9 @@ namespace Controllers
                     case SpecialTileType.ClearCross:
                         mainSequence.Append(ClearUsingClearCross(matchedPosition, activatedSpecialPosition.Value));
                         break;
+                    case SpecialTileType.ClearColor:
+                        mainSequence.Append(ClearUsingClearColor(matchedPosition, activatedSpecialPosition));
+                        break;
                     default:
                         mainSequence.Append(DefaultClear(matchedPosition, activatedSpecialPosition));
                         break;
@@ -232,6 +235,30 @@ namespace Controllers
             }
            
             return sequence;
+        }
+        
+        private Tween ClearUsingClearColor(IEnumerable<Vector2Int> matchedPosition, Vector2Int? activatedSpecialPosition)
+        {
+            var mainSequence = DOTween.Sequence();
+            var normalGroup = DOTween.Sequence();
+            
+            var positionsList = matchedPosition.ToList();
+
+            foreach (var position in positionsList)
+            {
+                if (activatedSpecialPosition.HasValue && position == activatedSpecialPosition.Value)
+                    continue;
+
+                var tile =
+                    _tiles[position.y][position.x];
+
+                normalGroup.Join(
+                    tile.GetView().AnimateClearByClearColor()
+                );
+            }
+
+            mainSequence.Append(normalGroup);
+            return mainSequence;
         }
 
         public Tween MoveTiles(List<MovedTileInfo> movedTiles)

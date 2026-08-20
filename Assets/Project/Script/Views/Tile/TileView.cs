@@ -288,6 +288,33 @@ namespace Views.Tile
             
             specialStateContainer.transform.localPosition = Vector3.zero;
         }
+
+        public Tween AnimateClearByClearColor()
+        {
+            var sequence = DOTween.Sequence();
+            const float effectDuration = 0.5f;
+
+            Tween shakeTween = null;
+            Tween scaleTween = null;
+            
+            sequence.AppendCallback(() =>
+            {
+                shakeTween =  visualContainer.DOShakePosition(0.2f, 5.0f, 15, 20.0f, false, false).SetLoops(-1, LoopType.Restart);
+                scaleTween = visualContainer.DOScale(1.2f, 0.1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+            });
+            sequence.AppendInterval(effectDuration);
+            sequence.AppendCallback(() =>
+            {
+                shakeTween?.Kill();
+                scaleTween?.Kill();
+                
+                visualContainer.localPosition = Vector3.zero;
+                visualContainer.localScale = Vector3.one;
+            });
+            sequence.Append(AnimateNormalClear());
+
+            return sequence;
+        }
         
     }
 }
