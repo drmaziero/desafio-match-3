@@ -278,8 +278,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293414291
-  m_fontColor: {r: 0.5764706, g: 0.3019608, b: 0.9098039, a: 1}
+    rgba: 4285273161
+  m_fontColor: {r: 0.2877792, g: 0.078097194, b: 0.4245283, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2190,7 +2190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4617,7 +4617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6342892754225384653, guid: b15ff1c3fcbfa43868d44e2e63916993, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 120.771675
+      value: 120.77167
       objectReference: {fileID: 0}
     - target: {fileID: 6342892754225384653, guid: b15ff1c3fcbfa43868d44e2e63916993, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4825,7 +4825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9030532112823785767, guid: b15ff1c3fcbfa43868d44e2e63916993, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 108.15
+      value: 108.149994
       objectReference: {fileID: 0}
     - target: {fileID: 9030532112823785767, guid: b15ff1c3fcbfa43868d44e2e63916993, type: 3}
       propertyPath: m_AnchoredPosition.y
