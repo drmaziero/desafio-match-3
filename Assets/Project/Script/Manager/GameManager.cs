@@ -147,6 +147,8 @@ namespace Project.Script.Manager
             if (!validMovement)
                 return;
             
+            _levelService.DecreaseMovementCount();
+            
             var isWin = _levelService.IsCompleteAllTargets();
             var isEndGame = _levelService.IsEndGame();
             

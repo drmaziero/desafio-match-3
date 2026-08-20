@@ -73,9 +73,7 @@ namespace Controllers
 
         private void GoToNextLevel()
         {
-            _currentUI.Hide();
-            _currentUI = _screens[UiType.Gameplay];
-            _currentUI.Show();
+            TryStartGameRequest?.Invoke();
         }
 
         private void GoToMainMenu()
