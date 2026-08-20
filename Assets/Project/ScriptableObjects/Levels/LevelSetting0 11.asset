@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::ScriptableObjects.Level.LevelSettings
   boardSize: {x: 5, y: 10}
   maxSwapTiles: 50
-  typeList: 00000000030000000400000006000000
+  typeList: 01000000020000000300000006000000
   targetSettings:
-    score: 4000
+    score: 200000
     tileSettings: []
-    specialSettings: []
+    specialSettings:
+    - type: 0
+      count: 10
+    - type: 1
+      count: 20
