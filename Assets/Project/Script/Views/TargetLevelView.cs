@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Models;
 using TMPro;
 using UnityEngine;
@@ -21,11 +22,18 @@ namespace Views
         private Dictionary<TileType, Color> _tileTypeDictionary;
         private Dictionary<SpecialTileType, GameObject> _specialTypeDictionary;
         private int _targetCount;
-        private bool _initialized = false;
+        private TileType _type;
+        private SpecialTileType _specialType;
+        private bool _initialized;
         
-        
-        public void Init(TileType type, SpecialTileType specialTileType, int count)
+        private int _displayedCount;
+        private Tween _countTween;
+
+        private void InitializeIfNeeded()
         {
+            if (_initialized)
+                return;
+            
             _tileTypeDictionary = new Dictionary<TileType, Color>();
             _specialTypeDictionary = new Dictionary<SpecialTileType, GameObject>();
             
@@ -36,9 +44,15 @@ namespace Views
                 _specialTypeDictionary.Add(specialIcon.type, specialIcon.icon);
 
             _initialized = true;
-            
+        }
+
+        public void Init(TileType type, SpecialTileType specialTileType, int count)
+        {
+            InitializeIfNeeded();
             Reset();
             
+            _type = type;
+            _specialType = specialTileType;
             _targetCount = count;
             if (type == TileType.None && specialTileType == SpecialTileType.None)
                 scoreIcon.SetActive(true);
@@ -56,25 +70,53 @@ namespace Views
             }
             
             LayoutRebuilder.ForceRebuildLayoutImmediate(HorizontalLayoutGroup.GetComponent<RectTransform>());
-            UpdateCount();
+            UpdateCount(0);
         }
 
         public void Reset()
         {
-            if (!_initialized)
-                return;
+            _displayedCount = 0;
             
+            _type = TileType.None;
+            _specialType = SpecialTileType.None;
             scoreIcon.SetActive(false);
             tileIcon.SetActive(false);
+
+            if (_specialTypeDictionary == null) return;
             foreach (var keyValuePair in _specialTypeDictionary)
                 keyValuePair.Value.SetActive(false);
-
-            _initialized = false;
         }
 
-        public void UpdateCount()
+        public void UpdateCount(int newCount)
         {
-            counter.SetText($"{_targetCount}");
+            _countTween?.Kill();
+            
+            if (newCount <= 0)
+                counter.SetText($"{newCount}/{_targetCount}");
+            else
+            {
+                _countTween = DOTween.To(()=> _displayedCount, value => 
+                    {
+                        _displayedCount = value;
+                        counter.SetText($"{value}/{_targetCount}");
+                    },
+                    newCount, 1.0f).SetEase(Ease.OutQuad);
+            }
+        }
+
+        public bool IsScoreView()
+        {
+            return _type == TileType.None && _specialType == SpecialTileType.None;
+        }
+
+        public bool IsTypeView(TileType type)
+        {
+            return _type == type;
+        }
+
+        public bool IsSpecialTypeView(SpecialTileType type)
+        {
+            return _specialType == type;
         }
     }
 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using Models;
 using TMPro;
 using UnityEngine;
@@ -16,17 +18,36 @@ namespace Views
         [field: SerializeField] private HorizontalLayoutGroup horizontalLayoutGroup;
         
         private Queue<TargetLevelView> _targetPoolQueue;
+        private List<TargetLevelView> _allTargetViews;
+        private bool _initialized;
+        
+        private int _displayedScore;
+        private Tween _scoreTween;
+
+        private void InitializeIfNeeded()
+        {
+            if (_initialized)
+                return;
+            
+            _targetPoolQueue = new Queue<TargetLevelView>();
+            _allTargetViews = new List<TargetLevelView>();
+
+            _initialized = true;
+        }
 
         public void Init(TargetLevel target)
         {
-            _targetPoolQueue = new Queue<TargetLevelView>();
+            InitializeIfNeeded();
             Reset();
 
+            UpdateScore(0);
+            
             if (target.HasTargetScore())
             {
                 var poolObject = GetPool();
                 poolObject.Init(TileType.None, SpecialTileType.None, target.Score);
                 poolObject.gameObject.SetActive(true);
+                _allTargetViews.Add(poolObject);
             }
 
             if (target.HasTargetType())
@@ -36,6 +57,7 @@ namespace Views
                     var poolObject = GetPool();
                     poolObject.Init(tileTypeCounter.Type, SpecialTileType.None, tileTypeCounter.Count);
                     poolObject.gameObject.SetActive(true);
+                    _allTargetViews.Add(poolObject);
                 }
                     
             }
@@ -47,6 +69,7 @@ namespace Views
                     var poolObject = GetPool();
                     poolObject.Init(TileType.None, specialTypeCounter.Type, specialTypeCounter.Count);
                     poolObject.gameObject.SetActive(true);
+                    _allTargetViews.Add(poolObject);
                 }
             }
             
@@ -55,6 +78,11 @@ namespace Views
 
         public void Reset()
         {
+            _displayedScore = 0;
+            
+            _targetPoolQueue.Clear();
+            _allTargetViews.Clear();
+
             foreach (var targetLevel in targetPool)
             {
                 targetLevel.Reset();
@@ -77,7 +105,20 @@ namespace Views
 
         public void UpdateScore(int currentScore)
         {
-            score.SetText($"{currentScore}");
+            _scoreTween?.Kill();
+            
+            if (currentScore <= 0)
+                score.SetText($"{currentScore}");
+            else
+            {
+                _scoreTween = DOTween.To(()=> _displayedScore, value => 
+                {
+                    _displayedScore = value;
+                    score.SetText($"{value}");
+                },
+                currentScore, 1.0f).SetEase(Ease.OutQuad);
+            }
+            
         }
 
         public void UpdateSwapTile(int swapCount)
@@ -85,5 +126,22 @@ namespace Views
             swapTile.SetText($"{swapCount}");
         }
 
+        public void UpdateTargetScore(int newScore)
+        {
+            var view = _allTargetViews.FirstOrDefault(x=> x.IsScoreView());
+            view?.UpdateCount(newScore);
+        }
+
+        public void UpdateTileCounter(TileType type, int newCounter)
+        {
+            var view = _allTargetViews.FirstOrDefault(x => x.IsTypeView(type));
+            view?.UpdateCount(newCounter);
+        }
+
+        public void UpdateSpecialCounter(SpecialTileType type, int newCounter)
+        {
+            var view = _allTargetViews.FirstOrDefault(x => x.IsSpecialTypeView(type));
+            view?.UpdateCount(newCounter);
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace GameLogic.Services
     public class GameService
     {
         public event Action<DetectedMatches, int> ComputeScore;
+        public event Action<IEnumerable<Vector2Int>, SpecialTileType, int> ComputeSpecialScore;
         public event Action<HashSet<Vector2Int>,List<List<Tile>>> ComputeMatches; 
         
         private List<List<Tile>> _boardTiles;
@@ -20,10 +21,16 @@ namespace GameLogic.Services
         private MatchingService _matchingService;
         private MatchEffectService _effectService;
 
+        private int _cascadeCounter;
+        private Vector2Int? _movePosition;
+        private Queue<PendingSpecial> _pendingSpecials;
+        private bool _isTurnActive;
+
         public GameService()
         {
             _matchingService = new MatchingService();
             _effectService = new MatchEffectService();
+            _pendingSpecials = new Queue<PendingSpecial>();
         }
         
         public List<List<Tile>> StartGame(int boardWidth, int boardHeight, List<TileType> tileTypes)
@@ -52,70 +59,158 @@ namespace GameLogic.Services
                 return true;
             }
 
-            if (newBoard[toY][toX].SpecialType != SpecialTileType.None ||
-                newBoard[fromY][fromX].SpecialType != SpecialTileType.None)
-            {
-                return true;
-            }
-
-            return false;
+            return newBoard[toY][toX].SpecialType != SpecialTileType.None ||
+                   newBoard[fromY][fromX].SpecialType != SpecialTileType.None;
         }
 
-        public List<BoardSequence> SwapTile(int fromX, int fromY, int toX, int toY)
+        public BoardSequence SwapTile(Vector2Int from, Vector2Int to)
         {
-            List<List<Tile>> newBoard = CopyBoard(_boardTiles);
+            ResetTurn();
 
-            (newBoard[toY][toX], newBoard[fromY][fromX]) = (newBoard[fromY][fromX], newBoard[toY][toX]);
+            _isTurnActive = true;
+            _cascadeCounter = 1;
 
-            List<BoardSequence> boardSequences = new();
+            (_boardTiles[to.y][to.x], _boardTiles[from.y][from.x]) = (_boardTiles[from.y][from.x], _boardTiles[to.y][to.x]);
 
-            var detectedMatches = _matchingService.FindMatches(newBoard);
-            var effectTiles = _effectService.GetEffectOnTiles(newBoard,
-                new List<Vector2Int>() { new(fromX, fromY), new(toX, toY) });
+            _movePosition = new Vector2Int(to.x, to.y);
+
+            _pendingSpecials = _effectService.GetEffectOnTiles(_boardTiles,
+                new List<Vector2Int>() { new(to.x, to.y), new(from.x, from.y) });
+
+            return TryResolveCurrentStep();
+        }
+
+        public BoardSequence ResolveNextStep()
+        {
+            if (!_isTurnActive)
+                return null;
+
+            _movePosition = null;
+
+            _cascadeCounter++;
             
-            int cascadeCounter = 1;
-            
-            while (detectedMatches.HasBasicMatches || effectTiles.Any())
+            var step = ResolveStep();
+
+            if (step != null) return step;
+            EndTurn();
+            return null;
+        }
+
+        private BoardSequence TryResolveCurrentStep()
+        {
+            var step = ResolveStep();
+
+            if (step != null) return step;
+            EndTurn();
+            return null;
+        }
+
+        private BoardSequence ResolveStep()
+        {
+            if (_pendingSpecials.Count > 0)
             {
-                ComputeScore?.Invoke(detectedMatches, cascadeCounter);
-
-                Vector2Int? movedPosition = cascadeCounter == 1 ? new Vector2Int(toX, toY) : null;
-                var effects = _effectService.CreateEffects(detectedMatches, newBoard, movedPosition);
-
-                var initPositions = new HashSet<Vector2Int>();
-                
-                if (detectedMatches.HasBasicMatches)
-                    initPositions.UnionWith(_matchingService.GetMatchedPositions());
-               
-                if (effectTiles.Any())
-                    initPositions.UnionWith(_effectService.GetEffectsPositions(newBoard, effectTiles));
-
-                effectTiles.Clear();
-                var matchedPosition = _effectService.ResolveEffectCascate(newBoard, initPositions);
-                ComputeMatches?.Invoke(matchedPosition,newBoard);
-                
-                var addedSpecialTileInfo = CreateEffectTiles(newBoard, effects, matchedPosition);
-                RemovedMatchedTiles(newBoard, matchedPosition);
-
-                var movedTilesList = DroppingTiles(matchedPosition, newBoard);
-                var addedTiles = FillingTiles(newBoard);
-
-                BoardSequence sequence = new()
-                {
-                    MatchedPosition = matchedPosition,
-                    MovedTiles = movedTilesList,
-                    AddedTiles = addedTiles,
-                    AddedSpecialTiles = addedSpecialTileInfo
-                };
-                boardSequences.Add(sequence);
-                detectedMatches = _matchingService.FindMatches(newBoard);
-                
-                cascadeCounter++;
+                var pendingSpecial = _pendingSpecials.Dequeue();
+                return ResolvePendingSpecial(pendingSpecial);
             }
 
-            _boardTiles = newBoard;
+            var detectedMatches = _matchingService.FindMatches(_boardTiles);
+            return !detectedMatches.HasBasicMatches ? null : ResolveMatches(detectedMatches);
+        }
 
-            return boardSequences;
+        private BoardSequence ResolvePendingSpecial(PendingSpecial pendingSpecial)
+        {
+            var hasPending = TryGetPendingSpecialPosition(pendingSpecial, out var pendingPos);
+            if (!hasPending)
+                return null;
+            
+            var positions = _effectService.GetEffectsPositions(_boardTiles, new[] { pendingPos })
+                .ToHashSet();
+            var addedPendingSpecials = RegisterPendingSpecials(new Queue<Vector2Int>(positions), pendingPos);
+            var pendingSpecialPos = GetPendingSpecialPositions(addedPendingSpecials);
+
+            ComputeSpecialScore?.Invoke(positions, pendingSpecial.Type, _cascadeCounter);
+            var positionsToClear = RemovePendingSpecials(positions);
+            ComputeMatches?.Invoke(positionsToClear.ToHashSet(),_boardTiles);
+            RemovedMatchedTiles(_boardTiles, positionsToClear);
+            var movedTilesList = DroppingTiles(positionsToClear, _boardTiles);
+            var addedTiles = FillingTiles(_boardTiles);
+
+            return new BoardSequence(positionsToClear, movedTilesList, addedTiles, new List<AddedSpecialTileInfo>(), pendingSpecialPos, pendingPos);
+        }
+
+        private List<PendingSpecial> RegisterPendingSpecials(Queue<Vector2Int> positions, Vector2Int? pendingSpecial)
+        {
+            var specialOriginId = -1;
+            var addedPendingSpecials = new List<PendingSpecial>();
+
+            if (pendingSpecial.HasValue)
+            {
+                var origin = pendingSpecial.Value;
+                specialOriginId = _boardTiles[origin.y][origin.x].Id;
+            }
+
+            var specialAffectedPositions = new Queue<Vector2Int>(_effectService.GetSpecialAffected(_boardTiles, positions, specialOriginId));
+            
+            while (specialAffectedPositions.Count > 0)
+            {
+                var curPos = specialAffectedPositions.Dequeue();
+                var curTile = _boardTiles[curPos.y][curPos.x];
+                if (!_pendingSpecials.Any(x => x.TileId == curTile.Id))
+                {
+                    var currentPendingSpecial = new PendingSpecial(curTile.Id, curTile.SpecialType);
+                    _pendingSpecials.Enqueue(currentPendingSpecial);
+                    addedPendingSpecials.Add(currentPendingSpecial);
+                }
+            }
+            
+            return addedPendingSpecials;
+        }
+        
+        private BoardSequence ResolveMatches(DetectedMatches detectedMatches)
+        {
+            ComputeScore?.Invoke(detectedMatches, _cascadeCounter);
+            var effects = _effectService.CreateEffects(detectedMatches, _boardTiles, _movePosition);
+            var positions = new HashSet<Vector2Int>(_matchingService.GetMatchedPositions());
+            ComputeMatches?.Invoke(positions,_boardTiles);
+            var addedPendingSpecial = RegisterPendingSpecials(new Queue<Vector2Int>(positions),null);
+            var pendingSpecialPos = GetPendingSpecialPositions(addedPendingSpecial);
+            var addedSpecialTileInfo = CreateEffectTiles(_boardTiles, effects, positions);
+            var positionsToClear = RemovePendingSpecials(positions);
+            RemovedMatchedTiles(_boardTiles, positionsToClear);
+            var movedTilesList = DroppingTiles(positionsToClear, _boardTiles);
+            var addedTiles = FillingTiles(_boardTiles);
+
+            return new BoardSequence(positionsToClear, movedTilesList, addedTiles, addedSpecialTileInfo, pendingSpecialPos, null);
+        }
+
+        private List<Vector2Int> RemovePendingSpecials(IEnumerable<Vector2Int> positions)
+        {
+            var resultList = new List<Vector2Int>();
+
+            foreach (var curPos in positions)
+            {
+                var tile = _boardTiles[curPos.y][curPos.x];
+                bool isPending = _pendingSpecials.Any(pending => pending.TileId == tile.Id);
+                if (isPending)
+                    continue;
+                
+                resultList.Add(curPos);
+            }
+
+            return resultList;
+        }
+
+        private void EndTurn()
+        {
+            ResetTurn();
+        }
+
+        private void ResetTurn()
+        {
+            _cascadeCounter = 0;
+            _movePosition = null;
+            _pendingSpecials.Clear();
+            _isTurnActive = false;
         }
 
         private List<AddedTileInfo> FillingTiles(List<List<Tile>> newBoard)
@@ -146,42 +241,38 @@ namespace GameLogic.Services
 
         private static List<MovedTileInfo> DroppingTiles(IEnumerable<Vector2Int> matchedPosition, List<List<Tile>> newBoard)
         {
-            // Dropping the tiles
-            Dictionary<int, MovedTileInfo> movedTiles = new();
-            List<MovedTileInfo> movedTilesList = new();
-            foreach (var position in matchedPosition)
+            var movedTilesList = new List<MovedTileInfo>();
+            var affectedColumns = matchedPosition.Select(pos => pos.x).Distinct();
+            
+            foreach (var x in affectedColumns)
             {
-                int x = position.x;
-                int y = position.y;
-                if (y > 0)
+                var writeY = newBoard.Count - 1;
+                
+                for (var readY = newBoard.Count -1; readY >= 0; readY--)
                 {
-                    for (int j = y; j > 0; j--)
+                    Tile tile = newBoard[readY][x];
+                    
+                    if (tile.Type == TileType.None)
+                        continue;
+
+                    if (readY != writeY)
                     {
-                        Tile movedTile = newBoard[j - 1][x];
-                        newBoard[j][x] = movedTile;
-                        if (movedTile.Type != TileType.None)
+                        newBoard[writeY][x] = tile;
+                        movedTilesList.Add(new MovedTileInfo()
                         {
-                            if (movedTiles.ContainsKey(movedTile.Id))
-                            {
-                                movedTiles[movedTile.Id].To = new Vector2Int(x, j);
-                            }
-                            else
-                            {
-                                MovedTileInfo movedTileInfo = new()
-                                {
-                                    From = new Vector2Int(x, j - 1),
-                                    To = new Vector2Int(x, j)
-                                };
-                                movedTiles.Add(movedTile.Id, movedTileInfo);
-                                movedTilesList.Add(movedTileInfo);
-                            }
-                        }
+                            From = new Vector2Int(x, readY),
+                            To = new Vector2Int(x, writeY)
+                        });
                     }
 
-                    newBoard[0][x] = new Tile(-1, TileType.None, SpecialTileType.None);
+                    writeY--;
+                }
+
+                for (var y = writeY; y >= 0; y--)
+                {
+                    newBoard[y][x] = new Tile(-1, TileType.None, SpecialTileType.None);
                 }
             }
-
             return movedTilesList;
         }
 
@@ -264,6 +355,37 @@ namespace GameLogic.Services
             }
 
             return board;
+        }
+
+        private bool TryGetPendingSpecialPosition(PendingSpecial pendingSpecial, out Vector2Int position)
+        {
+            for (var y = 0; y < _boardTiles.Count; y++)
+            {
+                for (var x = 0; x < _boardTiles[y].Count; x++)
+                {
+                    if (_boardTiles[y][x].Id != pendingSpecial.TileId)
+                        continue;
+
+                    position = new Vector2Int(x, y);
+                    return true;
+                }
+            }
+
+            position = new Vector2Int(-1, -1);
+            return false;
+        }
+
+        private List<Vector2Int> GetPendingSpecialPositions(List<PendingSpecial> pendingSpecials)
+        {
+            var pendingPos = new List<Vector2Int>();
+
+            foreach (var pendingSpecial in pendingSpecials)
+            {
+                if (TryGetPendingSpecialPosition(pendingSpecial, out var pos))
+                    pendingPos.Add(pos);
+            }
+
+            return pendingPos;
         }
     }
 }

@@ -1,15 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Views;
+using Views.UI;
 
 namespace Controllers
 {
     public class UiController : MonoBehaviour
     {
+        public event Action TryRetryGameRequest;
+        public event Action TryStartGameRequest;
+        
         [SerializeField] private MainMenuUiView mainMenuUI;
         [SerializeField] private GameplayView gameplayUI;
         [SerializeField] private VictoryUiView victoryUI;
         [SerializeField] private LoseUiView loseUI;
+        [SerializeField] private NoLifeView noLifeUI;
+        [SerializeField] private OnboardingUIView onboardingUI;
 
         private Dictionary<UiType, IUiView> _screens;
         private IUiView _currentUI;
@@ -22,34 +28,43 @@ namespace Controllers
             _screens.Add(UiType.Gameplay, gameplayUI);
             _screens.Add(UiType.Victory, victoryUI);
             _screens.Add(UiType.Lose, loseUI);
+            _screens.Add(UiType.NoLife, noLifeUI);
+            _screens.Add(UiType.Onboarding, onboardingUI);
 
             victoryUI.OnGoToMainMenu += GoToMainMenu;
             victoryUI.OnGoToNextLevel += GoToNextLevel;
             loseUI.OnGoToMainMenu += GoToMainMenu;
-            loseUI.OnGoToRetry += GoToRetryLevel;
-            mainMenuUI.GoToGamePlay += GoToGameplay;
+            loseUI.OnGoToRetry += TryRetryGame;
+            mainMenuUI.GoToGamePlay += TryStartGame;
+            mainMenuUI.GoToOnboarding += GoToOnboarding;
+            onboardingUI.GoToMainMenu += GoToMainMenu;
 
             _currentUI = _screens[UiType.MainMenu];
             _currentUI.Show();
         }
-
+        
         private void OnDestroy()
         {
             victoryUI.OnGoToMainMenu -= GoToMainMenu;
             victoryUI.OnGoToNextLevel -= GoToNextLevel;
             loseUI.OnGoToMainMenu -= GoToMainMenu;
-            loseUI.OnGoToRetry -= GoToRetryLevel;
-            mainMenuUI.GoToGamePlay -= GoToGameplay;
+            loseUI.OnGoToRetry -= TryRetryGame;
+            mainMenuUI.GoToGamePlay -= TryStartGame;
+            mainMenuUI.GoToOnboarding -= GoToOnboarding;
+            onboardingUI.GoToMainMenu -= GoToMainMenu;
         }
 
-        private void GoToGameplay()
+        private void TryStartGame()
         {
-            _currentUI.Hide();
-            _currentUI = _screens[UiType.Gameplay];
-            _currentUI.Show();
+            TryStartGameRequest?.Invoke();
         }
 
-        private void GoToRetryLevel()
+        private void TryRetryGame()
+        {
+            TryRetryGameRequest?.Invoke();
+        }
+
+        public void GoToGamePlay()
         {
             _currentUI.Hide();
             _currentUI = _screens[UiType.Gameplay];
@@ -58,9 +73,7 @@ namespace Controllers
 
         private void GoToNextLevel()
         {
-            _currentUI.Hide();
-            _currentUI = _screens[UiType.Gameplay];
-            _currentUI.Show();
+            TryStartGameRequest?.Invoke();
         }
 
         private void GoToMainMenu()
@@ -76,8 +89,20 @@ namespace Controllers
             _currentUI = isWin ? _screens[UiType.Victory] : _screens[UiType.Lose];
             _currentUI.Show();
         }
+
+        public void ShowNoLife(TimeSpan? remaining)
+        {
+            NoLifeView noLifeView =  ((NoLifeView)_screens[UiType.NoLife]);
+            noLifeView.Init(remaining);
+            noLifeView.Show();
+        }
         
-        
+        private void GoToOnboarding()
+        {
+            _currentUI.Hide();
+            _currentUI = _screens[UiType.Onboarding];
+            _currentUI.Show();
+        }
     }
 
     public enum UiType
@@ -85,6 +110,8 @@ namespace Controllers
         MainMenu,
         Gameplay,
         Victory,
-        Lose
+        Lose,
+        NoLife,
+        Onboarding
     }
 }
